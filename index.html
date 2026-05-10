@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v3.2 | Voice Meeting Assistant</title>
+    <title>Peter AI Super Pro v4.0 | Continuous Voice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -69,32 +69,58 @@
         
         /* Large Timer */
         .timer-display { background: linear-gradient(135deg, #1a3c5c 0%, #2c5364 100%); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; }
-        .timer-digits { font-size: 48px; font-weight: 700; font-family: monospace; color: #fbbf24; letter-spacing: 4px; }
+        .timer-digits { font-size: 52px; font-weight: 700; font-family: monospace; color: #fbbf24; letter-spacing: 5px; }
         .timer-label { color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-top: 8px; }
         
         /* Large Colorful Buttons */
-        .btn { padding: 12px 24px; border-radius: 14px; font-weight: 600; cursor: pointer; border: none; font-size: 14px; transition: all 0.3s; }
-        .btn-success { background: #48bb78; color: white; box-shadow: 0 4px 10px rgba(72,187,120,0.3); }
-        .btn-danger { background: #e53e3e; color: white; box-shadow: 0 4px 10px rgba(229,62,62,0.3); }
-        .btn-warning { background: #ed8936; color: white; box-shadow: 0 4px 10px rgba(237,137,54,0.3); }
-        .btn-secondary { background: #718096; color: white; box-shadow: 0 4px 10px rgba(113,128,150,0.3); }
-        .btn-info { background: #17a2b8; color: white; box-shadow: 0 4px 10px rgba(23,162,184,0.3); }
-        .btn-primary { background: linear-gradient(135deg, #2c5364 0%, #203a43 100%); color: white; box-shadow: 0 4px 10px rgba(44,83,100,0.3); }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .btn { 
+            padding: 14px 28px; 
+            border-radius: 16px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 15px; 
+            transition: all 0.3s; 
+            min-width: 120px;
+        }
+        .btn-success { background: #48bb78; color: white; box-shadow: 0 4px 12px rgba(72,187,120,0.4); }
+        .btn-danger { background: #e53e3e; color: white; box-shadow: 0 4px 12px rgba(229,62,62,0.4); }
+        .btn-warning { background: #ed8936; color: white; box-shadow: 0 4px 12px rgba(237,137,54,0.4); }
+        .btn-secondary { background: #718096; color: white; box-shadow: 0 4px 12px rgba(113,128,150,0.4); }
+        .btn-info { background: #17a2b8; color: white; box-shadow: 0 4px 12px rgba(23,162,184,0.4); }
+        .btn-primary { background: linear-gradient(135deg, #2c5364 0%, #203a43 100%); color: white; box-shadow: 0 4px 12px rgba(44,83,100,0.4); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 16px; }
         
+        /* Colored Info Boxes */
         .info-box-org { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 16px; border-radius: 16px; margin-top: 16px; color: white; font-size: 14px; }
+        .info-box-speakers { background: linear-gradient(135deg, #834d9b 0%, #d04ed6 100%); padding: 16px; border-radius: 16px; margin-top: 16px; color: white; }
         .speaker-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
-        .speaker-tag { padding: 8px 16px; border-radius: 30px; font-size: 13px; cursor: pointer; color: white; font-weight: 500; transition: all 0.2s; }
+        .speaker-tag { padding: 10px 20px; border-radius: 40px; font-size: 14px; cursor: pointer; color: white; font-weight: 600; transition: all 0.2s; }
         .speaker-tag:hover { transform: scale(1.05); opacity: 0.9; }
         
-        /* Transcript - Latest at TOP (flex column reverse) */
-        .transcript-area { background: #1a1a2e; border-radius: 20px; padding: 20px; height: 450px; overflow-y: auto; margin-top: 16px; display: flex; flex-direction: column-reverse; }
-        .transcript-line { margin-bottom: 12px; padding: 12px; border-radius: 12px; background: rgba(74, 158, 255, 0.1); border-left: 3px solid; }
+        /* Transcript - Latest at TOP using CSS column-reverse */
+        .transcript-area { 
+            background: #1a1a2e; 
+            border-radius: 20px; 
+            padding: 20px; 
+            height: 450px; 
+            overflow-y: auto; 
+            margin-top: 16px; 
+            display: flex; 
+            flex-direction: column-reverse;
+        }
+        .transcript-line { 
+            margin-bottom: 12px; 
+            padding: 14px; 
+            border-radius: 12px; 
+            background: rgba(74, 158, 255, 0.12); 
+            border-left: 4px solid;
+        }
         .transcript-header { display: flex; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
-        .speaker-name { font-weight: 700; font-size: 13px; }
+        .speaker-name { font-weight: 700; font-size: 14px; }
         .timestamp { font-size: 10px; color: #a0aec0; }
-        .original-text { font-size: 14px; margin-bottom: 4px; color: #e2e8f0; font-family: 'Noto Sans Sinhala', 'Noto Sans Tamil', monospace; line-height: 1.5; }
+        .original-text { font-size: 14px; margin-bottom: 4px; color: #ffffff; font-family: 'Noto Sans Sinhala', 'Noto Sans Tamil', monospace; line-height: 1.5; }
         .translated-text { font-size: 11px; color: #a0aec0; }
         
         .status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 30px; font-size: 12px; font-weight: 500; }
@@ -111,7 +137,7 @@
         @media (max-width: 600px) {
             .timer-digits { font-size: 32px; }
             .transcript-area { height: 350px; }
-            .btn { padding: 10px 16px; font-size: 12px; }
+            .btn { padding: 10px 18px; font-size: 13px; min-width: 100px; }
         }
     </style>
 </head>
@@ -122,8 +148,8 @@
     <div class="login-container">
         <div class="login-header">
             <div class="login-icon"><i class="fas fa-robot"></i></div>
-            <h2>Peter AI Super Pro <span style="font-size: 14px;">v3.2</span></h2>
-            <p>Enterprise Meeting Intelligence Platform</p>
+            <h2>Peter AI Super Pro <span style="font-size: 14px;">v4.0</span></h2>
+            <p>Continuous Voice Recognition Platform</p>
         </div>
         <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
         <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
@@ -138,8 +164,8 @@
     <div class="dashboard">
         <div class="top-bar">
             <div class="logo-area">
-                <h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v3.2</span></h1>
-                <p>Enterprise Meeting Intelligence Platform</p>
+                <h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v4.0</span></h1>
+                <p>Continuous Voice Recognition | Never Stops Until You Stop</p>
             </div>
             <div style="display: flex; align-items: center; gap: 20px;">
                 <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
@@ -157,7 +183,7 @@
         <div class="card">
             <div class="card-header"><h3><i class="fas fa-database"></i> Organization Data Management</h3><i class="fas fa-save"></i></div>
             <div class="org-selector">
-                <select id="orgSelector" style="width:100%; padding:12px; border-radius:12px; border:2px solid #e2e8f0; margin-bottom:12px; font-size:14px;">
+                <select id="orgSelector" style="width:100%; padding:14px; border-radius:14px; border:2px solid #e2e8f0; margin-bottom:15px; font-size:15px;">
                     <option value="">-- Select Organization --</option>
                 </select>
                 <div class="btn-group">
@@ -166,14 +192,14 @@
                     <button id="deleteOrgBtn" class="btn-danger"><i class="fas fa-trash"></i> Delete</button>
                     <button id="historyBtn" class="btn-info"><i class="fas fa-history"></i> History</button>
                 </div>
-                <div id="orgStatus" style="font-size:12px; margin-top:10px; color:#718096;"></div>
+                <div id="orgStatus" style="font-size:13px; margin-top:12px; color:#718096;"></div>
             </div>
         </div>
 
         <div class="main-grid">
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-calendar-alt"></i> Meeting Controls</h3><i class="fas fa-robot"></i></div>
-                <div class="timer-display"><div class="timer-digits" id="timerDisplay">00:00:00</div><div class="timer-label">Meeting Duration</div></div>
+                <div class="timer-display"><div class="timer-digits" id="timerDisplay">00:00:00</div><div class="timer-label">Meeting Duration (Runs Continuously)</div></div>
                 <div class="btn-group">
                     <button id="startMeetingBtn" class="btn-success"><i class="fas fa-play"></i> Start Meeting</button>
                     <button id="stopMeetingBtn" class="btn-danger" disabled><i class="fas fa-stop"></i> Stop Meeting</button>
@@ -188,17 +214,24 @@
                 <div class="card-header"><h3><i class="fas fa-building"></i> Organization Details</h3><i class="fas fa-edit"></i></div>
                 <button id="officeInfoBtn" class="btn-primary"><i class="fas fa-pen"></i> Edit Office Info</button>
                 <div id="officeInfoDisplay" class="info-box-org" style="display: none;"></div>
-                <div style="margin-top: 16px;"><h4 style="font-size:14px;"><i class="fas fa-users"></i> Speaker Management</h4>
-                <div class="btn-group"><button id="registerBtn" class="btn-primary"><i class="fas fa-microphone"></i> Register Speaker</button>
-                <button id="clearSpeakersBtn" class="btn-secondary"><i class="fas fa-trash"></i> Clear All</button>
-                <button id="langSelectBtn" class="btn-primary"><i class="fas fa-globe"></i> Change Language</button></div>
-                <div id="speakersList" class="speaker-list"><span style="color:#718096;">No speakers registered</span></div>
-                <div id="quickAssignList" class="speaker-list"></div></div>
+                
+                <div style="margin-top: 20px;">
+                    <h4 style="font-size:15px; color:#1a3c5c; margin-bottom:12px;"><i class="fas fa-users"></i> Speaker Management</h4>
+                    <div class="info-box-speakers" style="padding:12px;">
+                        <div class="btn-group">
+                            <button id="registerBtn" class="btn-primary"><i class="fas fa-microphone"></i> Register Speaker</button>
+                            <button id="clearSpeakersBtn" class="btn-secondary"><i class="fas fa-trash"></i> Clear All</button>
+                            <button id="langSelectBtn" class="btn-primary"><i class="fas fa-globe"></i> Change Language</button>
+                        </div>
+                        <div id="speakersList" class="speaker-list" style="margin-top:15px;"><span style="color:rgba(255,255,255,0.8);">No speakers registered</span></div>
+                        <div id="quickAssignList" class="speaker-list"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript (Latest at Top)</h3><i class="fas fa-language"></i></div>
+            <div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(Newest at TOP)</span></h3><i class="fas fa-language"></i></div>
             <div class="transcript-area" id="transcriptArea"></div>
         </div>
 
@@ -208,23 +241,23 @@
             <div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div>
         </div>
 
-        <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v3.2 | Software Developed By: Pesala Jayawardene</div>
+        <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v4.0 | Software Developed By: Pesala Jayawardene</div>
     </div>
 </div>
 
 <!-- Modals -->
 <div id="officeModal" class="modal"><div class="modal-content"><h3>Organization Information</h3>
-    <label>Office Name:</label><input type="text" id="officeName" style="width:100%; padding:10px; margin:8px 0; border-radius:10px; border:2px solid #e2e8f0;">
-    <label>Office Address:</label><textarea id="officeAddress" rows="3" style="width:100%; padding:10px; margin:8px 0; border-radius:10px; border:2px solid #e2e8f0;"></textarea>
-    <label>Meeting Type:</label><input type="text" id="meetingType" style="width:100%; padding:10px; margin:8px 0; border-radius:10px; border:2px solid #e2e8f0;">
+    <label>Office Name:</label><input type="text" id="officeName" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
+    <label>Office Address:</label><textarea id="officeAddress" rows="3" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;"></textarea>
+    <label>Meeting Type:</label><input type="text" id="meetingType" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
     <div class="btn-group"><button id="saveOfficeBtn" class="btn-primary">Save</button><button id="closeOfficeBtn" class="btn-secondary">Cancel</button></div>
 </div></div>
 
 <div id="historyModal" class="modal"><div class="modal-content"><h3>Meeting History - <span id="historyOrgName"></span></h3><div id="historyList" style="max-height:400px; overflow-y:auto;"></div><button id="closeHistoryBtn" class="btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
 <div id="adminModal" class="modal"><div class="modal-content"><h3>Admin Panel</h3>
-    <input type="text" id="adminUsername" placeholder="Admin Username" style="width:100%; padding:10px; margin:8px 0; border-radius:10px; border:2px solid #e2e8f0;">
-    <input type="password" id="adminPassword" placeholder="Admin Password" style="width:100%; padding:10px; margin:8px 0; border-radius:10px; border:2px solid #e2e8f0;">
+    <input type="text" id="adminUsername" placeholder="Admin Username" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
+    <input type="password" id="adminPassword" placeholder="Admin Password" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
     <button id="adminLoginBtn" class="btn-primary">Login</button>
     <div id="adminError" style="color:red; margin-top:10px;"></div>
     <div id="adminPanelContent" style="display:none; margin-top:20px;">
@@ -253,8 +286,8 @@
 <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn-secondary" style="margin-top:16px;">Close</button></div></div>
 
 <script>
-    // ========== PETER AI SUPER PRO v3.2 - CORRECT TRANSCRIPT DIRECTION ==========
-    const APP_VERSION = "3.2";
+    // ========== PETER AI SUPER PRO v4.0 - CONTINUOUS VOICE (NEVER STOPS) ==========
+    const APP_VERSION = "4.0";
     const validUsers = { 'admin': 'admin123', 'pesala': 'pesala123', 'user': 'user123' };
     
     let currentOrganization = null;
@@ -274,8 +307,9 @@
     let currentLanguage = 'en';
     let meetingCount = 0, reportCount = 0;
     let officeInfo = { name: '', address: '', meetingType: '' };
-    let restartTimer = null;
+    let continuousRestartTimer = null;
     let lastCapturedText = "";
+    let recognitionActive = false;
     
     let rate0_1 = 15, rate1_2 = 14, rate2_4 = 12, rateAbove4 = 11;
     let perLanguageRate = 3.0;
@@ -318,12 +352,12 @@
         const container = document.getElementById('speakersList');
         const quickList = document.getElementById('quickAssignList');
         if (registeredSpeakers.length === 0) {
-            container.innerHTML = '<span style="color:#718096;">No speakers registered</span>';
+            container.innerHTML = '<span style="color:rgba(255,255,255,0.8);">No speakers registered</span>';
             quickList.innerHTML = '';
             return;
         }
         container.innerHTML = registeredSpeakers.map((s, i) => `<span class="speaker-tag" style="background:${s.color || speakerColors[i % speakerColors.length]}"><i class="fas fa-user-circle"></i> ${s.name}</span>`).join('');
-        quickList.innerHTML = '<strong>🎯 Quick Assign:</strong> ';
+        quickList.innerHTML = '<strong style="color:white;">🎯 Quick Assign:</strong> ';
         registeredSpeakers.forEach(s => {
             const btn = document.createElement('button');
             btn.className = 'speaker-tag';
@@ -343,15 +377,14 @@
         });
     }
     
-    // REFRESH TRANSCRIPT - Latest at TOP (new messages appear at top)
+    // REFRESH TRANSCRIPT - Latest at TOP (using flex-direction: column-reverse on container)
     function refreshTranscript() {
         const container = document.getElementById('transcriptArea');
         if (meetingTranscript.length === 0) {
             container.innerHTML = '<div style="color:#718096; text-align:center; padding:50px;"><i class="fas fa-microphone-slash" style="font-size:48px; margin-bottom:16px; display:block;"></i>Start a meeting to begin transcription</div>';
             return;
         }
-        // CRITICAL: Display in chronological order BUT container has flex-direction: column-reverse
-        // So newest messages appear at TOP automatically
+        // Display in reverse order - latest at TOP
         container.innerHTML = meetingTranscript.map(entry => {
             const color = entry.color || '#718096';
             return `<div class="transcript-line" style="border-left-color:${color}">
@@ -363,7 +396,6 @@
                         ${entry.translatedText !== entry.originalText ? `<div class="translated-text"><i class="fas fa-language"></i> English: ${escapeHtml(entry.translatedText)}</div>` : ''}
                     </div>`;
         }).join('');
-        // Auto-scroll to top to show latest
         container.scrollTop = 0;
     }
     
@@ -536,8 +568,8 @@
     function startAutoSave() { if (autoSaveTimer) clearInterval(autoSaveTimer); autoSaveTimer = setInterval(() => { if (isMeetingRunning && meetingTranscript.length > 0) autoSaveConversation(); }, autoSaveInterval * 60 * 1000); }
     function stopAutoSave() { if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; } }
     
-    // ========== ACCURATE VOICE RECOGNITION ==========
-    function startSpeechRecognition() {
+    // ========== CONTINUOUS VOICE RECOGNITION - NEVER STOPS ==========
+    function startContinuousRecognition() {
         if (!isMeetingRunning) return;
         
         if (speechRecognition) {
@@ -557,8 +589,9 @@
         speechRecognition.lang = 'en-US';
         
         speechRecognition.onstart = () => {
-            console.log("Speech recognition active");
-            document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Listening';
+            recognitionActive = true;
+            console.log("Speech recognition active - continuous mode");
+            document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Continuous Recognition (Never Stops)';
         };
         
         speechRecognition.onresult = (event) => {
@@ -572,7 +605,7 @@
                     let speaker = registeredSpeakers.length === 1 ? registeredSpeakers[0].name : "Unknown";
                     const speakerColor = registeredSpeakers.find(s => s.name === speaker)?.color || '#718096';
                     
-                    // ADD TO BEGINNING of array for display (latest at top)
+                    // ADD TO BEGINNING of array (latest at top)
                     meetingTranscript.unshift({
                         speaker: speaker,
                         originalText: text,
@@ -583,7 +616,8 @@
                     });
                     refreshTranscript();
                     
-                    setTimeout(() => { lastCapturedText = ""; }, 1500);
+                    // Clear after 1 second for next capture
+                    setTimeout(() => { lastCapturedText = ""; }, 1000);
                 }
             }
         };
@@ -593,20 +627,31 @@
         };
         
         speechRecognition.onend = () => {
-            console.log("Speech ended, restarting...");
+            console.log("Speech recognition ended, immediate restart...");
+            recognitionActive = false;
             if (isMeetingRunning) {
-                setTimeout(() => { if (isMeetingRunning) startSpeechRecognition(); }, 1000);
+                // Immediate restart without delay
+                startContinuousRecognition();
             }
         };
         
         speechRecognition.start();
         
-        if (restartTimer) clearInterval(restartTimer);
-        restartTimer = setInterval(() => {
-            if (isMeetingRunning && speechRecognition) {
-                try { speechRecognition.stop(); } catch(e) {}
+        // Additional safety: restart every 15 seconds to prevent any browser timeout
+        if (continuousRestartTimer) clearInterval(continuousRestartTimer);
+        continuousRestartTimer = setInterval(() => {
+            if (isMeetingRunning && recognitionActive) {
+                // Force restart to keep it fresh
+                try {
+                    if (speechRecognition) {
+                        speechRecognition.stop();
+                    }
+                } catch(e) {}
+                // Will restart via onend
+            } else if (isMeetingRunning && !recognitionActive) {
+                startContinuousRecognition();
             }
-        }, 25000);
+        }, 15000);
     }
     
     async function startMeeting() {
@@ -637,17 +682,18 @@
         document.getElementById('meetingStatus').className = 'status-badge status-active';
         
         refreshTranscript();
-        startSpeechRecognition();
+        startContinuousRecognition();
     }
     
     function stopMeeting() {
         isMeetingRunning = false;
+        recognitionActive = false;
         
         if (speechRecognition) {
             try { speechRecognition.abort(); } catch(e) {}
             speechRecognition = null;
         }
-        if (restartTimer) { clearInterval(restartTimer); restartTimer = null; }
+        if (continuousRestartTimer) { clearInterval(continuousRestartTimer); continuousRestartTimer = null; }
         
         meetingEndTime = new Date();
         updateTimer();
@@ -935,7 +981,7 @@
     
     loadAllSettings();
     updateLanguageDisplay();
-    console.log(`Peter AI Super Pro v${APP_VERSION} - Latest at TOP transcript direction`);
+    console.log(`Peter AI Super Pro v${APP_VERSION} - Continuous voice recognition (NEVER STOPS), latest at TOP`);
 </script>
 </body>
 </html>
