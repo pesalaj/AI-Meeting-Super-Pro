@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v5.1 | Enlarged Buttons</title>
+    <title>Peter AI Super Pro v5.2 | Enlarged Buttons + Report Fixed</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -68,7 +68,7 @@
         .timer-digits { font-size: 52px; font-weight: 700; font-family: monospace; color: #fbbf24; letter-spacing: 5px; }
         .timer-label { color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-top: 8px; }
         
-        /* Default button size (for other buttons like Register Speaker, Edit Info, etc.) */
+        /* Default button style */
         .btn { 
             padding: 12px 24px; 
             border-radius: 14px; 
@@ -77,6 +77,9 @@
             border: none; 
             font-size: 14px; 
             transition: all 0.3s; 
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         .btn-success { background: #48bb78; color: white; }
         .btn-danger { background: #e53e3e; color: white; }
@@ -86,12 +89,12 @@
         .btn-primary { background: linear-gradient(135deg, #2c5364 0%, #203a43 100%); color: white; }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
         
-        /* 2.5x LARGER BUTTONS for the 4 buttons inside "Organization Data Management" and "Meeting Controls" */
-        .btn-group-large .btn {
-            padding: 30px 50px !important;
-            font-size: 24px !important;
+        /* 2.5x LARGER BUTTONS for specific sections */
+        .org-buttons .btn, .meeting-buttons .btn {
+            padding: 28px 48px !important;
+            font-size: 22px !important;
             font-weight: 800 !important;
-            border-radius: 24px !important;
+            border-radius: 28px !important;
             min-width: 200px !important;
         }
         
@@ -128,7 +131,7 @@
         .status-inactive { background: #f8d7da; color: #721c24; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; border-radius: 28px; padding: 32px; width: 650px; max-width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal-content { background: white; border-radius: 28px; padding: 32px; width: 700px; max-width: 90%; max-height: 80vh; overflow-y: auto; }
         .footer { text-align: center; padding: 20px; color: rgba(255, 255, 255, 0.7); font-size: 13px; }
         .cost-box-dark { background: #cc7000; border-radius: 16px; padding: 16px; margin-top: 16px; color: white; }
         .history-item { background: #f8f9fa; border-radius: 12px; padding: 15px; margin-bottom: 12px; cursor: pointer; border-left: 4px solid #2c5364; transition: 0.2s; }
@@ -145,7 +148,11 @@
         @media (max-width: 600px) {
             .timer-digits { font-size: 32px; }
             .transcript-area { height: 350px; }
-            .btn-group-large .btn { padding: 20px 30px !important; font-size: 18px !important; min-width: 140px !important; }
+            .org-buttons .btn, .meeting-buttons .btn {
+                padding: 18px 24px !important;
+                font-size: 16px !important;
+                min-width: 140px !important;
+            }
         }
     </style>
 </head>
@@ -156,7 +163,7 @@
     <div class="login-container">
         <div class="login-header">
             <div class="login-icon"><i class="fas fa-robot"></i></div>
-            <h2>Peter AI Super Pro <span style="font-size: 14px;">v5.1</span></h2>
+            <h2>Peter AI Super Pro <span style="font-size: 14px;">v5.2</span></h2>
             <p>Professional Meeting Intelligence Platform</p>
         </div>
         <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
@@ -172,7 +179,7 @@
     <div class="dashboard">
         <div class="top-bar">
             <div class="logo-area">
-                <h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v5.1</span></h1>
+                <h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v5.2</span></h1>
                 <p>Latest Message at TOP | Continuous Voice Recognition</p>
             </div>
             <div style="display: flex; align-items: center; gap: 20px;">
@@ -195,11 +202,11 @@
                 <select id="orgSelector" style="width:100%; padding:14px; border-radius:14px; border:2px solid #e2e8f0; margin-bottom:15px; font-size:15px;">
                     <option value="">-- Select Organization --</option>
                 </select>
-                <div class="btn-group btn-group-large">
-                    <button id="newOrgBtn" class="btn-primary"><i class="fas fa-plus"></i> New Organization</button>
-                    <button id="saveOrgDataBtn" class="btn-success"><i class="fas fa-save"></i> Save Data</button>
-                    <button id="deleteOrgBtn" class="btn-danger"><i class="fas fa-trash"></i> Delete</button>
-                    <button id="historyBtn" class="btn-info"><i class="fas fa-history"></i> History</button>
+                <div class="org-buttons" style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <button id="newOrgBtn" class="btn btn-primary"><i class="fas fa-plus"></i> New Organization</button>
+                    <button id="saveOrgDataBtn" class="btn btn-success"><i class="fas fa-save"></i> Save Data</button>
+                    <button id="deleteOrgBtn" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                    <button id="historyBtn" class="btn btn-info"><i class="fas fa-history"></i> History</button>
                 </div>
                 <div id="orgStatus" style="font-size:13px; margin-top:12px; color:#718096;"></div>
             </div>
@@ -210,30 +217,30 @@
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-calendar-alt"></i> Meeting Controls</h3><i class="fas fa-robot"></i></div>
                 <div class="timer-display"><div class="timer-digits" id="timerDisplay">00:00:00</div><div class="timer-label">Meeting Duration (Continuous)</div></div>
-                <div class="btn-group btn-group-large">
-                    <button id="startMeetingBtn" class="btn-success"><i class="fas fa-play"></i> Start Meeting</button>
-                    <button id="stopMeetingBtn" class="btn-danger" disabled><i class="fas fa-stop"></i> Stop Meeting</button>
-                    <button id="printCostBtn" class="btn-warning" disabled><i class="fas fa-dollar-sign"></i> Calculate Cost</button>
-                    <button id="adminBtn" class="btn-secondary"><i class="fas fa-shield-alt"></i> Admin Panel</button>
+                <div class="meeting-buttons" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <button id="startMeetingBtn" class="btn btn-success"><i class="fas fa-play"></i> Start Meeting</button>
+                    <button id="stopMeetingBtn" class="btn btn-danger" disabled><i class="fas fa-stop"></i> Stop Meeting</button>
+                    <button id="printCostBtn" class="btn btn-warning" disabled><i class="fas fa-dollar-sign"></i> Calculate Cost</button>
+                    <button id="adminBtn" class="btn btn-secondary"><i class="fas fa-shield-alt"></i> Admin Panel</button>
                 </div>
-                <div id="meetingStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-circle"></i> Not Started</div>
+                <div id="meetingStatus" class="status-badge status-inactive" style="margin-top: 0;"><i class="fas fa-circle"></i> Not Started</div>
                 <div id="costDisplay" style="display: none;" class="cost-box-dark"><strong>💰 Cost Details:</strong><div id="costDetails"></div><hr><strong>Total: $<span id="costAmount">0.00</span></strong></div>
             </div>
 
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-building"></i> Organization Details</h3><i class="fas fa-edit"></i></div>
-                <button id="officeInfoBtn" class="btn-primary"><i class="fas fa-pen"></i> Edit Office Info</button>
+                <button id="officeInfoBtn" class="btn btn-primary"><i class="fas fa-pen"></i> Edit Office Info</button>
                 <div id="officeInfoDisplay" class="info-box-org" style="display: none;"></div>
                 
                 <div style="margin-top: 20px;">
                     <h4 style="font-size:15px; color:#1a3c5c; margin-bottom:12px;"><i class="fas fa-users"></i> Speaker Management</h4>
                     <div class="info-box-speakers" style="padding:12px;">
-                        <div class="btn-group">
-                            <button id="registerBtn" class="btn-primary"><i class="fas fa-microphone"></i> Register Speaker</button>
-                            <button id="clearSpeakersBtn" class="btn-secondary"><i class="fas fa-trash"></i> Clear All</button>
-                            <button id="langSelectBtn" class="btn-primary"><i class="fas fa-globe"></i> Change Language</button>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 15px;">
+                            <button id="registerBtn" class="btn btn-primary"><i class="fas fa-microphone"></i> Register Speaker</button>
+                            <button id="clearSpeakersBtn" class="btn btn-secondary"><i class="fas fa-trash"></i> Clear All</button>
+                            <button id="langSelectBtn" class="btn btn-primary"><i class="fas fa-globe"></i> Change Language</button>
                         </div>
-                        <div id="speakersList" class="speaker-list" style="margin-top:15px;"><span style="color:rgba(255,255,255,0.8);">No speakers registered</span></div>
+                        <div id="speakersList" class="speaker-list" style="margin-top:5px;"><span style="color:rgba(255,255,255,0.8);">No speakers registered</span></div>
                         <div id="quickAssignList" class="speaker-list"></div>
                     </div>
                 </div>
@@ -247,30 +254,30 @@
 
         <div class="card">
             <div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div>
-            <button id="generateReportBtn" class="btn-primary"><i class="fas fa-file-pdf"></i> Generate PDF Report</button>
+            <button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Generate PDF Report</button>
             <div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div>
         </div>
 
-        <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v5.1 | Software Developed By: Pesala Jayawardene</div>
+        <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v5.2 | Software Developed By: Pesala Jayawardene</div>
     </div>
 </div>
 
-<!-- Modals (same as before, unchanged) -->
+<!-- Modals (same as before) -->
 <div id="officeModal" class="modal"><div class="modal-content"><h3>Organization Information</h3>
     <label>Office Name:</label><input type="text" id="officeName" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
     <label>Office Address:</label><textarea id="officeAddress" rows="3" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;"></textarea>
     <label>Meeting Type:</label><input type="text" id="meetingType" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
-    <div class="btn-group"><button id="saveOfficeBtn" class="btn-primary">Save</button><button id="closeOfficeBtn" class="btn-secondary">Cancel</button></div>
+    <div style="display: flex; gap:10px; margin-top:15px;"><button id="saveOfficeBtn" class="btn btn-primary">Save</button><button id="closeOfficeBtn" class="btn btn-secondary">Cancel</button></div>
 </div></div>
 
-<div id="historyModal" class="modal"><div class="modal-content"><h3>Meeting History - <span id="historyOrgName"></span></h3><div id="historyList" style="max-height:400px; overflow-y:auto;"></div><button id="closeHistoryBtn" class="btn-secondary" style="margin-top:15px;">Close</button></div></div>
+<div id="historyModal" class="modal"><div class="modal-content"><h3>Meeting History - <span id="historyOrgName"></span></h3><div id="historyList" style="max-height:400px; overflow-y:auto;"></div><button id="closeHistoryBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
 <div id="adminModal" class="modal">
     <div class="modal-content">
         <h3><i class="fas fa-shield-alt"></i> Professional Admin Panel</h3>
         <input type="text" id="adminUsername" placeholder="Admin Username" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
         <input type="password" id="adminPassword" placeholder="Admin Password" style="width:100%; padding:12px; margin:8px 0; border-radius:12px; border:2px solid #e2e8f0;">
-        <button id="adminLoginBtn" class="btn-primary">Login</button>
+        <button id="adminLoginBtn" class="btn btn-primary">Login</button>
         <div id="adminError" style="color:red; margin-top:10px;"></div>
         <div id="adminPanelContent" style="display:none; margin-top:20px;">
             <div class="admin-tab-container">
@@ -279,20 +286,20 @@
                 <div class="admin-tab" data-tab="autosave">💾 Auto-Save</div>
                 <div class="admin-tab" data-tab="danger">⚠️ Danger Zone</div>
             </div>
-            <div id="tab-rates" class="admin-tab-content active"><div style="background: #fef5e7; padding:20px; border-radius:16px;"><h4>Meeting Rate Settings (per hour)</h4><label>0-1h: $<input type="number" id="rate0_1" value="15"></label><br><label>1-2h: $<input type="number" id="rate1_2" value="14"></label><br><label>2-4h: $<input type="number" id="rate2_4" value="12"></label><br><label>4h+: $<input type="number" id="rateAbove4" value="11"></label><br><button id="saveRatesBtn" class="btn-success">Save Rates</button><div id="rateSaveStatus"></div></div></div>
-            <div id="tab-translation" class="admin-tab-content"><div style="background: #e0f7fa; padding:20px; border-radius:16px;"><h4>Translation Pricing</h4><label>Per language/hour: $<input type="number" id="perLanguageRate" value="3.0" step="0.5"></label><br><label>All 15 languages: $<input type="number" id="allLanguagesRate" value="50"></label><br><button id="saveTranslationRatesBtn" class="btn-info">Save</button><div id="translationSaveStatus"></div></div></div>
-            <div id="tab-autosave" class="admin-tab-content"><div style="background: #e8f5e9; padding:20px; border-radius:16px;"><h4>Auto-Save Settings</h4><label>Every (minutes): <input type="number" id="autoSaveInterval" value="1"></label><br><button id="saveAutoSaveBtn" class="btn-success">Save</button><div id="autoSaveStatusMsg"></div></div></div>
-            <div id="tab-danger" class="admin-tab-content"><div style="background: #fee2e2; padding:20px; border-radius:16px;"><h4>Danger Zone</h4><button id="masterResetBtn" class="btn-danger">MASTER RESET - Delete ALL Data</button><div id="resetStatus"></div></div></div>
+            <div id="tab-rates" class="admin-tab-content active"><div style="background: #fef5e7; padding:20px; border-radius:16px;"><h4>Meeting Rate Settings (per hour)</h4><label>0-1h: $<input type="number" id="rate0_1" value="15"></label><br><label>1-2h: $<input type="number" id="rate1_2" value="14"></label><br><label>2-4h: $<input type="number" id="rate2_4" value="12"></label><br><label>4h+: $<input type="number" id="rateAbove4" value="11"></label><br><button id="saveRatesBtn" class="btn btn-success">Save Rates</button><div id="rateSaveStatus"></div></div></div>
+            <div id="tab-translation" class="admin-tab-content"><div style="background: #e0f7fa; padding:20px; border-radius:16px;"><h4>Translation Pricing</h4><label>Per language/hour: $<input type="number" id="perLanguageRate" value="3.0" step="0.5"></label><br><label>All 15 languages: $<input type="number" id="allLanguagesRate" value="50"></label><br><button id="saveTranslationRatesBtn" class="btn btn-info">Save</button><div id="translationSaveStatus"></div></div></div>
+            <div id="tab-autosave" class="admin-tab-content"><div style="background: #e8f5e9; padding:20px; border-radius:16px;"><h4>Auto-Save Settings</h4><label>Every (minutes): <input type="number" id="autoSaveInterval" value="1"></label><br><button id="saveAutoSaveBtn" class="btn btn-success">Save</button><div id="autoSaveStatusMsg"></div></div></div>
+            <div id="tab-danger" class="admin-tab-content"><div style="background: #fee2e2; padding:20px; border-radius:16px;"><h4>Danger Zone</h4><button id="masterResetBtn" class="btn btn-danger">MASTER RESET - Delete ALL Data</button><div id="resetStatus"></div></div></div>
         </div>
-        <button id="closeAdminBtn" class="btn-secondary" style="margin-top:20px; width:100%;">Close Admin Panel</button>
+        <button id="closeAdminBtn" class="btn btn-secondary" style="margin-top:20px; width:100%;">Close Admin Panel</button>
     </div>
 </div>
 
-<div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn-secondary" style="margin-top:16px;">Close</button></div></div>
+<div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:16px;">Close</button></div></div>
 
 <script>
-    // ========== PETER AI SUPER PRO v5.1 - ENLARGED BUTTONS ==========
-    const APP_VERSION = "5.1";
+    // ========== PETER AI SUPER PRO v5.2 - FULLY FUNCTIONAL ==========
+    const APP_VERSION = "5.2";
     const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
     
     let currentOrganization = null;
@@ -555,7 +562,134 @@
         document.getElementById('costDetails').innerHTML = costDetails.join('<br>'); document.getElementById('costAmount').innerText = meetingCost.toFixed(2);
         document.getElementById('costDisplay').style.display = 'block';
     }
-    function generateReport() { /* same as before, unchanged for brevity */ alert("Report generation function intact"); } // Placeholder - actual function is large but unchanged
+    
+    // ========== FULL REPORT GENERATION (RESTORED) ==========
+    function generateReport() {
+        if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const now = new Date();
+        const chrono = [...meetingTranscript].reverse(); // oldest first for report
+        
+        function addFooter(page) {
+            doc.setPage(page);
+            doc.setFontSize(8);
+            doc.setTextColor(100,100,100);
+            doc.text(`Software Developed By: Pesala Jayawardene | © 2024 Peter AI Super Pro v${APP_VERSION}`, 105, 290, { align: 'center' });
+            doc.text(`Page ${page} of ${doc.internal.getNumberOfPages()}`, 105, 296, { align: 'center' });
+        }
+        
+        // Header
+        doc.setFillColor(28,60,90);
+        doc.rect(0,0,210,45,'F');
+        doc.setTextColor(255,255,255);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(20);
+        doc.text("PROFESSIONAL MEETING REPORT", 20, 22);
+        doc.setFontSize(10);
+        doc.text("Peter AI Super Pro - Enterprise Meeting Assistant", 20, 34);
+        doc.setFontSize(9);
+        doc.text("Software Developed By: Pesala Jayawardene", 20, 42);
+        
+        doc.setTextColor(0,0,0);
+        let y = 60;
+        
+        // Organization Info Box
+        doc.setFillColor(30,60,114);
+        doc.roundedRect(20, y-6, 170, 30, 3, 3, 'F');
+        doc.setTextColor(255,255,255);
+        doc.text("ORGANIZATION INFORMATION", 25, y); y += 7;
+        doc.setFontSize(9);
+        doc.text(`Office: ${officeInfo.name || 'N/A'}`, 25, y); y += 5;
+        doc.text(`Address: ${officeInfo.address || 'N/A'}`, 25, y); y += 5;
+        doc.text(`Meeting Type: ${officeInfo.meetingType || 'N/A'}`, 25, y); y += 10;
+        
+        // Meeting Details Box
+        doc.setFillColor(204,112,0);
+        doc.roundedRect(20, y-5, 170, 30, 3, 3, 'F');
+        doc.setTextColor(255,255,255);
+        doc.text("MEETING DETAILS", 25, y); y += 7;
+        doc.text(`Date: ${now.toLocaleDateString()}`, 25, y); y += 5;
+        doc.text(`Time: ${now.toLocaleTimeString()}`, 25, y); y += 5;
+        if (meetingStartTime) {
+            doc.text(`Started: ${meetingStartTime.toLocaleTimeString()}`, 25, y); y += 5;
+            doc.text(`Ended: ${meetingEndTime ? meetingEndTime.toLocaleTimeString() : "Ongoing"}`, 25, y); y += 5;
+            doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours % 1) * 60)}m`, 25, y); y += 10;
+        }
+        
+        // Attendees Box
+        const attendees = registeredSpeakers.map(s => s.name).join(', ');
+        doc.setFillColor(26,95,58);
+        doc.roundedRect(20, y-5, 170, 14, 3, 3, 'F');
+        doc.setTextColor(255,255,255);
+        doc.text("ATTENDEES", 25, y); y += 7;
+        doc.setTextColor(0,0,0);
+        doc.text(attendees || "None", 25, y); y += 10;
+        
+        const langs = Array.from(languagesUsed).map(l => languages[l]?.native || l).join(', ');
+        doc.text(`Languages Detected: ${langs || "English only"}`, 20, y); y += 8;
+        
+        // Transcript
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.setTextColor(28,60,90);
+        doc.text("MEETING TRANSCRIPT", 20, y); y += 6;
+        doc.setFontSize(8);
+        doc.setTextColor(0,0,0);
+        
+        for (let entry of chrono) {
+            if (y > 270) { addFooter(doc.internal.getNumberOfPages()); doc.addPage(); y = 25; }
+            const col = entry.color || '#718096';
+            doc.setTextColor(parseInt(col.slice(1,3),16), parseInt(col.slice(3,5),16), parseInt(col.slice(5,7),16));
+            doc.text(`[${entry.timestamp}] ${entry.speaker}:`, 25, y); y += 4;
+            doc.setTextColor(0,0,0);
+            let orig = doc.splitTextToSize(`${entry.originalText.substring(0, 70)}`, 155);
+            doc.text(orig, 28, y); y += orig.length * 3.5;
+            y += 2;
+        }
+        addFooter(1);
+        
+        // Cost Page if calculated
+        if (costCalculated && meetingCost > 0) {
+            doc.addPage();
+            doc.setDrawColor(0,0,0);
+            doc.rect(10,10,190,277);
+            doc.setFillColor(204,112,0);
+            doc.rect(12,12,186,40,'F');
+            doc.setTextColor(255,255,255);
+            doc.setFontSize(18);
+            doc.text("PAYMENT RECEIPT", 20, 30);
+            doc.setFontSize(9);
+            doc.text("Peter AI Super Pro - Official Invoice", 20, 42);
+            let yc = 65;
+            doc.setTextColor(0,0,0);
+            doc.text(`Organization: ${officeInfo.name || 'N/A'}`, 25, yc); yc += 5;
+            doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 25, yc); yc += 5;
+            doc.text(`Meeting Date: ${meetingStartTime ? meetingStartTime.toLocaleDateString() : 'N/A'}`, 25, yc); yc += 5;
+            doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours % 1) * 60)}m`, 25, yc); yc += 8;
+            for (let d of costDetails) { doc.text(d, 25, yc); yc += 5; }
+            yc += 5;
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(11);
+            doc.setTextColor(40,167,69);
+            doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 25, yc);
+            yc += 10;
+            doc.setFontSize(7);
+            doc.text("This is a computer generated receipt. Signature not required.", 25, yc);
+            addFooter(doc.internal.getNumberOfPages());
+        }
+        
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 2; i <= pageCount; i++) addFooter(i);
+        
+        reportCount++;
+        if (currentOrganization) saveCurrentOrganization();
+        updateStats();
+        doc.save(`Peter_AI_Report_${now.toISOString().slice(0,19)}.pdf`);
+        document.getElementById('reportStatus').innerHTML = '✅ Report generated!';
+        setTimeout(() => document.getElementById('reportStatus').innerHTML = 'Ready', 3000);
+    }
+    
     function registerSpeaker(name) {
         const color = speakerColors[registeredSpeakers.length % speakerColors.length];
         registeredSpeakers.push({ name, color }); updateSpeakersList();
