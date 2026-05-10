@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v4.0 | Continuous Voice</title>
+    <title>Peter AI Super Pro v4.1 | Latest at TOP</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,7 +12,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', sans-serif; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); min-height: 100vh; }
         
-        /* Login Overlay */
         .login-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); 
@@ -37,7 +36,6 @@
         .main-app { display: none; }
         .dashboard { max-width: 1600px; margin: 0 auto; padding: 20px; }
         
-        /* Top Bar */
         .top-bar { background: white; border-radius: 20px; padding: 16px 24px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .logo-area h1 { font-size: 24px; color: #1a3c5c; }
         .logo-area .version { font-size: 12px; color: #718096; margin-left: 8px; }
@@ -47,7 +45,6 @@
         .user-name { font-weight: 600; color: #2d3748; }
         .logout-btn { background: #e53e3e; color: white; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer; font-weight: 500; }
         
-        /* Stats Grid - Large Colorful Cards */
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
         @media (max-width: 800px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         .stat-card { border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: transform 0.2s; cursor: pointer; }
@@ -67,12 +64,10 @@
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e2e8f0; }
         .card-header h3 { font-size: 18px; color: #1a3c5c; font-weight: 600; }
         
-        /* Large Timer */
         .timer-display { background: linear-gradient(135deg, #1a3c5c 0%, #2c5364 100%); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; }
         .timer-digits { font-size: 52px; font-weight: 700; font-family: monospace; color: #fbbf24; letter-spacing: 5px; }
         .timer-label { color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-top: 8px; }
         
-        /* Large Colorful Buttons */
         .btn { 
             padding: 14px 28px; 
             border-radius: 16px; 
@@ -92,14 +87,13 @@
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 16px; }
         
-        /* Colored Info Boxes */
         .info-box-org { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 16px; border-radius: 16px; margin-top: 16px; color: white; font-size: 14px; }
         .info-box-speakers { background: linear-gradient(135deg, #834d9b 0%, #d04ed6 100%); padding: 16px; border-radius: 16px; margin-top: 16px; color: white; }
         .speaker-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
         .speaker-tag { padding: 10px 20px; border-radius: 40px; font-size: 14px; cursor: pointer; color: white; font-weight: 600; transition: all 0.2s; }
         .speaker-tag:hover { transform: scale(1.05); opacity: 0.9; }
         
-        /* Transcript - Latest at TOP using CSS column-reverse */
+        /* Transcript - Latest at TOP - Critical Fix */
         .transcript-area { 
             background: #1a1a2e; 
             border-radius: 20px; 
@@ -107,8 +101,6 @@
             height: 450px; 
             overflow-y: auto; 
             margin-top: 16px; 
-            display: flex; 
-            flex-direction: column-reverse;
         }
         .transcript-line { 
             margin-bottom: 12px; 
@@ -148,8 +140,8 @@
     <div class="login-container">
         <div class="login-header">
             <div class="login-icon"><i class="fas fa-robot"></i></div>
-            <h2>Peter AI Super Pro <span style="font-size: 14px;">v4.0</span></h2>
-            <p>Continuous Voice Recognition Platform</p>
+            <h2>Peter AI Super Pro <span style="font-size: 14px;">v4.1</span></h2>
+            <p>Latest Message at TOP</p>
         </div>
         <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
         <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
@@ -164,8 +156,8 @@
     <div class="dashboard">
         <div class="top-bar">
             <div class="logo-area">
-                <h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v4.0</span></h1>
-                <p>Continuous Voice Recognition | Never Stops Until You Stop</p>
+                <h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v4.1</span></h1>
+                <p>Latest Message Always at TOP | Continuous Voice</p>
             </div>
             <div style="display: flex; align-items: center; gap: 20px;">
                 <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
@@ -199,7 +191,7 @@
         <div class="main-grid">
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-calendar-alt"></i> Meeting Controls</h3><i class="fas fa-robot"></i></div>
-                <div class="timer-display"><div class="timer-digits" id="timerDisplay">00:00:00</div><div class="timer-label">Meeting Duration (Runs Continuously)</div></div>
+                <div class="timer-display"><div class="timer-digits" id="timerDisplay">00:00:00</div><div class="timer-label">Meeting Duration (Continuous)</div></div>
                 <div class="btn-group">
                     <button id="startMeetingBtn" class="btn-success"><i class="fas fa-play"></i> Start Meeting</button>
                     <button id="stopMeetingBtn" class="btn-danger" disabled><i class="fas fa-stop"></i> Stop Meeting</button>
@@ -231,7 +223,7 @@
         </div>
 
         <div class="card">
-            <div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(Newest at TOP)</span></h3><i class="fas fa-language"></i></div>
+            <div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(NEWEST at TOP)</span></h3><i class="fas fa-language"></i></div>
             <div class="transcript-area" id="transcriptArea"></div>
         </div>
 
@@ -241,7 +233,7 @@
             <div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div>
         </div>
 
-        <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v4.0 | Software Developed By: Pesala Jayawardene</div>
+        <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v4.1 | Software Developed By: Pesala Jayawardene</div>
     </div>
 </div>
 
@@ -286,8 +278,8 @@
 <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn-secondary" style="margin-top:16px;">Close</button></div></div>
 
 <script>
-    // ========== PETER AI SUPER PRO v4.0 - CONTINUOUS VOICE (NEVER STOPS) ==========
-    const APP_VERSION = "4.0";
+    // ========== PETER AI SUPER PRO v4.1 - LATEST at TOP ==========
+    const APP_VERSION = "4.1";
     const validUsers = { 'admin': 'admin123', 'pesala': 'pesala123', 'user': 'user123' };
     
     let currentOrganization = null;
@@ -377,14 +369,16 @@
         });
     }
     
-    // REFRESH TRANSCRIPT - Latest at TOP (using flex-direction: column-reverse on container)
+    // ========== CRITICAL FIX: Latest at TOP ==========
+    // New messages are added to the BEGINNING of the array (unshift)
+    // then displayed in normal order - newest will be at TOP
     function refreshTranscript() {
         const container = document.getElementById('transcriptArea');
         if (meetingTranscript.length === 0) {
             container.innerHTML = '<div style="color:#718096; text-align:center; padding:50px;"><i class="fas fa-microphone-slash" style="font-size:48px; margin-bottom:16px; display:block;"></i>Start a meeting to begin transcription</div>';
             return;
         }
-        // Display in reverse order - latest at TOP
+        // Display in normal order - due to unshift, newest are at beginning of array
         container.innerHTML = meetingTranscript.map(entry => {
             const color = entry.color || '#718096';
             return `<div class="transcript-line" style="border-left-color:${color}">
@@ -396,6 +390,7 @@
                         ${entry.translatedText !== entry.originalText ? `<div class="translated-text"><i class="fas fa-language"></i> English: ${escapeHtml(entry.translatedText)}</div>` : ''}
                     </div>`;
         }).join('');
+        // Scroll to top to show latest message
         container.scrollTop = 0;
     }
     
@@ -568,7 +563,7 @@
     function startAutoSave() { if (autoSaveTimer) clearInterval(autoSaveTimer); autoSaveTimer = setInterval(() => { if (isMeetingRunning && meetingTranscript.length > 0) autoSaveConversation(); }, autoSaveInterval * 60 * 1000); }
     function stopAutoSave() { if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; } }
     
-    // ========== CONTINUOUS VOICE RECOGNITION - NEVER STOPS ==========
+    // ========== CONTINUOUS VOICE RECOGNITION ==========
     function startContinuousRecognition() {
         if (!isMeetingRunning) return;
         
@@ -590,8 +585,7 @@
         
         speechRecognition.onstart = () => {
             recognitionActive = true;
-            console.log("Speech recognition active - continuous mode");
-            document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Continuous Recognition (Never Stops)';
+            document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Continuous Recognition';
         };
         
         speechRecognition.onresult = (event) => {
@@ -605,7 +599,7 @@
                     let speaker = registeredSpeakers.length === 1 ? registeredSpeakers[0].name : "Unknown";
                     const speakerColor = registeredSpeakers.find(s => s.name === speaker)?.color || '#718096';
                     
-                    // ADD TO BEGINNING of array (latest at top)
+                    // CRITICAL: Use unshift to add to BEGINNING of array (latest at top)
                     meetingTranscript.unshift({
                         speaker: speaker,
                         originalText: text,
@@ -616,7 +610,6 @@
                     });
                     refreshTranscript();
                     
-                    // Clear after 1 second for next capture
                     setTimeout(() => { lastCapturedText = ""; }, 1000);
                 }
             }
@@ -627,31 +620,24 @@
         };
         
         speechRecognition.onend = () => {
-            console.log("Speech recognition ended, immediate restart...");
             recognitionActive = false;
             if (isMeetingRunning) {
-                // Immediate restart without delay
-                startContinuousRecognition();
+                setTimeout(() => { if (isMeetingRunning) startContinuousRecognition(); }, 100);
             }
         };
         
         speechRecognition.start();
         
-        // Additional safety: restart every 15 seconds to prevent any browser timeout
         if (continuousRestartTimer) clearInterval(continuousRestartTimer);
         continuousRestartTimer = setInterval(() => {
             if (isMeetingRunning && recognitionActive) {
-                // Force restart to keep it fresh
                 try {
-                    if (speechRecognition) {
-                        speechRecognition.stop();
-                    }
+                    if (speechRecognition) { speechRecognition.stop(); }
                 } catch(e) {}
-                // Will restart via onend
             } else if (isMeetingRunning && !recognitionActive) {
                 startContinuousRecognition();
             }
-        }, 15000);
+        }, 20000);
     }
     
     async function startMeeting() {
@@ -981,7 +967,7 @@
     
     loadAllSettings();
     updateLanguageDisplay();
-    console.log(`Peter AI Super Pro v${APP_VERSION} - Continuous voice recognition (NEVER STOPS), latest at TOP`);
+    console.log(`Peter AI Super Pro v${APP_VERSION} - LATEST at TOP: using unshift() to add new messages to beginning of array`);
 </script>
 </body>
 </html>
