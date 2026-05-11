@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v5.9 | AI Suggest Enhanced</title>
+    <title>Peter AI Super Pro v6.0 | AI Suggest Always On</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -94,8 +94,6 @@
         .admin-tab:hover { background: #cbd5e0; }
         .admin-tab-content { display: none; }
         .admin-tab-content.active { display: block; }
-        .radio-group { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 8px 12px; background: #f0f4f8; border-radius: 12px; }
-        .radio-group label { font-weight: 600; color: #1a3c5c; }
         @media (max-width: 600px) {
             .timer-digits { font-size: 32px; }
             .transcript-area { height: 350px; }
@@ -108,7 +106,7 @@
     <!-- === LOGIN (unchanged) === -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
-            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v5.9</span></h2><p>AI Teamwork & Financial Insights</p></div>
+            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v6.0</span></h2><p>AI Suggest Always Included</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
             <button class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -121,7 +119,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v5.9</span></h1><p>AI Suggest: Teamwork & Finance</p></div>
+                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v6.0</span></h1><p>AI Suggest Always On</p></div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
                     <div class="user-area"><div class="user-name" id="currentUser">pesalaj</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
@@ -155,10 +153,7 @@
                         <button id="printCostBtn" class="btn btn-warning" disabled><i class="fas fa-dollar-sign"></i> Calculate Cost</button>
                         <button id="adminBtn" class="btn btn-secondary"><i class="fas fa-shield-alt"></i> Admin Panel</button>
                     </div>
-                    <div class="radio-group">
-                        <input type="radio" id="aiSuggestYes" name="aiSuggest" value="yes"> <label for="aiSuggestYes">AI Suggest (Teamwork & Finance)</label>
-                        <input type="radio" id="aiSuggestNo" name="aiSuggest" value="no" checked> <label for="aiSuggestNo">No AI Suggest</label>
-                    </div>
+                    <!-- Radio button removed as requested -->
                     <div id="meetingStatus" class="status-badge status-inactive" style="margin-top: 0;"><i class="fas fa-circle"></i> Not Started</div>
                     <div id="costDisplay" style="display: none;" class="cost-box-dark"><strong>💰 Cost Details:</strong><div id="costDetails"></div><hr><strong>Total: $<span id="costAmount">0.00</span></strong></div>
                 </div>
@@ -180,7 +175,7 @@
             </div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(NEWEST at TOP)</span></h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Generate PDF Report</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div></div>
-            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v5.9 | Software Developed By: Pesala Jayawardene</div>
+            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v6.0 | Software Developed By: Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -191,8 +186,8 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary">Close</button></div></div>
 
     <script>
-        // ========== PETER AI SUPER PRO v5.9 – AI SUGGEST WITH TEAMWORK & FINANCE ==========
-        const APP_VERSION = "5.9";
+        // ========== PETER AI SUPER PRO v6.0 – AI SUGGEST ALWAYS ON ==========
+        const APP_VERSION = "6.0";
         const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
         
         let currentOrganization = null;
@@ -241,7 +236,7 @@
             'bn': { name: 'Bengali', native: 'বাংলা', code: 'bn-IN' }
         };
         
-        // Helper functions (same as v5.8)
+        // Helper functions (same as before)
         function updateLanguageDisplay() { document.getElementById('languageName').innerHTML = languages[currentLanguage]?.native || 'English'; }
         function updateLineAndPageCounters() {
             const lines = meetingTranscript.length;
@@ -396,7 +391,7 @@
         function startAutoSave() { if (autoSaveTimer) clearInterval(autoSaveTimer); autoSaveTimer = setInterval(() => { if (isMeetingRunning && meetingTranscript.length > 0) autoSaveConversation(); }, autoSaveInterval * 60 * 1000); }
         function stopAutoSave() { if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; } }
         
-        // ---------- continuous recognition (unchanged) ----------
+        // ---------- continuous recognition ----------
         function startContinuousRecognition() {
             if (!isMeetingRunning) return;
             if (speechRecognition) { try { speechRecognition.abort(); } catch(e) {} speechRecognition = null; }
@@ -465,7 +460,7 @@
             document.getElementById('costDisplay').style.display = 'block';
         }
         
-        // ========== AI REFINEMENT & DEEP STUDY ==========
+        // ========== AI REFINEMENT & DEEP STUDY (always included) ==========
         function refineSummaryPoints(rawPoints) {
             let refined = rawPoints.map(p => {
                 let s = p.trim();
@@ -496,10 +491,8 @@
             return refined.slice(0, 10);
         }
         
-        // AI Deep Study with Teamwork & Financial Implications
         function generateDeepStudy(transcriptLines, attendees, duration, meetingType) {
             const fullText = transcriptLines.map(l => l.originalText).toLowerCase().join(" ");
-            // Base values
             let guidance = "Focus on clear communication and documented decisions.";
             let safety = "No immediate safety concerns detected.";
             let development = "Consider skill development in areas discussed.";
@@ -513,7 +506,6 @@
             let teamwork = "Team dynamics appear positive. Encourage equal participation.";
             let financial = "No significant financial implications were explicitly mentioned.";
             
-            // Keyword analysis
             if (fullText.includes("risk") || fullText.includes("danger")) dangers = "Risks were mentioned – ensure mitigation plans are in place.";
             if (fullText.includes("profit") || fullText.includes("revenue")) profits = "Profit opportunities discussed. Further financial analysis recommended.";
             if (fullText.includes("loss") || fullText.includes("cost overrun")) losses = "Potential losses were mentioned. Review budget controls.";
@@ -524,13 +516,9 @@
             if (fullText.includes("develop") || fullText.includes("training")) development = "Skill development needed. Plan training sessions.";
             if (fullText.includes("safe") || fullText.includes("security")) safety = "Safety/security concerns raised. Conduct a review.";
             if (fullText.includes("guide") || fullText.includes("advice")) guidance = "Guidance requested. Provide clear directives.";
-            
-            // Teamwork analysis
             if (fullText.includes("team") || fullText.includes("collaboration") || fullText.includes("together")) teamwork = "Team collaboration was discussed. Foster cross-functional cooperation.";
             if (fullText.includes("conflict") || fullText.includes("disagree")) teamwork = "Some disagreements were noted. Mediation or clearer roles may help.";
             if (fullText.includes("support") || fullText.includes("help")) teamwork = "Mutual support evident. Continue building a supportive culture.";
-            
-            // Financial implications
             if (fullText.includes("budget") || fullText.includes("cost") || fullText.includes("expense")) financial = "Budget and costs were discussed. Monitor expenditures closely.";
             if (fullText.includes("investment") || fullText.includes("roi")) financial = "Investment and ROI considerations raised. Perform detailed financial modelling.";
             if (fullText.includes("fund") || fullText.includes("capital")) financial = "Funding or capital requirements mentioned. Seek appropriate financing.";
@@ -538,7 +526,6 @@
             return { guidance, safety, development, difficulties, dangers, profits, losses, regrets, appreciations, suggestions, teamwork, financial };
         }
         
-        // Helper: add organisation, meeting details, attendees to top of each page (below coloured header)
         function addInfoBlock(doc, attendees, startY, duration, meetingDate) {
             let y = startY;
             doc.setFontSize(8);
@@ -550,10 +537,9 @@
             return y;
         }
         
-        // ========== PDF REPORT WITH REPEATED INFO ON EVERY PAGE ==========
+        // ========== PDF REPORT WITH AI DEEP STUDY PAGE ALWAYS INCLUDED ==========
         function generateReport() {
             if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
-            const aiSuggestEnabled = document.getElementById('aiSuggestYes').checked;
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const now = new Date();
@@ -605,7 +591,6 @@
             const refinedSummaryPoints = refineSummaryPoints(rawSummaryPoints);
             const refinedActions = refineActionItems(rawActions);
             
-            // helper for coloured header/footer
             function addColoredHeader(doc, pageNum, yStart = 20) {
                 doc.setPage(pageNum);
                 doc.setFillColor(28, 60, 90);
@@ -667,7 +652,7 @@
             const langs = Array.from(languagesUsed).map(l => languages[l]?.native || l).join(', ');
             doc.text(`Languages Detected: ${langs || "English only"}`, 20, y); y += 6;
             doc.text(`Total Lines: ${meetingTranscript.length} | Estimated Pages: ${Math.ceil(meetingTranscript.length/25)}`, 20, y); y += 10;
-            addColoredFooter(doc, 1, 1); // will be updated later
+            addColoredFooter(doc, 1, 1);
             
             // ---- PAGE 2: Full Transcript ----
             doc.addPage();
@@ -785,42 +770,40 @@
                 doc.text("This is a computer generated receipt. Signature not required.", 25, y+10);
             }
             
-            // ---- PAGE 6 (if AI Suggest enabled): AI Deep Study with Teamwork & Financial ----
-            if (aiSuggestEnabled) {
-                const deep = generateDeepStudy(chronologicalTranscript, attendeesStr, meetingDurationHours, officeInfo.meetingType);
-                doc.addPage();
-                addColoredHeader(doc, doc.internal.getNumberOfPages(), 20);
-                y = 58;
-                y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
+            // ---- PAGE 6 (always): AI Deep Study with Teamwork & Financial ----
+            const deep = generateDeepStudy(chronologicalTranscript, attendeesStr, meetingDurationHours, officeInfo.meetingType);
+            doc.addPage();
+            addColoredHeader(doc, doc.internal.getNumberOfPages(), 20);
+            y = 58;
+            y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(16);
+            doc.setTextColor(44,82,130);
+            doc.text("AI Deep Study & Suggestions", 20, y); y += 10;
+            doc.setFontSize(9);
+            doc.setTextColor(0,0,0);
+            const sections = [
+                { title: "Guidance", content: deep.guidance },
+                { title: "Safety Advice", content: deep.safety },
+                { title: "Development Advice", content: deep.development },
+                { title: "Difficulties Faced", content: deep.difficulties },
+                { title: "Dangers / Risks", content: deep.dangers },
+                { title: "Potential Profits", content: deep.profits },
+                { title: "Potential Losses", content: deep.losses },
+                { title: "Regrets Expressed", content: deep.regrets },
+                { title: "Appreciations", content: deep.appreciations },
+                { title: "Suggestions", content: deep.suggestions },
+                { title: "Teamwork Analysis", content: deep.teamwork },
+                { title: "Financial Implications", content: deep.financial }
+            ];
+            for (let sec of sections) {
+                if (y > 270) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 99); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages(), 20); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); }
                 doc.setFont("helvetica", "bold");
-                doc.setFontSize(16);
-                doc.setTextColor(44,82,130);
-                doc.text("AI Deep Study & Suggestions", 20, y); y += 10;
-                doc.setFontSize(9);
-                doc.setTextColor(0,0,0);
-                const sections = [
-                    { title: "Guidance", content: deep.guidance },
-                    { title: "Safety Advice", content: deep.safety },
-                    { title: "Development Advice", content: deep.development },
-                    { title: "Difficulties Faced", content: deep.difficulties },
-                    { title: "Dangers / Risks", content: deep.dangers },
-                    { title: "Potential Profits", content: deep.profits },
-                    { title: "Potential Losses", content: deep.losses },
-                    { title: "Regrets Expressed", content: deep.regrets },
-                    { title: "Appreciations", content: deep.appreciations },
-                    { title: "Suggestions", content: deep.suggestions },
-                    { title: "Teamwork Analysis", content: deep.teamwork },
-                    { title: "Financial Implications", content: deep.financial }
-                ];
-                for (let sec of sections) {
-                    if (y > 270) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 99); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages(), 20); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); }
-                    doc.setFont("helvetica", "bold");
-                    doc.text(sec.title + ":", 20, y); y += 5;
-                    doc.setFont("helvetica", "normal");
-                    const lines = doc.splitTextToSize(sec.content, 170);
-                    doc.text(lines, 25, y);
-                    y += lines.length * 5 + 5;
-                }
+                doc.text(sec.title + ":", 20, y); y += 5;
+                doc.setFont("helvetica", "normal");
+                const lines = doc.splitTextToSize(sec.content, 170);
+                doc.text(lines, 25, y);
+                y += lines.length * 5 + 5;
             }
             
             // finalise footers
