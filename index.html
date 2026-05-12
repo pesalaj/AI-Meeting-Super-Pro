@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v7.4 | No Blank Pages, All Details</title>
+    <title>Peter AI Super Pro v7.5 | FINAL – No Blank Pages</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* === SAME UI – no changes === */
+        /* === ORIGINAL UI – KEPT INTACT === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', sans-serif; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); min-height: 100vh; }
         .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); z-index: 10000; display: flex; justify-content: center; align-items: center; }
@@ -109,7 +109,7 @@
     <!-- LOGIN (unchanged) -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
-            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v7.4</span></h2><p>No Blank Pages, All Details</p></div>
+            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v7.5</span></h2><p>Final – No Blank Pages</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
             <button class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -122,7 +122,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v7.4</span></h1><p>AI Suggest + Hidden Problem Detection</p></div>
+                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v7.5</span></h1><p>AI Suggest + Hidden Problem Detection</p></div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
                     <div class="user-area"><div class="user-name" id="currentUser">pesalaj</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
@@ -185,7 +185,7 @@
             </div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(NEWEST at TOP)</span></h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Generate PDF Report</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div></div>
-            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v7.4 | Software Developed By: Pesala Jayawardene</div>
+            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v7.5 | Software Developed By: Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -196,8 +196,8 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary">Close</button></div></div>
 
     <script>
-        // ========== PETER AI SUPER PRO v7.4 – FIXED BLANK PAGES & MISSING DETAILS ==========
-        const APP_VERSION = "7.4";
+        // ========== PETER AI SUPER PRO v7.5 – NO BLANK PAGES, ALL DETAILS ==========
+        const APP_VERSION = "7.5";
         const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
         
         let currentOrganization = null;
@@ -247,7 +247,7 @@
             'bn': { name: 'Bengali', native: 'বাংলা', code: 'bn-IN' }
         };
         
-        // ---------- Helper functions ----------
+        // ---------- Helper functions (unchanged) ----------
         function updateLanguageDisplay() { document.getElementById('languageName').innerHTML = languages[currentLanguage]?.native || 'English'; }
         function updateLineAndPageCounters() {
             document.getElementById('lineCounter').innerText = meetingTranscript.length;
@@ -475,7 +475,7 @@
             document.getElementById('costDisplay').style.display = 'block';
         }
         
-        // ========== HIDDEN PROBLEMS ANALYSIS ==========
+        // ========== HIDDEN PROBLEMS ANALYSIS (safe) ==========
         function analyzeHiddenProblems(transcriptLines) {
             if (!Array.isArray(transcriptLines) || transcriptLines.length === 0) {
                 return { issues: [], hiddenGood: [], withheldIdeas: [], secretIdeas: [], problemCreators: [] };
@@ -591,7 +591,7 @@
             return [...new Set(agendaItems)].slice(0,10);
         }
         
-        // PDF helpers
+        // ---------- PDF layout helpers (with compact info, full details) ----------
         function addColoredHeader(doc, pageNum) {
             doc.setPage(pageNum);
             doc.setFillColor(28, 60, 90);
@@ -675,7 +675,7 @@
             }, 1000);
         }
         
-        // ========== MAIN REPORT GENERATION – NO BLANK PAGES, ALL DETAILS ==========
+        // ========== MAIN REPORT GENERATION – NO BLANK PAGES, ALL DETAILS ON EVERY PAGE ==========
         function generateActualReport() {
             try {
                 if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
@@ -688,7 +688,7 @@
                 const meetingDateStr = now.toLocaleDateString();
                 const attendeesStr = registeredSpeakers.map(s => s.name).join(', ');
                 
-                // Precompute all content
+                // Precompute content
                 const rawSummaryPoints = (() => {
                     const pts = [];
                     for (let line of chronologicalTranscript) {
@@ -726,31 +726,26 @@
                 const refinedActions = refineActionItems(rawActions);
                 const agendaItems = generateNextMeetingAgenda(chronologicalTranscript);
                 
-                // Helper to start a new page with header, compact info, and full details (except for receipt page)
-                function startNewPage(includeFullDetails = true) {
+                // Helper to start a new page with all required boxes (full details)
+                function startNewPageWithFullDetails() {
                     doc.addPage();
                     addColoredHeader(doc, doc.internal.getNumberOfPages());
                     let y = 58;
                     y = addCompactInfo(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-                    if (includeFullDetails) {
-                        y = addFullOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-                    }
+                    y = addFullOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
                     return y;
                 }
                 
-                // ---- PAGE 1: Main report (full details) ----
+                // ----- PAGE 1: Main report + Transcript (start on same page) -----
                 addColoredHeader(doc, 1);
                 let y = 58;
                 y = addCompactInfo(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
                 y = addFullOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-                // No further text on page 1 (just the info boxes, no blank space)
-                
-                // ---- PAGE 2: Full transcript ----
-                y = startNewPage(true);
+                // Immediately continue with transcript heading and content
                 doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text("MEETING TRANSCRIPT", 20, y); y += 8;
                 doc.setFontSize(9);
                 for (let entry of chronologicalTranscript) {
-                    if (y > 265) { y = startNewPage(true); }
+                    if (y > 265) { y = startNewPageWithFullDetails(); }
                     const prefix = `[${entry.timestamp}] ${entry.speaker}:`;
                     const prefixWidth = doc.getStringUnitWidth(prefix) * 9 / doc.internal.getFontSize();
                     doc.setFont("helvetica", "bold");
@@ -759,42 +754,42 @@
                     const textLines = doc.splitTextToSize(entry.originalText, 170);
                     let lineY = y;
                     for (let line of textLines) {
-                        if (lineY + 5 > 270) { lineY = startNewPage(true); }
+                        if (lineY + 5 > 270) { lineY = startNewPageWithFullDetails(); }
                         doc.text(line, 20 + prefixWidth + 2, lineY);
                         lineY += 5;
                     }
                     y = lineY + 2;
                 }
                 
-                // ---- PAGE 3: Summary ----
-                y = startNewPage(true);
-                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("Summary of this event", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                // ----- Summary page -----
+                let y2 = startNewPageWithFullDetails();
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("Summary of this event", 20, y2); y2 += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
                 for (let i=0; i<rawSummaryPoints.length; i++) {
-                    if (y > 265) { y = startNewPage(true); doc.text("Summary (continued)", 20, y); y += 6; }
-                    doc.text(`${i+1}. ${rawSummaryPoints[i]}`, 25, y); y += 5;
-                } y += 5;
-                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("AI Refined Summary", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                    if (y2 > 265) { y2 = startNewPageWithFullDetails(); doc.text("Summary (continued)", 20, y2); y2 += 6; }
+                    doc.text(`${i+1}. ${rawSummaryPoints[i]}`, 25, y2); y2 += 5;
+                } y2 += 5;
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("AI Refined Summary", 20, y2); y2 += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
                 for (let i=0; i<refinedSummaryPoints.length; i++) {
-                    if (y > 265) { y = startNewPage(true); doc.text("AI Refined Summary (cont.)", 20, y); y += 6; }
-                    doc.text(`${i+1}. ${refinedSummaryPoints[i]}`, 25, y); y += 5;
+                    if (y2 > 265) { y2 = startNewPageWithFullDetails(); doc.text("AI Refined Summary (cont.)", 20, y2); y2 += 6; }
+                    doc.text(`${i+1}. ${refinedSummaryPoints[i]}`, 25, y2); y2 += 5;
                 }
                 
-                // ---- PAGE 4: Action Items ----
-                y = startNewPage(true);
-                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("Action Items", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
-                if (rawActions.length === 0) { doc.text("No specific action items were identified.", 25, y); y += 6; } else {
+                // ----- Action Items page -----
+                let y3 = startNewPageWithFullDetails();
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("Action Items", 20, y3); y3 += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                if (rawActions.length === 0) { doc.text("No specific action items were identified.", 25, y3); y3 += 6; } else {
                     for (let i=0; i<rawActions.length; i++) {
-                        if (y > 265) { y = startNewPage(true); doc.text("Action Items (cont.)", 20, y); y += 6; }
-                        doc.text(`${i+1}. [${rawActions[i].speaker}] ${rawActions[i].text}`, 25, y); y += 5;
+                        if (y3 > 265) { y3 = startNewPageWithFullDetails(); doc.text("Action Items (cont.)", 20, y3); y3 += 6; }
+                        doc.text(`${i+1}. [${rawActions[i].speaker}] ${rawActions[i].text}`, 25, y3); y3 += 5;
                     }
-                } y += 5;
-                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("AI Refined Action Items", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                } y3 += 5;
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("AI Refined Action Items", 20, y3); y3 += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
                 for (let i=0; i<refinedActions.length; i++) {
-                    if (y > 265) { y = startNewPage(true); doc.text("AI Refined Action Items (cont.)", 20, y); y += 6; }
-                    doc.text(`${i+1}. ${refinedActions[i]}`, 25, y); y += 5;
+                    if (y3 > 265) { y3 = startNewPageWithFullDetails(); doc.text("AI Refined Action Items (cont.)", 20, y3); y3 += 6; }
+                    doc.text(`${i+1}. ${refinedActions[i]}`, 25, y3); y3 += 5;
                 }
                 
-                // ---- PAGE 5: Payment Receipt (only compact info, no full details) ----
+                // ----- Payment Receipt (only compact info, no full details) -----
                 if (costCalculated && meetingCost > 0) {
                     doc.addPage();
                     addColoredHeader(doc, doc.internal.getNumberOfPages());
@@ -817,11 +812,11 @@
                     doc.setFontSize(7); doc.text("This is a computer generated receipt. Signature not required.", 25, yc+10);
                 }
                 
-                // ---- PAGE 6: AI Deep Study ----
+                // ----- AI Deep Study (if enabled) -----
                 if (aiSuggestEnabled) {
                     const deep = generateDeepStudyWithAssignees(chronologicalTranscript);
-                    y = startNewPage(true);
-                    doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("AI Deep Study & Suggestions", 20, y); y += 10; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                    let yDeep = startNewPageWithFullDetails();
+                    doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("AI Deep Study & Suggestions", 20, yDeep); yDeep += 10; doc.setFontSize(9); doc.setTextColor(0,0,0);
                     const sections = [
                         { title: "Guidance", content: deep.guidance }, { title: "Safety Advice", content: deep.safety }, { title: "Development Advice", content: deep.development },
                         { title: "Difficulties Faced", content: deep.difficulties }, { title: "Dangers / Risks", content: deep.dangers }, { title: "Potential Profits", content: deep.profits },
@@ -829,27 +824,27 @@
                         { title: "Suggestions", content: deep.suggestions }
                     ];
                     for (let sec of sections) {
-                        if (y > 265) { y = startNewPage(true); }
-                        doc.setFont("helvetica", "bold"); doc.text(sec.title + ":", 20, y); y += 5;
+                        if (yDeep > 265) { yDeep = startNewPageWithFullDetails(); }
+                        doc.setFont("helvetica", "bold"); doc.text(sec.title + ":", 20, yDeep); yDeep += 5;
                         doc.setFont("helvetica", "normal");
                         const lines = doc.splitTextToSize(sec.content, 170);
                         for (let line of lines) {
-                            if (y > 265) { y = startNewPage(true); }
-                            doc.text(line, 25, y); y += 5;
+                            if (yDeep > 265) { yDeep = startNewPageWithFullDetails(); }
+                            doc.text(line, 25, yDeep); yDeep += 5;
                         }
-                        y += 2;
+                        yDeep += 2;
                     }
                 }
                 
-                // ---- PAGE 7: Proposed Agenda ----
-                y = startNewPage(true);
-                doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("Proposed Agenda items for the next meeting", 20, y); y += 12; doc.setFontSize(10);
+                // ----- Proposed Agenda -----
+                let yAgenda = startNewPageWithFullDetails();
+                doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("Proposed Agenda items for the next meeting", 20, yAgenda); yAgenda += 12; doc.setFontSize(10);
                 for (let i=0; i<agendaItems.length; i++) {
-                    if (y > 265) { y = startNewPage(true); doc.text("Proposed Agenda (continued)", 20, y); y += 8; }
-                    doc.text(`${i+1}. ${agendaItems[i]}`, 25, y); y += 7;
+                    if (yAgenda > 265) { yAgenda = startNewPageWithFullDetails(); doc.text("Proposed Agenda (continued)", 20, yAgenda); yAgenda += 8; }
+                    doc.text(`${i+1}. ${agendaItems[i]}`, 25, yAgenda); yAgenda += 7;
                 }
                 
-                // ---- PAGE 8: Hidden Problems ----
+                // ----- Hidden Problems (if enabled) -----
                 if (checkProblemsEnabled) {
                     const analysis = analyzeHiddenProblems(chronologicalTranscript);
                     doc.addPage();
@@ -920,7 +915,7 @@
         
         document.getElementById('generateReportBtn').onclick = generateReportWithCheck;
         
-        // Event bindings
+        // Other event bindings (unchanged)
         document.getElementById('loginBtn').onclick = () => { const u = document.getElementById('loginUsername').value; const p = document.getElementById('loginPassword').value; if (validUsers[u] && validUsers[u] === p) { document.getElementById('loginOverlay').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; document.getElementById('currentUser').innerHTML = u; loadOrganizations(); loadAllSettings(); updateLanguageDisplay(); } else { document.getElementById('loginError').style.display = 'block'; setTimeout(() => document.getElementById('loginError').style.display = 'none', 2000); } };
         document.getElementById('logoutBtn').onclick = () => { if (isMeetingRunning) stopMeeting(); document.getElementById('mainApp').style.display = 'none'; document.getElementById('loginOverlay').style.display = 'flex'; document.getElementById('loginUsername').value = ''; document.getElementById('loginPassword').value = ''; };
         document.getElementById('adminBtn').onclick = () => { document.getElementById('adminModal').style.display = 'flex'; initAdminTabs(); };
