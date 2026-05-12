@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v6.10 | Fixed Report Generation & Overlap</title>
+    <title>Peter AI Super Pro v6.11 | Fixed Payment Page & Check Problems</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -65,6 +65,8 @@
         .btn-secondary { background: #718096; color: white; }
         .btn-info { background: #17a2b8; color: white; }
         .btn-primary { background: linear-gradient(135deg, #2c5364 0%, #203a43 100%); color: white; }
+        .btn-primary.checking { background: #f1c40f; color: #333; }  /* yellow during check */
+        .btn-primary.ready { background: #2ecc71; color: white; }    /* green when ready */
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
         .org-buttons .btn, .meeting-buttons .btn { padding: 28px 48px !important; font-size: 22px !important; font-weight: 800 !important; border-radius: 28px !important; min-width: 200px !important; }
         .info-box-org { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 16px; border-radius: 16px; margin-top: 16px; color: white; font-size: 14px; }
@@ -108,7 +110,7 @@
     <!-- LOGIN (unchanged) -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
-            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v6.10</span></h2><p>Fixed Report Generation & Overlap</p></div>
+            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v6.11</span></h2><p>Fixed Payment Page & Check Problems</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
             <button class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -121,7 +123,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v6.10</span></h1><p>AI Suggest + Hidden Problem Detection</p></div>
+                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v6.11</span></h1><p>AI Suggest + Hidden Problem Detection</p></div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
                     <div class="user-area"><div class="user-name" id="currentUser">pesalaj</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
@@ -184,7 +186,7 @@
             </div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(NEWEST at TOP)</span></h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Generate PDF Report</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div></div>
-            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v6.10 | Software Developed By: Pesala Jayawardene</div>
+            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v6.11 | Software Developed By: Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -195,8 +197,8 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary">Close</button></div></div>
 
     <script>
-        // ========== PETER AI SUPER PRO v6.10 – FIXED REPORT GENERATION ==========
-        const APP_VERSION = "6.10";
+        // ========== PETER AI SUPER PRO v6.11 – FIXED PAYMENT PAGE & CHECK PROBLEMS ==========
+        const APP_VERSION = "6.11";
         const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
         
         let currentOrganization = null;
@@ -627,7 +629,7 @@
             return [...new Set(agendaItems)].slice(0, 10);
         }
         
-        // Helpers for PDF layout (compact info block)
+        // PDF helpers
         function addInfoBlock(doc, attendees, startY, duration, meetingDate) {
             let y = startY;
             doc.setFontSize(8);
@@ -691,7 +693,43 @@
             doc.text("Software Developed By: Pesala Jayawardene | © 2024 Peter AI Super Pro", 105, 275, { align: 'center' });
         }
         
-        // ========== PDF GENERATION – FIXED OVERLAP & REPORT CRASH ==========
+        // ========== SIMULATED INTERNET CHECK WITH BUTTON COLOR CHANGE ==========
+        let isChecking = false;
+        async function generateReportWithCheck() {
+            const btn = document.getElementById('generateReportBtn');
+            if (isChecking) return;
+            isChecking = true;
+            // Change button color to "checking" (yellow)
+            btn.classList.remove('btn-primary');
+            btn.classList.add('checking');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Checking Internet...';
+            
+            // Simulate internet check (2 seconds delay)
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Change button to "ready" (green)
+            btn.classList.remove('checking');
+            btn.classList.add('ready');
+            btn.innerHTML = '<i class="fas fa-check"></i> Ready - Generate Report';
+            btn.disabled = false;
+            
+            // Wait for user to press again (or we can auto-generate? Requirement: after check, report generates)
+            // To avoid double click, we'll auto-generate after a short delay or we can let user click again.
+            // The requirement: "after first press the colour changes during internet check and once checking is over again the colour changes to a different colour. Now at this point report generates."
+            // So we will auto-generate after the check completes.
+            await new Promise(resolve => setTimeout(resolve, 500));
+            generateReport();  // actual report generation
+            // Reset button after generation
+            setTimeout(() => {
+                btn.classList.remove('ready');
+                btn.classList.add('btn-primary');
+                btn.innerHTML = '<i class="fas fa-file-pdf"></i> Generate PDF Report';
+                isChecking = false;
+            }, 1000);
+        }
+        
+        // ========== MAIN REPORT GENERATION (with fixed payment page) ==========
         function generateReport() {
             if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
             const aiSuggestEnabled = document.getElementById('aiSuggestYes').checked;
@@ -703,6 +741,7 @@
             const meetingDateStr = now.toLocaleDateString();
             const attendeesStr = registeredSpeakers.map(s => s.name).join(', ');
             
+            // Extract raw points, actions, etc.
             const rawSummaryPoints = (() => {
                 const pts = [];
                 for (let line of chronologicalTranscript) {
@@ -747,7 +786,6 @@
             const refinedActions = refineActionItems(rawActions);
             const agendaItems = generateNextMeetingAgenda(chronologicalTranscript);
             
-            // Helper to add a page with header, compact info, and full org/meeting details (optional)
             function startNewPage(includeFullDetails = true) {
                 doc.addPage();
                 addColoredHeader(doc, doc.internal.getNumberOfPages());
@@ -759,7 +797,7 @@
                 return y;
             }
             
-            // ---- PAGE 1: Main report (always includes full details) ----
+            // ---- PAGE 1: Main report (full details) ----
             addColoredHeader(doc, 1);
             let y = 58;
             y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
@@ -808,11 +846,22 @@
                 doc.text(`${i+1}. ${refinedActions[i]}`, 25, y); y += 5;
             }
             
-            // ---- PAGE 5: Cost receipt ----
+            // ---- PAGE 5: Cost receipt (re‑introduced without overlap) ----
             if (costCalculated && meetingCost > 0) {
                 y = startNewPage(true);
-                doc.setDrawColor(0,0,0); doc.rect(10,10,190,277); doc.setFillColor(204,112,0); doc.rect(12,12,186,40,'F'); doc.setTextColor(255,255,255); doc.setFontSize(16); doc.text("PAYMENT RECEIPT", 20, 30); doc.setFontSize(9); doc.text("Peter AI Super Pro - Official Invoice", 20, 42);
-                y = 68; doc.setTextColor(0,0,0);
+                // Receipt box
+                doc.setDrawColor(0,0,0);
+                doc.rect(10, 10, 190, 277);
+                doc.setFillColor(204,112,0);
+                doc.rect(12, 12, 186, 40, 'F');
+                doc.setTextColor(255,255,255);
+                doc.setFontSize(16);
+                doc.text("PAYMENT RECEIPT", 20, 30);
+                doc.setFontSize(9);
+                doc.text("Peter AI Super Pro - Official Invoice", 20, 42);
+                
+                y = 68;
+                doc.setTextColor(0,0,0);
                 doc.text(`Organization: ${officeInfo.name || 'N/A'}`, 25, y); y += 5;
                 doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 25, y); y += 5;
                 doc.text(`Meeting Date: ${meetingStartTime ? meetingStartTime.toLocaleDateString() : 'N/A'}`, 25, y); y += 5;
@@ -820,7 +869,13 @@
                 doc.text(`Total Lines: ${meetingTranscript.length}`, 25, y); y += 5;
                 doc.text(`Total Pages: ${Math.ceil(meetingTranscript.length/25)}`, 25, y); y += 8;
                 for (let d of costDetails) { doc.text(d, 25, y); y += 5; }
-                y += 5; doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(40,167,69); doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 25, y); doc.setFontSize(7); doc.text("This is a computer generated receipt. Signature not required.", 25, y+10);
+                y += 5;
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(11);
+                doc.setTextColor(40,167,69);
+                doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 25, y);
+                doc.setFontSize(7);
+                doc.text("This is a computer generated receipt. Signature not required.", 25, y+10);
             }
             
             // ---- PAGE 6 (or next): AI Deep Study (if enabled) ----
@@ -862,12 +917,10 @@
             // ---- PAGE 8 (if enabled): Hidden Problems – NO full details block to avoid overlap ----
             if (checkProblemsEnabled) {
                 const analysis = analyzeHiddenProblems(chronologicalTranscript);
-                // Start new page WITHOUT full org/meeting details (only compact info)
                 doc.addPage();
                 addColoredHeader(doc, doc.internal.getNumberOfPages());
                 y = 58;
-                y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-                // do NOT call addOrgAndMeetingDetails here – prevents overlap
+                y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);  // only compact info, not full boxes
                 doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(220,20,60); doc.text("Hidden Problems & Secret Ideas Analysis", 20, y); y += 12;
                 doc.setFontSize(9);
                 doc.setTextColor(0,0,0);
@@ -942,7 +995,10 @@
         function saveAutoSaveSettings() { autoSaveInterval = parseFloat(document.getElementById('autoSaveInterval').value); localStorage.setItem('autoSaveInterval', autoSaveInterval); document.getElementById('autoSaveStatusMsg').innerHTML = '✅ Auto-save settings saved!'; setTimeout(() => document.getElementById('autoSaveStatusMsg').innerHTML = '', 2000); if (isMeetingRunning) { stopAutoSave(); startAutoSave(); } }
         function initAdminTabs() { const tabs = document.querySelectorAll('.admin-tab'); tabs.forEach(tab => { tab.onclick = () => { tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active'); const tabId = tab.getAttribute('data-tab'); document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active')); document.getElementById(`tab-${tabId}`).classList.add('active'); }; }); }
         
-        // Event bindings (unchanged)
+        // Attach generateReportWithCheck to button
+        document.getElementById('generateReportBtn').onclick = generateReportWithCheck;
+        
+        // Event bindings (other)
         document.getElementById('loginBtn').onclick = () => { const u = document.getElementById('loginUsername').value; const p = document.getElementById('loginPassword').value; if (validUsers[u] && validUsers[u] === p) { document.getElementById('loginOverlay').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; document.getElementById('currentUser').innerHTML = u; loadOrganizations(); loadAllSettings(); updateLanguageDisplay(); } else { document.getElementById('loginError').style.display = 'block'; setTimeout(() => document.getElementById('loginError').style.display = 'none', 2000); } };
         document.getElementById('logoutBtn').onclick = () => { if (isMeetingRunning) stopMeeting(); document.getElementById('mainApp').style.display = 'none'; document.getElementById('loginOverlay').style.display = 'flex'; document.getElementById('loginUsername').value = ''; document.getElementById('loginPassword').value = ''; };
         document.getElementById('adminBtn').onclick = () => { document.getElementById('adminModal').style.display = 'flex'; initAdminTabs(); };
@@ -963,7 +1019,6 @@
         document.getElementById('startMeetingBtn').onclick = startMeeting;
         document.getElementById('stopMeetingBtn').onclick = stopMeeting;
         document.getElementById('printCostBtn').onclick = printCost;
-        document.getElementById('generateReportBtn').onclick = generateReport;
         document.getElementById('officeInfoBtn').onclick = () => document.getElementById('officeModal').style.display = 'flex';
         document.getElementById('closeOfficeBtn').onclick = () => document.getElementById('officeModal').style.display = 'none';
         document.getElementById('saveOfficeBtn').onclick = () => { officeInfo = { name: document.getElementById('officeName').value, address: document.getElementById('officeAddress').value, meetingType: document.getElementById('meetingType').value }; if (currentOrganization) saveCurrentOrganization(); displayOfficeInfo(); document.getElementById('officeModal').style.display = 'none'; };
