@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v7.3 | Final – Works Perfectly</title>
+    <title>Peter AI Super Pro v7.3 | Final – Perfect PDF Layout</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -196,7 +196,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary">Close</button></div></div>
 
     <script>
-        // ========== PETER AI SUPER PRO v7.3 – FULLY DEBUGGED, PDF IMPROVED ==========
+        // ========== PETER AI SUPER PRO v7.3 – FULLY DEBUGGED, PDF OVERLAPPING FIXED ==========
         const APP_VERSION = "7.3";
         const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
         
@@ -512,7 +512,7 @@
         function refineActionItems(acts){ let refined=acts.map(a=>{let t=(a.text||"").trim(); if(!t)return null; return `Action: ${t.charAt(0).toUpperCase()+t.slice(1)}`;}).filter(a=>a&&a.length>15); if(refined.length===0) refined=["No specific action items."]; return refined.slice(0,10); }
         function generateNextMeetingAgenda(lines){ const items=[]; const patterns=["next meeting","follow up","pending","action item","task","deadline"]; for(let line of lines.map(l=>l.originalText)){ if(line.length>15 && patterns.some(p=>line.toLowerCase().includes(p))) items.push(line.length>100?line.substring(0,100)+"...":line); } if(items.length<3) items.push("Review action items","Project status update","Set next meeting date"); return [...new Set(items)].slice(0,10); }
         
-        // ========== PDF GENERATION – IMPROVED HEADER, NO BLANK PAGES, LINE SEPARATOR, COLORED ATTENDEES ==========
+        // ========== PDF GENERATION – FIXED OVERLAPPING FONTS (INCREASED LINE HEIGHT) ==========
         function generateActualReport() {
             try {
                 if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
@@ -562,10 +562,9 @@
                 const refinedActions = refineActionItems(rawActions);
                 const agendaItems = generateNextMeetingAgenda(chronologicalTranscript);
                 
-                // Helper: add a nice gradient header at top of page (except receipt)
+                // Helper: add nice gradient header (no overlapping, clean)
                 function addGradientHeader(pageNum, includeAttendeesList = true) {
                     doc.setPage(pageNum);
-                    // Gradient effect using fill color (simulated gradient)
                     doc.setFillColor(28, 60, 90);
                     doc.rect(0, 0, 210, 48, 'F');
                     doc.setFillColor(44, 82, 130);
@@ -593,8 +592,6 @@
                         let attendeeText = "Attendees: ";
                         for (let i = 0; i < registeredSpeakers.length; i++) {
                             const s = registeredSpeakers[i];
-                            const hexColor = s.color || speakerColors[i % speakerColors.length];
-                            // We can't use colored text easily in jsPDF without plugin, so we show names with a bullet
                             attendeeText += `● ${s.name}  `;
                         }
                         doc.text(attendeeText, 20, y);
@@ -605,7 +602,7 @@
                     return y + 2;
                 }
                 
-                // Start first page with gradient header
+                // Start first page
                 let y = addGradientHeader(1, true);
                 doc.setFontSize(14);
                 doc.setFont("helvetica", "bold");
@@ -615,7 +612,7 @@
                 doc.setFontSize(9);
                 doc.setFont("helvetica", "normal");
                 
-                // Write transcript with proper spacing and separators
+                // Write transcript with INCREASED LINE SPACING (7 units instead of 5) to fix overlapping
                 for (let entry of chronologicalTranscript) {
                     if (y > 270) {
                         doc.addPage();
@@ -630,21 +627,20 @@
                     const textLines = doc.splitTextToSize(entry.originalText, 170);
                     let lineY = y;
                     for (let line of textLines) {
-                        if (lineY + 5 > 275) {
+                        if (lineY + 7 > 275) {  // increased tolerance
                             doc.addPage();
                             lineY = addGradientHeader(doc.internal.getNumberOfPages(), true);
                             lineY += 2;
                         }
                         doc.text(line, 20 + prefixWidth + 2, lineY);
-                        lineY += 5;
+                        lineY += 7;  // key fix: was 5, now 7
                     }
-                    y = lineY + 3;
-                    // Add a light separator line after each transcript entry
+                    y = lineY + 4;  // extra spacing after each entry
+                    // Add separator line
                     if (y < 275) {
                         doc.setDrawColor(220,220,220);
-                        doc.line(20, y-1, 190, y-1);
+                        doc.line(20, y-2, 190, y-2);
                     }
-                    y += 3;
                 }
                 
                 // Summary section
@@ -660,7 +656,7 @@
                 doc.setFont("helvetica", "normal");
                 for(let p of refinedSummaryPoints){
                     if(y>270){ doc.addPage(); y=addGradientHeader(doc.internal.getNumberOfPages(), false); y+=5; }
-                    doc.text(`• ${p}`, 25, y); y+=5;
+                    doc.text(`• ${p}`, 25, y); y+=7;
                 }
                 y+=3;
                 doc.setFont("helvetica", "bold");
@@ -668,7 +664,7 @@
                 doc.setFont("helvetica", "normal");
                 for(let a of refinedActions){
                     if(y>270){ doc.addPage(); y=addGradientHeader(doc.internal.getNumberOfPages(), false); y+=5; }
-                    doc.text(`• ${a}`, 25, y); y+=5;
+                    doc.text(`• ${a}`, 25, y); y+=7;
                 }
                 
                 // Proposed Agenda
@@ -682,7 +678,7 @@
                 doc.setFont("helvetica", "normal");
                 for(let i=0;i<agendaItems.length;i++){
                     if(y>270){ doc.addPage(); y=addGradientHeader(doc.internal.getNumberOfPages(), false); y+=5; }
-                    doc.text(`${i+1}. ${agendaItems[i]}`, 25, y); y+=6;
+                    doc.text(`${i+1}. ${agendaItems[i]}`, 25, y); y+=7;
                 }
                 
                 // AI Deep Study
@@ -704,7 +700,7 @@
                         const lines = doc.splitTextToSize(deep[sec] || "No data.", 170);
                         for(let line of lines){
                             if(y>270){ doc.addPage(); y=addGradientHeader(doc.internal.getNumberOfPages(), false); y+=5; }
-                            doc.text(line, 25, y); y+=5;
+                            doc.text(line, 25, y); y+=7;
                         }
                         y+=2;
                     }
@@ -737,13 +733,13 @@
                         const lines = doc.splitTextToSize(list, 170);
                         for(let line of lines){
                             if(y>270){ doc.addPage(); y=addGradientHeader(doc.internal.getNumberOfPages(), false); y+=5; }
-                            doc.text(line, 25, y); y+=5;
+                            doc.text(line, 25, y); y+=7;
                         }
                         y+=2;
                     }
                 }
                 
-                // Payment Receipt (no gradient header, simple)
+                // Payment Receipt (no gradient header)
                 if(costCalculated && meetingCost>0){
                     doc.addPage();
                     doc.setPage(doc.internal.getNumberOfPages());
@@ -765,7 +761,7 @@
                     doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours%1)*60)}m`, 25, yR); yR+=8;
                     doc.text(`Total Lines: ${meetingTranscript.length}`, 25, yR); yR+=5;
                     doc.text(`Total Pages: ${Math.ceil(meetingTranscript.length/25)}`, 25, yR); yR+=8;
-                    for(let d of costDetails){ doc.text(d, 25, yR); yR+=5; }
+                    for(let d of costDetails){ doc.text(d, 25, yR); yR+=7; }
                     yR+=5;
                     doc.setFont("helvetica","bold");
                     doc.setFontSize(11);
@@ -790,7 +786,7 @@
                 if(currentOrganization) saveCurrentOrganization();
                 updateStats();
                 doc.save(`Peter_AI_Report_${now.toISOString().slice(0,19)}.pdf`);
-                document.getElementById('reportStatus').innerHTML = '✅ PDF ready – improved layout | No blank pages';
+                document.getElementById('reportStatus').innerHTML = '✅ PDF ready – No overlapping fonts, clean layout';
                 setTimeout(()=>document.getElementById('reportStatus').innerHTML='Ready',3000);
             } catch(err){
                 console.error(err);
@@ -818,7 +814,7 @@
             btn.disabled=false;
         }
         
-        // ========== EVENT BINDINGS (identical to working model) ==========
+        // ========== EVENT BINDINGS (unchanged) ==========
         document.getElementById('generateReportBtn').onclick = generateReportWithCheck;
         document.getElementById('loginBtn').onclick = () => { const u = document.getElementById('loginUsername').value; const p = document.getElementById('loginPassword').value; if (validUsers[u] && validUsers[u] === p) { document.getElementById('loginOverlay').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; document.getElementById('currentUser').innerHTML = u; loadOrganizations(); loadAllSettings(); updateLanguageDisplay(); } else { document.getElementById('loginError').style.display = 'block'; setTimeout(() => document.getElementById('loginError').style.display = 'none', 2000); } };
         document.getElementById('logoutBtn').onclick = () => { if (isMeetingRunning) stopMeeting(); document.getElementById('mainApp').style.display = 'none'; document.getElementById('loginOverlay').style.display = 'flex'; document.getElementById('loginUsername').value = ''; document.getElementById('loginPassword').value = ''; };
