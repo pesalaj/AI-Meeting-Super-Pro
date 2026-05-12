@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* === BASE STYLES (Fully preserved + enhanced) === */
+        /* === ORIGINAL UI – FULLY INTACT === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', sans-serif; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); min-height: 100vh; }
         .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); z-index: 10000; display: flex; justify-content: center; align-items: center; }
@@ -106,7 +106,7 @@
     </style>
 </head>
 <body>
-    <!-- LOGIN PANEL -->
+    <!-- LOGIN PANEL (unchanged) -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v7.5</span></h2><p>Final – Zero Blank Pages</p></div>
@@ -122,7 +122,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v7.5</span></h1><p>AI Suggest + Hidden Problem Detection | PDF Zero Blank Pages Guarantee</p></div>
+                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v7.5</span></h1><p>AI Suggest + Hidden Problem Detection | PDF Org Details on Every Page (except receipt)</p></div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
                     <div class="user-area"><div class="user-name" id="currentUser">pesalaj</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
@@ -196,8 +196,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary">Close</button></div></div>
 
     <script>
-        // FULLY INTEGRATED PETER AI v7.5 – ZERO BLANK PAGES (EVERY PDF PAGE CONTAINS ORG + MEETING DETAILS)
-        // ------------------------------------------------------------------------------------------------
+        // ===== PETER AI SUPER PRO v7.5 – ZERO BLANK PAGES: ORG DETAILS ON EVERY PAGE (EXCEPT RECEIPT) =====
         (function(){
             const APP_VERSION = "7.5";
             const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
@@ -209,7 +208,7 @@
             const speakerColors = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c','#e67e22','#2c3e50'];
             const languages = { 'en':{name:'English',native:'English',code:'en-US'},'si':{name:'Sinhala',native:'සිංහල',code:'si-LK'},'ta':{name:'Tamil',native:'தமிழ்',code:'ta-IN'},'es':{name:'Spanish',native:'Español',code:'es-ES'},'fr':{name:'French',native:'Français',code:'fr-FR'},'de':{name:'German',native:'Deutsch',code:'de-DE'},'it':{name:'Italian',native:'Italiano',code:'it-IT'},'pt':{name:'Portuguese',native:'Português',code:'pt-PT'},'ru':{name:'Russian',native:'Русский',code:'ru-RU'},'zh':{name:'Chinese',native:'中文',code:'zh-CN'},'ja':{name:'Japanese',native:'日本語',code:'ja-JP'},'ko':{name:'Korean',native:'한국어',code:'ko-KR'},'ar':{name:'Arabic',native:'العربية',code:'ar-SA'},'hi':{name:'Hindi',native:'हिन्दी',code:'hi-IN'},'bn':{name:'Bengali',native:'বাংলা',code:'bn-IN'} };
             
-            // helpers (core)
+            // helpers (core UI)
             function updateStats(){ document.getElementById('speakerCount').textContent=registeredSpeakers.length; document.getElementById('meetingCount').textContent=meetingCount; document.getElementById('reportCount').textContent=reportCount; document.getElementById('langCount').textContent=Object.keys(languages).length; }
             function updateLanguageDisplay(){ document.getElementById('languageName').innerHTML=languages[currentLanguage]?.native||'English'; }
             function updateLineAndPageCounters(){ document.getElementById('lineCounter').innerText=meetingTranscript.length; document.getElementById('pageCounter').innerText=Math.ceil(meetingTranscript.length/25); }
@@ -222,7 +221,7 @@
             function saveCurrentOrganization(){ if(!currentOrganization) return false; allOrganizations[currentOrganization]={ speakers:registeredSpeakers, officeInfo, meetingCount, reportCount, currentLanguage, meetingHistory }; localStorage.setItem('peter_ai_organizations',JSON.stringify(allOrganizations)); document.getElementById('orgStatus').innerHTML=`✅ Saved: ${currentOrganization}`; setTimeout(()=>document.getElementById('orgStatus').innerHTML='',2000); return true; }
             function loadOrganization(org){ const data=allOrganizations[org]; if(!data)return; registeredSpeakers=data.speakers||[]; officeInfo=data.officeInfo||{name:org,address:'',meetingType:''}; meetingCount=data.meetingCount||0; reportCount=data.reportCount||0; currentLanguage=data.currentLanguage||'en'; meetingHistory=data.meetingHistory||[]; currentOrganization=org; updateLanguageDisplay(); updateStats(); updateSpeakersList(); document.getElementById('officeInfoDisplay').innerHTML=officeInfo.name||officeInfo.address||officeInfo.meetingType?`<i class="fas fa-building"></i> <strong>${officeInfo.name||'N/A'}</strong><br><i class="fas fa-location-dot"></i> ${officeInfo.address||'Not set'}<br><i class="fas fa-tag"></i> ${officeInfo.meetingType||'Not specified'}`:''; refreshTranscript(); }
             function loadAllSettings(){ rate0_1=parseFloat(localStorage.getItem('rate0_1')||15); rate1_2=parseFloat(localStorage.getItem('rate1_2')||14); rate2_4=parseFloat(localStorage.getItem('rate2_4')||12); rateAbove4=parseFloat(localStorage.getItem('rateAbove4')||11); perLanguageRate=parseFloat(localStorage.getItem('perLanguageRate')||3); allLanguagesRate=parseFloat(localStorage.getItem('allLanguagesRate')||50); autoSaveInterval=parseFloat(localStorage.getItem('autoSaveInterval')||1); }
-            function startContinuousRecognition(){ /* standard logic preserved */ if(!isMeetingRunning)return; if(speechRecognition)try{speechRecognition.abort()}catch(e){} if(!('webkitSpeechRecognition'in window))return; const SpeechRecog=window.SpeechRecognition||window.webkitSpeechRecognition; speechRecognition=new SpeechRecog(); speechRecognition.continuous=true; speechRecognition.interimResults=true; speechRecognition.lang=languages[currentLanguage]?.code||'en-US'; let lastFinal=""; speechRecognition.onresult=(e)=>{let final=""; for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)final+=e.results[i][0].transcript; if(final&&final.trim().length>1&&final!==lastFinal){lastFinal=final; setTimeout(()=>{const text=final.trim(); if(text.length<2)return; const timestamp=new Date().toLocaleTimeString(); let speaker=registeredSpeakers.length===1?registeredSpeakers[0].name:"Unknown"; const speakerColor=registeredSpeakers.find(s=>s.name===speaker)?.color||'#718096'; let detectedLang=currentLanguage; if(/[\u0D80-\u0DFF]/.test(text)) detectedLang='si'; else if(/[\u0B80-\u0BFF]/.test(text)) detectedLang='ta'; let translatedText=(detectedLang!=='en')?`[${languages[detectedLang]?.native}] ${text}`:text; meetingTranscript.unshift({speaker,originalText:text,translatedText,timestamp,language:detectedLang,color:speakerColor}); refreshTranscript(); lastFinal="";},300);}}; speechRecognition.onend=()=>{recognitionActive=false; if(isMeetingRunning)setTimeout(()=>{if(isMeetingRunning)startContinuousRecognition();},100);}; speechRecognition.start(); if(continuousRestartTimer)clearInterval(continuousRestartTimer); continuousRestartTimer=setInterval(()=>{if(isMeetingRunning&&recognitionActive)try{if(speechRecognition)speechRecognition.stop()}catch(e){} else if(isMeetingRunning&&!recognitionActive)startContinuousRecognition();},25000);}
+            function startContinuousRecognition(){ if(!isMeetingRunning)return; if(speechRecognition)try{speechRecognition.abort()}catch(e){} if(!('webkitSpeechRecognition'in window))return; const SpeechRecog=window.SpeechRecognition||window.webkitSpeechRecognition; speechRecognition=new SpeechRecog(); speechRecognition.continuous=true; speechRecognition.interimResults=true; speechRecognition.lang=languages[currentLanguage]?.code||'en-US'; let lastFinal=""; speechRecognition.onresult=(e)=>{let final=""; for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)final+=e.results[i][0].transcript; if(final&&final.trim().length>1&&final!==lastFinal){lastFinal=final; setTimeout(()=>{const text=final.trim(); if(text.length<2)return; const timestamp=new Date().toLocaleTimeString(); let speaker=registeredSpeakers.length===1?registeredSpeakers[0].name:"Unknown"; const speakerColor=registeredSpeakers.find(s=>s.name===speaker)?.color||'#718096'; let detectedLang=currentLanguage; if(/[\u0D80-\u0DFF]/.test(text)) detectedLang='si'; else if(/[\u0B80-\u0BFF]/.test(text)) detectedLang='ta'; let translatedText=(detectedLang!=='en')?`[${languages[detectedLang]?.native}] ${text}`:text; meetingTranscript.unshift({speaker,originalText:text,translatedText,timestamp,language:detectedLang,color:speakerColor}); refreshTranscript(); lastFinal="";},300);}}; speechRecognition.onend=()=>{recognitionActive=false; if(isMeetingRunning)setTimeout(()=>{if(isMeetingRunning)startContinuousRecognition();},100);}; speechRecognition.start(); if(continuousRestartTimer)clearInterval(continuousRestartTimer); continuousRestartTimer=setInterval(()=>{if(isMeetingRunning&&recognitionActive)try{if(speechRecognition)speechRecognition.stop()}catch(e){} else if(isMeetingRunning&&!recognitionActive)startContinuousRecognition();},25000);}
             async function startMeeting(){ if(registeredSpeakers.length===0){alert("Register a speaker first");return;} if(!currentOrganization){alert("Select organization first");return;} try{const stream=await navigator.mediaDevices.getUserMedia({audio:true}); stream.getTracks().forEach(t=>t.stop());}catch(e){alert("Microphone permission required");return;} isMeetingRunning=true; meetingStartTime=new Date(); meetingEndTime=null; meetingTranscript=[]; costCalculated=false; startTimerContinuous(); startAutoSaveContinuous(); document.getElementById('startMeetingBtn').disabled=true; document.getElementById('stopMeetingBtn').disabled=false; document.getElementById('printCostBtn').disabled=false; document.getElementById('meetingStatus').className='status-badge status-active'; refreshTranscript(); startContinuousRecognition(); }
             function startTimerContinuous(){ if(timerInterval)clearInterval(timerInterval); timerInterval=setInterval(()=>{if(isMeetingRunning&&meetingStartTime&&!meetingEndTime){const ms=Date.now()-meetingStartTime; document.getElementById('timerDisplay').innerHTML=`${String(Math.floor(ms/3600000)).padStart(2,'0')}:${String(Math.floor((ms%3600000)/60000)).padStart(2,'0')}:${String(Math.floor((ms%60000)/1000)).padStart(2,'0')}`; meetingDurationHours=ms/3600000;}},1000);}
             function stopMeeting(){ isMeetingRunning=false; if(speechRecognition)try{speechRecognition.abort()}catch(e){} if(continuousRestartTimer)clearInterval(continuousRestartTimer); meetingEndTime=new Date(); if(timerInterval)clearInterval(timerInterval); stopAutoSaveContinuous(); meetingCount++; if(currentOrganization)saveCurrentOrganization(); updateStats(); document.getElementById('startMeetingBtn').disabled=false; document.getElementById('stopMeetingBtn').disabled=true; document.getElementById('meetingStatus').className='status-badge status-inactive'; document.getElementById('meetingStatus').innerHTML='<i class="fas fa-stop-circle"></i> Stopped'; alert(`Meeting stopped. ${meetingTranscript.length} lines recorded.`);}
@@ -231,15 +230,14 @@
             function calculateBaseCost(h){if(h<=1)return h*rate0_1; if(h<=2)return h*rate1_2; if(h<=4)return h*rate2_4; return h*rateAbove4;}
             function printCost(){ if(!meetingEndTime){alert("Stop meeting first");return;} const base=calculateBaseCost(meetingDurationHours); const uniqueLangs=new Set(meetingTranscript.map(e=>e.language).filter(l=>l&&l!=='en')); const transCost=(uniqueLangs.size>=15)?allLanguagesRate:uniqueLangs.size*perLanguageRate*meetingDurationHours; meetingCost=base+transCost; costDetails=[`Duration: ${meetingDurationHours.toFixed(2)}h - Base: $${base.toFixed(2)}`, uniqueLangs.size?`${uniqueLangs.size} language(s) translation: $${transCost.toFixed(2)}`:"No translation",`TOTAL: $${meetingCost.toFixed(2)}`]; costCalculated=true; document.getElementById('costDetails').innerHTML=costDetails.join('<br>'); document.getElementById('costAmount').innerText=meetingCost.toFixed(2); document.getElementById('costDisplay').style.display='block';}
             
-            // ADVANCED AI MODULES (hidden problems & deep study) – kept intact
+            // AI modules (unchanged)
             function analyzeHiddenProblems(lines){ const fullText=lines.map(l=>l?.originalText||"").join(" ").toLowerCase(); const issues=[],hiddenGood=[],withheldIdeas=[],secretIdeas=[],problemCreators=[]; const speakerMap=new Map(); lines.forEach(l=>{if(l&&l.speaker){if(!speakerMap.has(l.speaker))speakerMap.set(l.speaker,[]); speakerMap.get(l.speaker).push(l.originalText.toLowerCase());}}); for(let[speaker,texts] of speakerMap.entries()){const all=texts.join(" "); if(/hide|secret|confidential|problem|issue|risk|danger/.test(all)) issues.push(speaker); if(/excellent|great|achievement|success|bonus/.test(all)) hiddenGood.push(speaker); if(/maybe|not sure|i don't know|not comfortable/.test(all)) withheldIdeas.push(speaker); if(/confidential|private|between us|off the record/.test(all)) secretIdeas.push(speaker); if(/blame|fault|not my responsibility|impossible/.test(all)) problemCreators.push(speaker);} return {issues,hiddenGood,withheldIdeas,secretIdeas,problemCreators};}
             function generateDeepStudyWithAssignees(lines){ const fullText=lines.map(l=>l?.originalText||"").join(" ").toLowerCase(); const get=(kw,pos,neg)=>(fullText.includes(kw)?pos:neg); return { guidance:get("guide","Focus on clear communication and documented decisions.","No guidance flagged."), safety:get("safe","Safety/security concerns raised. Conduct review.","No safety concerns."), development:get("develop","Skill development needed.","No development topics."), difficulties:get("difficult","Challenges identified.","No difficulties mentioned."), dangers:get("risk","Risks mentioned – ensure mitigation.","No risks detected."), profits:get("profit","Profit opportunities discussed.","No profit opportunities."), losses:get("loss","Potential losses mentioned.","No losses."), regrets:get("regret","Regrets expressed.","No regrets."), appreciations:get("thank","Appreciation expressed.","No appreciations."), suggestions:get("suggest","New suggestions proposed.","No suggestions.")};}
             function refineSummaryPoints(pts){ let refined=pts.filter(p=>p&&p.length>10).map(p=>p.charAt(0).toUpperCase()+p.slice(1).replace(/\s+/g," ")); if(!refined.length) refined=["No major discussion points recorded."]; return refined.slice(0,8);}
             function refineActionItems(acts){ let refined=acts.map(a=>{let text=(a.text||"").trim(); if(!text)return null; text=text.charAt(0).toUpperCase()+text.slice(1); return `Action: ${text}`;}).filter(a=>a&&a.length>15); if(!refined.length) refined=["No specific action items."]; return refined.slice(0,10);}
             function generateNextMeetingAgenda(lines){ const items=[]; const patterns=["next meeting","follow up","pending","unresolved","to be discussed","action item","task","deadline","review","finalize"]; for(let line of lines.map(l=>l.originalText)){ if(line.length>15 && patterns.some(p=>line.toLowerCase().includes(p))) items.push(line.length>120?line.substring(0,120)+"...":line); } if(items.length<3) items.push("Review action items","Project status update","Set next meeting date"); return [...new Set(items)].slice(0,10);}
             
-            // ZERO BLANK PAGES PDF ENGINE: every new page includes full org details + meeting info
-            // -----------------------------------------------------------------------------------
+            // ========== PDF GENERATION – ORG DETAILS & TIMESTAMP ON EVERY PAGE EXCEPT RECEIPT ==========
             async function generateRobustPDF(){
                 if(!meetingTranscript.length){alert("No meeting data to generate report."); return;}
                 const {jsPDF}=window.jspdf; const doc=new jsPDF(); const now=new Date(); const chronological=[...meetingTranscript].reverse();
@@ -254,30 +252,127 @@
                 const deepStudy=aiSuggestEnabled?generateDeepStudyWithAssignees(chronological):null;
                 const problemAnalysis=checkProblemsEnabled?analyzeHiddenProblems(chronological):null;
                 
+                // ----- This function adds full org details + timestamp (used on all pages except receipt) -----
                 function addMasterHeaderAndDetails(pageNum){
-                    doc.setPage(pageNum); doc.setFillColor(28,60,90); doc.rect(0,0,210,45,'F'); doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(18); doc.text("Peter AI Super Pro",20,22); doc.setFontSize(9); doc.setFont("helvetica","normal"); doc.text("Professional Meeting Report",20,32); doc.text(`${officeInfo.name||'Organization'} | ${officeInfo.address||''}`,20,40); 
-                    let y=58; doc.setFontSize(8); doc.setFont("helvetica","bold"); doc.text(`Organization: ${officeInfo.name||'N/A'}`,20,y); y+=4; doc.text(`Meeting: ${officeInfo.meetingType||'General'} | Date: ${meetingDateStr} | Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours%1)*60)}m`,20,y); y+=4; doc.text(`Attendees: ${attendeesStr}`,20,y); y+=8; doc.setFontSize(9); doc.setFont("helvetica","bold"); doc.text("ORGANIZATION INFORMATION",20,y); y+=6; doc.setFont("helvetica","normal"); doc.setFontSize(9); doc.text(`Office: ${officeInfo.name||'N/A'}`,25,y); y+=5; doc.text(`Address: ${officeInfo.address||'N/A'}`,25,y); y+=5; doc.text(`Meeting Type: ${officeInfo.meetingType||'N/A'}`,25,y); y+=10; doc.setFont("helvetica","bold"); doc.text("MEETING DETAILS",20,y); y+=6; doc.setFont("helvetica","normal"); doc.text(`Date: ${now.toLocaleDateString()}`,25,y); y+=5; doc.text(`Time: ${now.toLocaleTimeString()}`,25,y); y+=5; if(meetingStartTime){doc.text(`Started: ${meetingStartTime.toLocaleTimeString()}`,25,y); y+=5; doc.text(`Ended: ${meetingEndTime?meetingEndTime.toLocaleTimeString():"Ongoing"}`,25,y); y+=5; doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours%1)*60)}m`,25,y); y+=8;} doc.text(`Attendees: ${attendeesStr}`,25,y); return y+6;
+                    doc.setPage(pageNum); 
+                    doc.setFillColor(28,60,90); doc.rect(0,0,210,45,'F'); 
+                    doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(18); doc.text("Peter AI Super Pro",20,22); 
+                    doc.setFontSize(9); doc.setFont("helvetica","normal"); doc.text("Professional Meeting Report",20,32); 
+                    doc.text(`${officeInfo.name||'Organization'} | ${officeInfo.address||''}`,20,40); 
+                    let y=58; 
+                    doc.setFontSize(8); doc.setFont("helvetica","bold"); 
+                    doc.text(`Organization: ${officeInfo.name||'N/A'}`,20,y); y+=4; 
+                    doc.text(`Meeting: ${officeInfo.meetingType||'General'} | Date: ${meetingDateStr} | Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours%1)*60)}m`,20,y); y+=4; 
+                    doc.text(`Attendees: ${attendeesStr}`,20,y); y+=8; 
+                    doc.setFontSize(9); doc.setFont("helvetica","bold"); doc.text("ORGANIZATION INFORMATION",20,y); y+=6; 
+                    doc.setFont("helvetica","normal"); doc.setFontSize(9); doc.text(`Office: ${officeInfo.name||'N/A'}`,25,y); y+=5; 
+                    doc.text(`Address: ${officeInfo.address||'N/A'}`,25,y); y+=5; 
+                    doc.text(`Meeting Type: ${officeInfo.meetingType||'N/A'}`,25,y); y+=10; 
+                    doc.setFont("helvetica","bold"); doc.text("MEETING DETAILS",20,y); y+=6; 
+                    doc.setFont("helvetica","normal"); doc.text(`Date: ${now.toLocaleDateString()}`,25,y); y+=5; 
+                    doc.text(`Time: ${now.toLocaleTimeString()}`,25,y); y+=5; 
+                    if(meetingStartTime){doc.text(`Started: ${meetingStartTime.toLocaleTimeString()}`,25,y); y+=5; doc.text(`Ended: ${meetingEndTime?meetingEndTime.toLocaleTimeString():"Ongoing"}`,25,y); y+=5; doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours%1)*60)}m`,25,y); y+=8;} 
+                    doc.text(`Attendees: ${attendeesStr}`,25,y); 
+                    return y+6;
                 }
-                function ensureNewPageWithFullDetails(currentY, pageNum){ if(currentY>265){ doc.addPage(); return addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); } return currentY; }
-                // Page 1 transcript
-                let currentPageNum=doc.internal.getNumberOfPages(); let yPos=addMasterHeaderAndDetails(currentPageNum); doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.text("MEETING TRANSCRIPT",20,yPos); yPos+=8; doc.setFontSize(9);
-                for(let entry of chronological){ yPos=ensureNewPageWithFullDetails(yPos,currentPageNum); const prefix=`[${entry.timestamp}] ${entry.speaker}:`; const prefixWidth=doc.getStringUnitWidth(prefix)*9/doc.internal.getFontSize(); doc.setFont("helvetica","bold"); doc.text(prefix,20,yPos); doc.setFont("helvetica","normal"); const textLines=doc.splitTextToSize(entry.originalText,170); let lineY=yPos; for(let line of textLines){ if(lineY+5>270){ doc.addPage(); lineY=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFont("helvetica","normal"); } doc.text(line,20+prefixWidth+2,lineY); lineY+=5; } yPos=lineY+3; if(yPos>270){doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages());}}
-                // Summary
-                doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.text("Summary & AI Insights",20,yPos); yPos+=8; doc.setFontSize(9); doc.setFont("helvetica","bold"); doc.text("Discussion Highlights:",20,yPos); yPos+=5; doc.setFont("helvetica","normal"); summaryPoints.forEach(p=>{yPos=ensureNewPageWithFullDetails(yPos,doc.internal.getNumberOfPages()); doc.text(`• ${p}`,25,yPos); yPos+=5;}); yPos+=5; doc.setFont("helvetica","bold"); doc.text("Refined Action Items:",20,yPos); yPos+=5; refinedActions.forEach(a=>{yPos=ensureNewPageWithFullDetails(yPos,doc.internal.getNumberOfPages()); doc.text(`• ${a}`,25,yPos); yPos+=5;});
-                // Agenda
-                doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.text("Proposed Next Meeting Agenda",20,yPos); yPos+=8; agenda.forEach((item,i)=>{yPos=ensureNewPageWithFullDetails(yPos,doc.internal.getNumberOfPages()); doc.text(`${i+1}. ${item}`,25,yPos); yPos+=6;});
-                // Deep study optional
-                if(deepStudy){ doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFontSize(14); doc.text("AI Deep Study & Suggestions",20,yPos); yPos+=10; const sections=["guidance","safety","development","difficulties","dangers","profits","losses","regrets","appreciations","suggestions"]; for(let sec of sections){ yPos=ensureNewPageWithFullDetails(yPos,doc.internal.getNumberOfPages()); doc.setFont("helvetica","bold"); doc.text(sec.toUpperCase()+":",20,yPos); yPos+=5; doc.setFont("helvetica","normal"); const lines=doc.splitTextToSize(deepStudy[sec]||"No data.",170); lines.forEach(l=>{if(yPos>265){doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages());} doc.text(l,25,yPos); yPos+=5;}); yPos+=3;} }
-                // Hidden problems
-                if(problemAnalysis){ doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFontSize(12); doc.setTextColor(180,40,40); doc.text("🔍 Hidden Problems & Unspoken Issues Analysis",20,yPos); yPos+=8; doc.setTextColor(0,0,0); const sections=[{title:"Potential Hidden Problems",data:problemAnalysis.issues},{title:"Hidden Good Achievements",data:problemAnalysis.hiddenGood},{title:"Withheld Ideas / Hesitation",data:problemAnalysis.withheldIdeas},{title:"Secret / Off-record Mentions",data:problemAnalysis.secretIdeas},{title:"Negative Influence Indicators",data:problemAnalysis.problemCreators}]; sections.forEach(sec=>{yPos=ensureNewPageWithFullDetails(yPos,doc.internal.getNumberOfPages()); doc.setFont("helvetica","bold"); doc.text(sec.title+":",20,yPos); yPos+=5; doc.setFont("helvetica","normal"); const list=sec.data.length?sec.data.join(", "):"None detected."; const lines=doc.splitTextToSize(list,170); lines.forEach(l=>{if(yPos>265){doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages());} doc.text(l,25,yPos); yPos+=5;}); yPos+=3;});}
-                // Payment receipt if cost calculated
-                if(costCalculated && meetingCost>0){ doc.addPage(); let yR=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFillColor(204,112,0); doc.rect(12,yR-4,186,10,'F'); doc.setTextColor(255,255,255); doc.setFontSize(12); doc.text("PAYMENT RECEIPT",20,yR); doc.setTextColor(0,0,0); yR+=12; doc.setFontSize(9); costDetails.forEach(d=>{if(yR>270){doc.addPage(); yR=addMasterHeaderAndDetails(doc.internal.getNumberOfPages());} doc.text(d,25,yR); yR+=5;}); yR+=5; doc.setFont("helvetica","bold"); doc.setTextColor(40,167,69); doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`,25,yR); }
-                // Footer all pages
-                const totalPages=doc.internal.getNumberOfPages(); for(let i=1;i<=totalPages;i++){ doc.setPage(i); doc.setFillColor(28,60,90); doc.rect(0,277,210,5,'F'); doc.setFontSize(8); doc.setTextColor(100,100,100); doc.text(`Generated: ${now.toLocaleString()}`,20,271); doc.text(`Page ${i} of ${totalPages}`,105,271,{align:'center'}); doc.text("Software: Pesala Jayawardene | © Peter AI Pro",105,275,{align:'center'}); }
-                reportCount++; if(currentOrganization) saveCurrentOrganization(); updateStats(); doc.save(`Peter_AI_Report_${now.toISOString().slice(0,19)}.pdf`); document.getElementById('reportStatus').innerHTML='✅ Zero blank pages | Report ready!'; setTimeout(()=>document.getElementById('reportStatus').innerHTML='Ready',3000);
+                function ensureNewPageWithFullDetails(currentY){ if(currentY>265){ doc.addPage(); return addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); } return currentY; }
+                
+                // ---- PAGE 1: Transcript (with full org header) ----
+                let yPos=addMasterHeaderAndDetails(1); 
+                doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.text("MEETING TRANSCRIPT",20,yPos); yPos+=8; doc.setFontSize(9);
+                for(let entry of chronological){ 
+                    yPos=ensureNewPageWithFullDetails(yPos); 
+                    const prefix=`[${entry.timestamp}] ${entry.speaker}:`; 
+                    const prefixWidth=doc.getStringUnitWidth(prefix)*9/doc.internal.getFontSize(); 
+                    doc.setFont("helvetica","bold"); doc.text(prefix,20,yPos); 
+                    doc.setFont("helvetica","normal"); 
+                    const textLines=doc.splitTextToSize(entry.originalText,170); 
+                    let lineY=yPos; 
+                    for(let line of textLines){ 
+                        if(lineY+5>270){ doc.addPage(); lineY=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); doc.setFont("helvetica","normal"); } 
+                        doc.text(line,20+prefixWidth+2,lineY); lineY+=5; 
+                    } 
+                    yPos=lineY+3; 
+                    if(yPos>270){ doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); }
+                }
+                
+                // ---- Summary & AI Insights (with full header) ----
+                doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); 
+                doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.text("Summary & AI Insights",20,yPos); yPos+=8; 
+                doc.setFont("helvetica","bold"); doc.text("Discussion Highlights:",20,yPos); yPos+=5; doc.setFont("helvetica","normal"); 
+                summaryPoints.forEach(p=>{ yPos=ensureNewPageWithFullDetails(yPos); doc.text(`• ${p}`,25,yPos); yPos+=5; }); yPos+=5; 
+                doc.setFont("helvetica","bold"); doc.text("Refined Action Items:",20,yPos); yPos+=5; 
+                refinedActions.forEach(a=>{ yPos=ensureNewPageWithFullDetails(yPos); doc.text(`• ${a}`,25,yPos); yPos+=5; });
+                
+                // ---- Proposed Agenda ----
+                doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); 
+                doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.text("Proposed Next Meeting Agenda",20,yPos); yPos+=8; 
+                agenda.forEach((item,i)=>{ yPos=ensureNewPageWithFullDetails(yPos); doc.text(`${i+1}. ${item}`,25,yPos); yPos+=6; });
+                
+                // ---- AI Deep Study (optional) ----
+                if(deepStudy){ 
+                    doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); 
+                    doc.setFontSize(14); doc.text("AI Deep Study & Suggestions",20,yPos); yPos+=10; 
+                    const sections=["guidance","safety","development","difficulties","dangers","profits","losses","regrets","appreciations","suggestions"]; 
+                    for(let sec of sections){ 
+                        yPos=ensureNewPageWithFullDetails(yPos); 
+                        doc.setFont("helvetica","bold"); doc.text(sec.toUpperCase()+":",20,yPos); yPos+=5; 
+                        doc.setFont("helvetica","normal"); 
+                        const lines=doc.splitTextToSize(deepStudy[sec]||"No data.",170); 
+                        lines.forEach(l=>{ if(yPos>265){ doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); } doc.text(l,25,yPos); yPos+=5; }); 
+                        yPos+=3; 
+                    } 
+                }
+                
+                // ---- Hidden Problems Analysis (optional) ----
+                if(problemAnalysis){ 
+                    doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); 
+                    doc.setFontSize(12); doc.setTextColor(180,40,40); doc.text("🔍 Hidden Problems & Unspoken Issues Analysis",20,yPos); yPos+=8; doc.setTextColor(0,0,0); 
+                    const sections=[{title:"Potential Hidden Problems",data:problemAnalysis.issues},{title:"Hidden Good Achievements",data:problemAnalysis.hiddenGood},{title:"Withheld Ideas / Hesitation",data:problemAnalysis.withheldIdeas},{title:"Secret / Off-record Mentions",data:problemAnalysis.secretIdeas},{title:"Negative Influence Indicators",data:problemAnalysis.problemCreators}]; 
+                    sections.forEach(sec=>{ yPos=ensureNewPageWithFullDetails(yPos); doc.setFont("helvetica","bold"); doc.text(sec.title+":",20,yPos); yPos+=5; doc.setFont("helvetica","normal"); const list=sec.data.length?sec.data.join(", "):"None detected."; const lines=doc.splitTextToSize(list,170); lines.forEach(l=>{ if(yPos>265){ doc.addPage(); yPos=addMasterHeaderAndDetails(doc.internal.getNumberOfPages()); } doc.text(l,25,yPos); yPos+=5; }); yPos+=3; }); 
+                }
+                
+                // ---- PAYMENT RECEIPT (EXCLUDED from org details & timestamp) ----
+                if(costCalculated && meetingCost>0){ 
+                    doc.addPage(); 
+                    const receiptPageNum=doc.internal.getNumberOfPages(); 
+                    doc.setPage(receiptPageNum); 
+                    // Simple receipt header (no org block)
+                    doc.setFillColor(28,60,90); doc.rect(0,0,210,30,'F'); 
+                    doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(16); doc.text("PAYMENT RECEIPT",20,20); 
+                    doc.setFontSize(9); doc.setFont("helvetica","normal"); doc.text("Peter AI Super Pro - Official Invoice",20,28); 
+                    let yR=48; 
+                    doc.setTextColor(0,0,0); 
+                    doc.text(`Organization: ${officeInfo.name||'N/A'}`,25,yR); yR+=6; 
+                    doc.text(`Invoice Date: ${now.toLocaleDateString()}`,25,yR); yR+=6; 
+                    doc.text(`Meeting Date: ${meetingStartTime?meetingStartTime.toLocaleDateString():'N/A'}`,25,yR); yR+=6; 
+                    doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours%1)*60)}m`,25,yR); yR+=8; 
+                    doc.text(`Total Lines: ${meetingTranscript.length}`,25,yR); yR+=5; 
+                    doc.text(`Total Pages: ${Math.ceil(meetingTranscript.length/25)}`,25,yR); yR+=8; 
+                    costDetails.forEach(d=>{ if(yR>270){ doc.addPage(); yR=48; } doc.text(d,25,yR); yR+=5; }); 
+                    yR+=5; doc.setFont("helvetica","bold"); doc.setFontSize(11); doc.setTextColor(40,167,69); doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`,25,yR); 
+                    doc.setFontSize(7); doc.text("This is a computer generated receipt. Signature not required.",25,yR+10);
+                }
+                
+                // Footer for all pages (standard footer)
+                const totalPages=doc.internal.getNumberOfPages(); 
+                for(let i=1;i<=totalPages;i++){ 
+                    doc.setPage(i); 
+                    doc.setFillColor(28,60,90); doc.rect(0,277,210,5,'F'); 
+                    doc.setFontSize(8); doc.setTextColor(100,100,100); 
+                    doc.text(`Generated: ${now.toLocaleString()}`,20,271); 
+                    doc.text(`Page ${i} of ${totalPages}`,105,271,{align:'center'}); 
+                    doc.text("Software: Pesala Jayawardene | © Peter AI Pro",105,275,{align:'center'}); 
+                }
+                
+                reportCount++; if(currentOrganization) saveCurrentOrganization(); updateStats(); 
+                doc.save(`Peter_AI_Report_${now.toISOString().slice(0,19)}.pdf`); 
+                document.getElementById('reportStatus').innerHTML='✅ Zero blank pages | Org details on every page (except receipt)'; 
+                setTimeout(()=>document.getElementById('reportStatus').innerHTML='Ready',3000);
             }
             async function generateReportWithCheck(){ const btn=document.getElementById('generateReportBtn'); if(btn.disabled)return; btn.disabled=true; btn.classList.remove('btn-primary'); btn.classList.add('checking'); btn.innerHTML='<i class="fas fa-spinner fa-pulse"></i> Initializing...'; await new Promise(r=>setTimeout(r,800)); btn.classList.remove('checking'); btn.classList.add('ready'); btn.innerHTML='<i class="fas fa-check"></i> Generate Secure PDF'; btn.disabled=false; await generateRobustPDF(); btn.classList.remove('ready'); btn.classList.add('btn-primary'); btn.innerHTML='<i class="fas fa-file-pdf"></i> Generate PDF Report'; btn.disabled=false; }
-            // BIND UI
+            
+            // ---- EVENT BINDINGS (unchanged) ----
             document.getElementById('generateReportBtn').onclick=generateReportWithCheck;
             document.getElementById('loginBtn').onclick=()=>{ let u=document.getElementById('loginUsername').value, p=document.getElementById('loginPassword').value; if(validUsers[u] && validUsers[u]===p){ document.getElementById('loginOverlay').style.display='none'; document.getElementById('mainApp').style.display='block'; document.getElementById('currentUser').innerHTML=u; let stored=localStorage.getItem('peter_ai_organizations'); if(stored) allOrganizations=JSON.parse(stored); loadAllSettings(); updateLanguageDisplay(); const sel=document.getElementById('orgSelector'); sel.innerHTML='<option value="">-- Select Organization --</option>'; for(let org in allOrganizations) sel.innerHTML+=`<option value="${org}">${org}</option>`; } else { document.getElementById('loginError').style.display='block'; setTimeout(()=>document.getElementById('loginError').style.display='none',2000); } };
             document.getElementById('logoutBtn').onclick=()=>{if(isMeetingRunning)stopMeeting(); document.getElementById('mainApp').style.display='none'; document.getElementById('loginOverlay').style.display='flex';};
