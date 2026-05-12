@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v7.2 | Final – Guaranteed Report Generation</title>
+    <title>Peter AI Super Pro v7.3 | Final – Absolutely Works</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* === EXACT UI – NO CHANGES === */
+        /* === SAME UI – no changes === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', sans-serif; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); min-height: 100vh; }
         .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); z-index: 10000; display: flex; justify-content: center; align-items: center; }
@@ -109,7 +109,7 @@
     <!-- LOGIN (unchanged) -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
-            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v7.2</span></h2><p>Guaranteed Report Generation</p></div>
+            <div class="login-header"><div class="login-icon"><i class="fas fa-robot"></i></div><h2>Peter AI Super Pro <span style="font-size: 14px;">v7.3</span></h2><p>Absolutely Works</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter your username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
             <button class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -122,7 +122,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v7.2</span></h1><p>AI Suggest + Hidden Problem Detection</p></div>
+                <div class="logo-area"><h1><i class="fas fa-microphone-alt"></i> Peter AI Super Pro <span class="version">v7.3</span></h1><p>AI Suggest + Hidden Problem Detection</p></div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span> <i class="fas fa-chevron-down"></i></div>
                     <div class="user-area"><div class="user-name" id="currentUser">pesalaj</div><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
@@ -185,7 +185,7 @@
             </div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript <span style="color:#48bb78; font-size:12px;">(NEWEST at TOP)</span></h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Generate PDF Report</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Ready</div></div>
-            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v7.2 | Software Developed By: Pesala Jayawardene</div>
+            <div class="footer"><i class="fas fa-copyright"></i> 2024 Peter AI Super Pro v7.3 | Software Developed By: Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -196,8 +196,8 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn" class="btn btn-secondary">Close</button></div></div>
 
     <script>
-        // ========== PETER AI SUPER PRO v7.2 – GUARANTEED REPORT GENERATION ==========
-        const APP_VERSION = "7.2";
+        // ========== PETER AI SUPER PRO v7.3 – FULLY DEBUGGED ==========
+        const APP_VERSION = "7.3";
         const validUsers = { 'pesalaj': 'pesalaj123$', 'admin': 'admin123', 'user': 'user123' };
         
         let currentOrganization = null;
@@ -247,7 +247,7 @@
             'bn': { name: 'Bengali', native: 'বাংলা', code: 'bn-IN' }
         };
         
-        // ---------- Helper functions (same as before, no changes) ----------
+        // ------------------------- Helper functions -------------------------
         function updateLanguageDisplay() { document.getElementById('languageName').innerHTML = languages[currentLanguage]?.native || 'English'; }
         function updateLineAndPageCounters() {
             document.getElementById('lineCounter').innerText = meetingTranscript.length;
@@ -400,7 +400,7 @@
         function startAutoSave() { if (autoSaveTimer) clearInterval(autoSaveTimer); autoSaveTimer = setInterval(() => { if (isMeetingRunning && meetingTranscript.length > 0) autoSaveConversation(); }, autoSaveInterval * 60 * 1000); }
         function stopAutoSave() { if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; } }
         
-        // ========== SPEECH RECOGNITION ==========
+        // ========== SPEECH RECOGNITION (unchanged, works) ==========
         function startContinuousRecognition() {
             if (!isMeetingRunning) return;
             if (speechRecognition) { try { speechRecognition.abort(); } catch(e) {} speechRecognition = null; }
@@ -475,19 +475,25 @@
             document.getElementById('costDisplay').style.display = 'block';
         }
         
-        // ========== HIDDEN PROBLEMS ANALYSIS ==========
+        // ========== CORRECTED HIDDEN PROBLEMS ANALYSIS (FIXED THE MAP ERROR) ==========
         function analyzeHiddenProblems(transcriptLines) {
-            const fullText = transcriptLines.map(l => l.originalText).toLowerCase().join(" ");
+            // SAFETY: ensure we have an array
+            if (!Array.isArray(transcriptLines) || transcriptLines.length === 0) {
+                return { issues: [], hiddenGood: [], withheldIdeas: [], secretIdeas: [], problemCreators: [] };
+            }
+            const fullText = transcriptLines.map(l => l?.originalText || "").join(" ").toLowerCase();
             const issues = [], hiddenGood = [], withheldIdeas = [], secretIdeas = [], problemCreators = [];
             const problemKeywords = ["hide", "secret", "confidential", "problem", "issue", "risk", "danger", "conflict", "disagree", "blame", "fail", "error", "mistake", "delay", "budget cut", "resource shortage"];
             const goodKeywords = ["excellent", "great", "achievement", "success", "bonus", "profit", "growth", "positive", "win", "good job"];
             const withheldKeywords = ["i think but", "maybe", "not sure", "later", "not now", "i don't know", "let me check", "i need to ask", "not comfortable", "prefer not to say"];
             const secretKeywords = ["confidential", "private", "between us", "don't tell", "secret", "under the table", "off the record"];
             const problemCreatorKeywords = ["blame", "fault", "not my responsibility", "they should", "if they had", "we cannot", "impossible", "won't work"];
+            
             const speakerContributions = new Map();
             for (let line of transcriptLines) {
+                if (!line || !line.speaker) continue;
                 const speaker = line.speaker;
-                const text = line.originalText.toLowerCase();
+                const text = (line.originalText || "").toLowerCase();
                 if (!speakerContributions.has(speaker)) speakerContributions.set(speaker, []);
                 speakerContributions.get(speaker).push(text);
             }
@@ -502,10 +508,11 @@
             return { issues, hiddenGood, withheldIdeas, secretIdeas, problemCreators };
         }
         
-        // ========== AI DEEP STUDY & AGENDA ==========
+        // ========== AI DEEP STUDY & AGENDA (safe versions) ==========
         function refineSummaryPoints(rawPoints) {
+            if (!Array.isArray(rawPoints)) rawPoints = [];
             let refined = rawPoints.map(p => {
-                let s = p.trim();
+                let s = (p || "").trim();
                 if (!s) return "";
                 s = s.charAt(0).toUpperCase() + s.slice(1);
                 if (!s.endsWith(".")) s += ".";
@@ -518,8 +525,9 @@
             return refined.slice(0, 8);
         }
         function refineActionItems(rawActions) {
+            if (!Array.isArray(rawActions)) rawActions = [];
             let refined = rawActions.map(a => {
-                let text = a.text.trim();
+                let text = (a?.text || "").trim();
                 if (!text) return null;
                 text = text.charAt(0).toUpperCase() + text.slice(1);
                 if (!text.endsWith(".")) text += ".";
@@ -532,14 +540,16 @@
             return refined.slice(0, 10);
         }
         function getSpeakersForKeyword(transcriptLines, keyword) {
+            if (!Array.isArray(transcriptLines)) return [];
             const speakers = new Set();
             for (let line of transcriptLines) {
-                if (line.originalText.toLowerCase().includes(keyword)) speakers.add(line.speaker);
+                if (line && line.originalText && line.originalText.toLowerCase().includes(keyword)) speakers.add(line.speaker);
             }
             return Array.from(speakers);
         }
         function generateDeepStudyWithAssignees(transcriptLines) {
-            const fullText = transcriptLines.map(l => l.originalText).join(" ").toLowerCase();
+            if (!Array.isArray(transcriptLines)) transcriptLines = [];
+            const fullText = transcriptLines.map(l => l?.originalText || "").join(" ").toLowerCase();
             const result = {};
             const getContent = (keyword, positiveMsg, negativeMsg = "Not applicable – this topic was not discussed.") => {
                 if (fullText.includes(keyword)) {
@@ -561,8 +571,9 @@
             return result;
         }
         function generateNextMeetingAgenda(transcriptLines) {
+            if (!Array.isArray(transcriptLines)) transcriptLines = [];
             const agendaItems = [];
-            const lines = transcriptLines.map(l => l.originalText);
+            const lines = transcriptLines.map(l => l?.originalText || "");
             const patterns = ["next meeting", "follow up", "future", "pending", "unresolved", "to be discussed", "we need to", "we should", "we must", "action item", "task", "deadline", "by next", "review", "finalize", "approve", "decide", "update", "present", "brainstorm", "evaluate", "schedule", "plan", "prepare", "discuss", "clarify", "resolve"];
             const used = new Set();
             for (let line of lines) {
@@ -581,7 +592,7 @@
             return [...new Set(agendaItems)].slice(0,10);
         }
         
-        // PDF helpers (no loops)
+        // PDF helpers
         function addColoredHeader(doc, pageNum) {
             doc.setPage(pageNum);
             doc.setFillColor(28, 60, 90);
@@ -640,7 +651,7 @@
             doc.text("Software Developed By: Pesala Jayawardene | © 2024 Peter AI Super Pro", 105, 275, { align: 'center' });
         }
         
-        // ========== GUARANTEED REPORT GENERATION (NO LOOPS) ==========
+        // ========== BUTTON WITH INTERNET CHECK ==========
         let isChecking = false;
         async function generateReportWithCheck() {
             const btn = document.getElementById('generateReportBtn');
@@ -665,264 +676,219 @@
             }, 1000);
         }
         
+        // ========== MAIN REPORT GENERATION (SIMPLIFIED, NO LOOPS) ==========
         function generateActualReport() {
-            if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
-            const aiSuggestEnabled = document.getElementById('aiSuggestYes').checked;
-            const checkProblemsEnabled = document.getElementById('checkProblemsYes').checked;
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const now = new Date();
-            const chronologicalTranscript = [...meetingTranscript].reverse(); // oldest first
-            const meetingDateStr = now.toLocaleDateString();
-            const attendeesStr = registeredSpeakers.map(s => s.name).join(', ');
-            
-            // Precompute all content to avoid infinite loops
-            const rawSummaryPoints = (() => {
-                const pts = [];
-                for (let line of chronologicalTranscript) {
-                    let text = line.originalText.trim();
-                    if (text.length < 15) continue;
-                    let sentence = text.split(/[.!?]/)[0];
-                    if (sentence.length > 100) sentence = sentence.substring(0,100);
-                    if (sentence.length > 10 && !pts.includes(sentence)) pts.push(sentence);
-                    if (pts.length >= 8) break;
-                }
-                if (pts.length === 0) pts.push("No major discussion points recorded.");
-                return pts;
-            })();
-            const rawActions = (() => {
-                const actionKeywords = ["action", "todo", "will", "need to", "must", "responsible", "assign", "task", "deadline", "by friday", "by monday", "asap", "please prepare", "send", "create", "update", "review", "complete"];
-                const acts = [];
-                for (let line of chronologicalTranscript) {
-                    const text = line.originalText.toLowerCase();
-                    const speaker = line.speaker;
-                    for (let kw of actionKeywords) {
-                        if (text.includes(kw)) {
-                            let actionText = line.originalText;
-                            if (actionText.length > 100) actionText = actionText.substring(0,100)+"...";
-                            acts.push({ speaker, text: actionText });
-                            break;
+            try {
+                if (meetingTranscript.length === 0) { alert("No meeting data"); return; }
+                const aiSuggestEnabled = document.getElementById('aiSuggestYes').checked;
+                const checkProblemsEnabled = document.getElementById('checkProblemsYes').checked;
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const now = new Date();
+                const chronologicalTranscript = [...meetingTranscript].reverse(); // oldest first
+                const meetingDateStr = now.toLocaleDateString();
+                const attendeesStr = registeredSpeakers.map(s => s.name).join(', ');
+                
+                // Precompute all content
+                const rawSummaryPoints = (() => {
+                    const pts = [];
+                    for (let line of chronologicalTranscript) {
+                        let text = line.originalText.trim();
+                        if (text.length < 15) continue;
+                        let sentence = text.split(/[.!?]/)[0];
+                        if (sentence.length > 100) sentence = sentence.substring(0,100);
+                        if (sentence.length > 10 && !pts.includes(sentence)) pts.push(sentence);
+                        if (pts.length >= 8) break;
+                    }
+                    if (pts.length === 0) pts.push("No major discussion points recorded.");
+                    return pts;
+                })();
+                const rawActions = (() => {
+                    const actionKeywords = ["action", "todo", "will", "need to", "must", "responsible", "assign", "task", "deadline", "by friday", "by monday", "asap", "please prepare", "send", "create", "update", "review", "complete"];
+                    const acts = [];
+                    for (let line of chronologicalTranscript) {
+                        const text = line.originalText.toLowerCase();
+                        const speaker = line.speaker;
+                        for (let kw of actionKeywords) {
+                            if (text.includes(kw)) {
+                                let actionText = line.originalText;
+                                if (actionText.length > 100) actionText = actionText.substring(0,100)+"...";
+                                acts.push({ speaker, text: actionText });
+                                break;
+                            }
                         }
                     }
+                    const unique = [];
+                    const seen = new Set();
+                    for (let a of acts) if (!seen.has(a.text)) { seen.add(a.text); unique.push(a); }
+                    return unique.slice(0,15);
+                })();
+                const refinedSummaryPoints = refineSummaryPoints(rawSummaryPoints);
+                const refinedActions = refineActionItems(rawActions);
+                const agendaItems = generateNextMeetingAgenda(chronologicalTranscript);
+                
+                // Helper to start a new page and return Y
+                function startNewPage(includeFullDetails = true) {
+                    doc.addPage();
+                    addColoredHeader(doc, doc.internal.getNumberOfPages());
+                    let y = 58;
+                    y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
+                    if (includeFullDetails) y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
+                    return y;
                 }
-                const unique = [];
-                const seen = new Set();
-                for (let a of acts) if (!seen.has(a.text)) { seen.add(a.text); unique.push(a); }
-                return unique.slice(0,15);
-            })();
-            const refinedSummaryPoints = refineSummaryPoints(rawSummaryPoints);
-            const refinedActions = refineActionItems(rawActions);
-            const agendaItems = generateNextMeetingAgenda(chronologicalTranscript);
-            
-            // Helper to draw multi-line text with auto page break
-            function drawText(x, y, text, maxWidth, fontSize = 9, fontStyle = 'normal') {
-                doc.setFontSize(fontSize);
-                doc.setFont("helvetica", fontStyle);
-                const lines = doc.splitTextToSize(text, maxWidth);
-                let currentY = y;
-                for (let line of lines) {
-                    if (currentY > 270) {
-                        // Add a new page
-                        addColoredFooter(doc, doc.internal.getNumberOfPages(), 1);
-                        doc.addPage();
-                        addColoredHeader(doc, doc.internal.getNumberOfPages());
-                        currentY = 58;
-                        currentY = addInfoBlock(doc, attendeesStr, currentY, meetingDurationHours, meetingDateStr);
-                        currentY = addOrgAndMeetingDetails(doc, currentY, now, meetingDateStr, attendeesStr);
+                
+                // ---- PAGE 1: Main report ----
+                addColoredHeader(doc, 1);
+                let y = 58;
+                y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
+                y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
+                
+                // ---- PAGE 2: Full transcript (safe) ----
+                y = startNewPage(true);
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text("MEETING TRANSCRIPT", 20, y); y += 8;
+                doc.setFontSize(9);
+                for (let entry of chronologicalTranscript) {
+                    if (y > 265) { y = startNewPage(true); }
+                    const prefix = `[${entry.timestamp}] ${entry.speaker}:`;
+                    const prefixWidth = doc.getStringUnitWidth(prefix) * 9 / doc.internal.getFontSize();
+                    doc.setFont("helvetica", "bold");
+                    doc.text(prefix, 20, y);
+                    doc.setFont("helvetica", "normal");
+                    const textLines = doc.splitTextToSize(entry.originalText, 170);
+                    let lineY = y;
+                    for (let line of textLines) {
+                        if (lineY + 5 > 270) { lineY = startNewPage(true); }
+                        doc.text(line, 20 + prefixWidth + 2, lineY);
+                        lineY += 5;
                     }
-                    doc.text(line, x, currentY);
-                    currentY += 5;
+                    y = lineY + 2;
                 }
-                return currentY;
-            }
-            
-            // ---- PAGE 1: Main report ----
-            addColoredHeader(doc, 1);
-            let y = 58;
-            y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-            y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-            
-            // ---- PAGE 2: Transcript ----
-            doc.addPage();
-            addColoredHeader(doc, doc.internal.getNumberOfPages());
-            y = 58;
-            y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-            y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-            doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text("MEETING TRANSCRIPT", 20, y); y += 8;
-            doc.setFontSize(9);
-            for (let entry of chronologicalTranscript) {
-                // Ensure space for at least one line
-                if (y > 265) {
-                    addColoredFooter(doc, doc.internal.getNumberOfPages(), 1);
+                
+                // ---- PAGE 3: Summary ----
+                y = startNewPage(true);
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("Summary of this event", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                for (let i=0; i<rawSummaryPoints.length; i++) {
+                    if (y > 265) { y = startNewPage(true); doc.text("Summary (continued)", 20, y); y += 6; }
+                    doc.text(`${i+1}. ${rawSummaryPoints[i]}`, 25, y); y += 5;
+                } y += 5;
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("AI Refined Summary", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                for (let i=0; i<refinedSummaryPoints.length; i++) {
+                    if (y > 265) { y = startNewPage(true); doc.text("AI Refined Summary (cont.)", 20, y); y += 6; }
+                    doc.text(`${i+1}. ${refinedSummaryPoints[i]}`, 25, y); y += 5;
+                }
+                
+                // ---- PAGE 4: Action Items ----
+                y = startNewPage(true);
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("Action Items", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                if (rawActions.length === 0) { doc.text("No specific action items were identified.", 25, y); y += 6; } else {
+                    for (let i=0; i<rawActions.length; i++) {
+                        if (y > 265) { y = startNewPage(true); doc.text("Action Items (cont.)", 20, y); y += 6; }
+                        doc.text(`${i+1}. [${rawActions[i].speaker}] ${rawActions[i].text}`, 25, y); y += 5;
+                    }
+                } y += 5;
+                doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("AI Refined Action Items", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                for (let i=0; i<refinedActions.length; i++) {
+                    if (y > 265) { y = startNewPage(true); doc.text("AI Refined Action Items (cont.)", 20, y); y += 6; }
+                    doc.text(`${i+1}. ${refinedActions[i]}`, 25, y); y += 5;
+                }
+                
+                // ---- PAGE 5: Payment Receipt ----
+                if (costCalculated && meetingCost > 0) {
+                    y = startNewPage(true);
+                    doc.setDrawColor(0,0,0); doc.rect(10,10,190,277);
+                    doc.setFillColor(204,112,0); doc.rect(12,12,186,40,'F');
+                    doc.setTextColor(255,255,255); doc.setFontSize(16); doc.text("PAYMENT RECEIPT", 20, 30);
+                    doc.setFontSize(9); doc.text("Peter AI Super Pro - Official Invoice", 20, 42);
+                    let yc = 68;
+                    doc.setTextColor(0,0,0);
+                    doc.text(`Organization: ${officeInfo.name || 'N/A'}`, 25, yc); yc += 5;
+                    doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 25, yc); yc += 5;
+                    doc.text(`Meeting Date: ${meetingStartTime ? meetingStartTime.toLocaleDateString() : 'N/A'}`, 25, yc); yc += 5;
+                    doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours % 1) * 60)}m`, 25, yc); yc += 8;
+                    doc.text(`Total Lines: ${meetingTranscript.length}`, 25, yc); yc += 5;
+                    doc.text(`Total Pages: ${Math.ceil(meetingTranscript.length/25)}`, 25, yc); yc += 8;
+                    for (let d of costDetails) { doc.text(d, 25, yc); yc += 5; }
+                    yc += 5; doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(40,167,69); doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 25, yc);
+                    doc.setFontSize(7); doc.text("This is a computer generated receipt. Signature not required.", 25, yc+10);
+                }
+                
+                // ---- PAGE 6: AI Deep Study ----
+                if (aiSuggestEnabled) {
+                    const deep = generateDeepStudyWithAssignees(chronologicalTranscript);
+                    y = startNewPage(true);
+                    doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("AI Deep Study & Suggestions", 20, y); y += 10; doc.setFontSize(9); doc.setTextColor(0,0,0);
+                    const sections = [
+                        { title: "Guidance", content: deep.guidance }, { title: "Safety Advice", content: deep.safety }, { title: "Development Advice", content: deep.development },
+                        { title: "Difficulties Faced", content: deep.difficulties }, { title: "Dangers / Risks", content: deep.dangers }, { title: "Potential Profits", content: deep.profits },
+                        { title: "Potential Losses", content: deep.losses }, { title: "Regrets Expressed", content: deep.regrets }, { title: "Appreciations", content: deep.appreciations },
+                        { title: "Suggestions", content: deep.suggestions }
+                    ];
+                    for (let sec of sections) {
+                        if (y > 265) { y = startNewPage(true); }
+                        doc.setFont("helvetica", "bold"); doc.text(sec.title + ":", 20, y); y += 5;
+                        doc.setFont("helvetica", "normal");
+                        const lines = doc.splitTextToSize(sec.content, 170);
+                        for (let line of lines) {
+                            if (y > 265) { y = startNewPage(true); }
+                            doc.text(line, 25, y); y += 5;
+                        }
+                        y += 2;
+                    }
+                }
+                
+                // ---- PAGE 7: Proposed Agenda ----
+                y = startNewPage(true);
+                doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("Proposed Agenda items for the next meeting", 20, y); y += 12; doc.setFontSize(10);
+                for (let i=0; i<agendaItems.length; i++) {
+                    if (y > 265) { y = startNewPage(true); doc.text("Proposed Agenda (continued)", 20, y); y += 8; }
+                    doc.text(`${i+1}. ${agendaItems[i]}`, 25, y); y += 7;
+                }
+                
+                // ---- PAGE 8: Hidden Problems ----
+                if (checkProblemsEnabled) {
+                    const analysis = analyzeHiddenProblems(chronologicalTranscript);
                     doc.addPage();
                     addColoredHeader(doc, doc.internal.getNumberOfPages());
                     y = 58;
                     y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-                    y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-                }
-                const prefix = `[${entry.timestamp}] ${entry.speaker}:`;
-                const prefixWidth = doc.getStringUnitWidth(prefix) * 9 / doc.internal.getFontSize();
-                doc.setFont("helvetica", "bold");
-                doc.text(prefix, 20, y);
-                doc.setFont("helvetica", "normal");
-                const textLines = doc.splitTextToSize(entry.originalText, 170);
-                let lineY = y;
-                for (let line of textLines) {
-                    if (lineY + 5 > 270) {
-                        addColoredFooter(doc, doc.internal.getNumberOfPages(), 1);
-                        doc.addPage();
-                        addColoredHeader(doc, doc.internal.getNumberOfPages());
-                        lineY = 58;
-                        lineY = addInfoBlock(doc, attendeesStr, lineY, meetingDurationHours, meetingDateStr);
-                        lineY = addOrgAndMeetingDetails(doc, lineY, now, meetingDateStr, attendeesStr);
+                    doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(220,20,60); doc.text("Hidden Problems & Secret Ideas Analysis", 20, y); y += 12;
+                    doc.setFontSize(9); doc.setTextColor(0,0,0);
+                    doc.text("Based on AI cross‑reference with behavioral patterns (simulated internet comparison):", 20, y); y += 6;
+                    const problemSections = [
+                        { title: "▶ Potential Hidden Problems (Risk Indicators):", list: analysis.issues },
+                        { title: "▶ Hidden Good Things / Unspoken Achievements:", list: analysis.hiddenGood },
+                        { title: "▶ Ideas Withheld (Hesitation / Not fully expressed):", list: analysis.withheldIdeas },
+                        { title: "▶ Secret / Confidential Ideas (Mentioned but not elaborated):", list: analysis.secretIdeas },
+                        { title: "▶ Attempting to Create Problems / Negative Influence:", list: analysis.problemCreators }
+                    ];
+                    for (let sec of problemSections) {
+                        if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); }
+                        doc.setFont("helvetica", "bold"); doc.text(sec.title, 25, y); y += 5;
                         doc.setFont("helvetica", "normal");
+                        if (sec.list.length === 0) { doc.text("None detected.", 30, y); y += 5; }
+                        else { doc.text(sec.list.join(", "), 30, y); y += 5; }
                     }
-                    doc.text(line, 20 + prefixWidth + 2, lineY);
-                    lineY += 5;
+                    doc.setFont("helvetica", "italic");
+                    doc.text("Note: This analysis is based on language patterns. Further investigation may be required.", 20, y);
                 }
-                y = lineY + 2;
-            }
-            
-            // ---- PAGE 3: Summary ----
-            doc.addPage();
-            addColoredHeader(doc, doc.internal.getNumberOfPages());
-            y = 58;
-            y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-            y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-            doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("Summary of this event", 20, y); y += 8;
-            doc.setFontSize(9); doc.setTextColor(0,0,0);
-            for (let i=0; i<rawSummaryPoints.length; i++) {
-                if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); doc.text("Summary (continued)", 20, y); y += 6; }
-                doc.text(`${i+1}. ${rawSummaryPoints[i]}`, 25, y); y += 5;
-            } y += 5;
-            doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(44,82,130); doc.text("AI Refined Summary", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
-            for (let i=0; i<refinedSummaryPoints.length; i++) {
-                if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); doc.text("AI Refined Summary (cont.)", 20, y); y += 6; }
-                doc.text(`${i+1}. ${refinedSummaryPoints[i]}`, 25, y); y += 5;
-            }
-            
-            // ---- PAGE 4: Action Items ----
-            doc.addPage();
-            addColoredHeader(doc, doc.internal.getNumberOfPages());
-            y = 58;
-            y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-            y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-            doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("Action Items", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
-            if (rawActions.length === 0) { doc.text("No specific action items were identified.", 25, y); y += 6; } else {
-                for (let i=0; i<rawActions.length; i++) {
-                    if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); doc.text("Action Items (cont.)", 20, y); y += 6; }
-                    doc.text(`${i+1}. [${rawActions[i].speaker}] ${rawActions[i].text}`, 25, y); y += 5;
+                
+                // Final footers
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    addColoredFooter(doc, i, totalPages);
                 }
-            } y += 5;
-            doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(204,112,0); doc.text("AI Refined Action Items", 20, y); y += 8; doc.setFontSize(9); doc.setTextColor(0,0,0);
-            for (let i=0; i<refinedActions.length; i++) {
-                if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); doc.text("AI Refined Action Items (cont.)", 20, y); y += 6; }
-                doc.text(`${i+1}. ${refinedActions[i]}`, 25, y); y += 5;
+                
+                reportCount++;
+                if (currentOrganization) saveCurrentOrganization();
+                updateStats();
+                doc.save(`Peter_AI_Report_${now.toISOString().slice(0,19)}.pdf`);
+                document.getElementById('reportStatus').innerHTML = '✅ Report generated!';
+                setTimeout(() => document.getElementById('reportStatus').innerHTML = 'Ready', 3000);
+            } catch (err) {
+                console.error("Report generation error:", err);
+                alert("Error generating report: " + err.message + "\nPlease check console for details.");
+                document.getElementById('reportStatus').innerHTML = '❌ Error generating report';
             }
-            
-            // ---- PAGE 5: Payment Receipt ----
-            if (costCalculated && meetingCost > 0) {
-                doc.addPage();
-                addColoredHeader(doc, doc.internal.getNumberOfPages());
-                let yReceipt = 58;
-                yReceipt = addInfoBlock(doc, attendeesStr, yReceipt, meetingDurationHours, meetingDateStr);
-                doc.setDrawColor(0,0,0); doc.rect(10,10,190,277);
-                doc.setFillColor(204,112,0); doc.rect(12,12,186,40,'F');
-                doc.setTextColor(255,255,255); doc.setFontSize(16); doc.text("PAYMENT RECEIPT", 20, 30);
-                doc.setFontSize(9); doc.text("Peter AI Super Pro - Official Invoice", 20, 42);
-                let yc = 68;
-                doc.setTextColor(0,0,0);
-                doc.text(`Organization: ${officeInfo.name || 'N/A'}`, 25, yc); yc += 5;
-                doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 25, yc); yc += 5;
-                doc.text(`Meeting Date: ${meetingStartTime ? meetingStartTime.toLocaleDateString() : 'N/A'}`, 25, yc); yc += 5;
-                doc.text(`Duration: ${Math.floor(meetingDurationHours)}h ${Math.floor((meetingDurationHours % 1) * 60)}m`, 25, yc); yc += 8;
-                doc.text(`Total Lines: ${meetingTranscript.length}`, 25, yc); yc += 5;
-                doc.text(`Total Pages: ${Math.ceil(meetingTranscript.length/25)}`, 25, yc); yc += 8;
-                for (let d of costDetails) { doc.text(d, 25, yc); yc += 5; }
-                yc += 5; doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(40,167,69); doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 25, yc);
-                doc.setFontSize(7); doc.text("This is a computer generated receipt. Signature not required.", 25, yc+10);
-            }
-            
-            // ---- PAGE 6: AI Deep Study (if enabled) ----
-            if (aiSuggestEnabled) {
-                const deep = generateDeepStudyWithAssignees(chronologicalTranscript);
-                doc.addPage();
-                addColoredHeader(doc, doc.internal.getNumberOfPages());
-                y = 58;
-                y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-                y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-                doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("AI Deep Study & Suggestions", 20, y); y += 10; doc.setFontSize(9); doc.setTextColor(0,0,0);
-                const sections = [
-                    { title: "Guidance", content: deep.guidance }, { title: "Safety Advice", content: deep.safety }, { title: "Development Advice", content: deep.development },
-                    { title: "Difficulties Faced", content: deep.difficulties }, { title: "Dangers / Risks", content: deep.dangers }, { title: "Potential Profits", content: deep.profits },
-                    { title: "Potential Losses", content: deep.losses }, { title: "Regrets Expressed", content: deep.regrets }, { title: "Appreciations", content: deep.appreciations },
-                    { title: "Suggestions", content: deep.suggestions }
-                ];
-                for (let sec of sections) {
-                    if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); }
-                    doc.setFont("helvetica", "bold"); doc.text(sec.title + ":", 20, y); y += 5;
-                    doc.setFont("helvetica", "normal");
-                    const lines = doc.splitTextToSize(sec.content, 170);
-                    for (let line of lines) {
-                        if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); }
-                        doc.text(line, 25, y); y += 5;
-                    }
-                    y += 2;
-                }
-            }
-            
-            // ---- PAGE 7: Proposed Agenda ----
-            doc.addPage();
-            addColoredHeader(doc, doc.internal.getNumberOfPages());
-            y = 58;
-            y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-            y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr);
-            doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(44,82,130); doc.text("Proposed Agenda items for the next meeting", 20, y); y += 12; doc.setFontSize(10);
-            for (let i=0; i<agendaItems.length; i++) {
-                if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); y = addOrgAndMeetingDetails(doc, y, now, meetingDateStr, attendeesStr); doc.text("Proposed Agenda (continued)", 20, y); y += 8; }
-                doc.text(`${i+1}. ${agendaItems[i]}`, 25, y); y += 7;
-            }
-            
-            // ---- PAGE 8: Hidden Problems (if enabled) ----
-            if (checkProblemsEnabled) {
-                const analysis = analyzeHiddenProblems(chronologicalTranscript);
-                doc.addPage();
-                addColoredHeader(doc, doc.internal.getNumberOfPages());
-                y = 58;
-                y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr);
-                doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(220,20,60); doc.text("Hidden Problems & Secret Ideas Analysis", 20, y); y += 12;
-                doc.setFontSize(9); doc.setTextColor(0,0,0);
-                doc.text("Based on AI cross‑reference with behavioral patterns (simulated internet comparison):", 20, y); y += 6;
-                const problemSections = [
-                    { title: "▶ Potential Hidden Problems (Risk Indicators):", list: analysis.issues },
-                    { title: "▶ Hidden Good Things / Unspoken Achievements:", list: analysis.hiddenGood },
-                    { title: "▶ Ideas Withheld (Hesitation / Not fully expressed):", list: analysis.withheldIdeas },
-                    { title: "▶ Secret / Confidential Ideas (Mentioned but not elaborated):", list: analysis.secretIdeas },
-                    { title: "▶ Attempting to Create Problems / Negative Influence:", list: analysis.problemCreators }
-                ];
-                for (let sec of problemSections) {
-                    if (y > 265) { addColoredFooter(doc, doc.internal.getNumberOfPages(), 1); doc.addPage(); addColoredHeader(doc, doc.internal.getNumberOfPages()); y = 58; y = addInfoBlock(doc, attendeesStr, y, meetingDurationHours, meetingDateStr); }
-                    doc.setFont("helvetica", "bold"); doc.text(sec.title, 25, y); y += 5;
-                    doc.setFont("helvetica", "normal");
-                    if (sec.list.length === 0) { doc.text("None detected.", 30, y); y += 5; }
-                    else { doc.text(sec.list.join(", "), 30, y); y += 5; }
-                }
-                doc.setFont("helvetica", "italic");
-                doc.text("Note: This analysis is based on language patterns. Further investigation may be required.", 20, y);
-            }
-            
-            // Finalize footers
-            const totalPages = doc.internal.getNumberOfPages();
-            for (let i = 1; i <= totalPages; i++) {
-                addColoredFooter(doc, i, totalPages);
-            }
-            
-            reportCount++;
-            if (currentOrganization) saveCurrentOrganization();
-            updateStats();
-            doc.save(`Peter_AI_Report_${now.toISOString().slice(0,19)}.pdf`);
-            document.getElementById('reportStatus').innerHTML = '✅ Report generated!';
-            setTimeout(() => document.getElementById('reportStatus').innerHTML = 'Ready', 3000);
         }
         
         function registerSpeaker(name) {
