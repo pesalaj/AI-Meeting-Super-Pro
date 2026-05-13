@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v9.1 | Transcript PDF – Clean & Visible</title>
+    <title>Peter AI Super Pro v9.5 | Full Report – All Pages Working</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -78,7 +78,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-robot"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v9.1</h2><p>Transcript PDF – Clean & Visible</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v9.5</h2><p>Full Report – All Pages Working</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -90,7 +90,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span class="version">v9.1</span></h1><p>AI Suggest + Hidden Problems | PDF Transcript Works</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span class="version">v9.5</span></h1><p>AI Suggest + Hidden Problems | Full Report PDF</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -144,19 +144,19 @@
                 </div>
             </div>
             <div class="card"><div class="card-header"><h3>Live Transcript</h3><i class="fas fa-comment"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
-            <div class="card"><div class="card-header"><h3>Report Generation</h3><i class="fas fa-file-pdf"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate PDF (Full Transcript)</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v9.1 | Developed by Pesala Jayawardene</div>
+            <div class="card"><div class="card-header"><h3>Report Generation</h3><i class="fas fa-file-pdf"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
+            <div class="footer">© 2025 Peter AI Super Pro v9.5 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- Modals (unchanged) -->
     <div id="officeModal" class="modal"><div class="modal-content"><h3>Office Info</h3><input type="text" id="officeName" placeholder="Office Name"><textarea id="officeAddress" rows="3" placeholder="Address"></textarea><input type="text" id="meetingType" placeholder="Meeting Type"><div style="margin-top:15px;"><button id="saveOfficeBtn" class="btn btn-primary">Save</button><button id="closeOfficeBtn" class="btn btn-secondary">Cancel</button></div></div></div>
     <div id="historyModal" class="modal"><div class="modal-content"><h3>Meeting History</h3><div id="historyList"></div><button id="closeHistoryBtn" class="btn btn-secondary">Close</button></div></div>
     <div id="adminModal" class="modal"><div class="modal-content"><h3>Admin Panel</h3><input type="text" id="adminUsername" placeholder="Admin"><input type="password" id="adminPassword" placeholder="Password"><button id="adminLoginBtn">Login</button><div id="adminError" style="color:red;"></div><div id="adminPanel" style="display:none; margin-top:20px;"><h4>Meeting Rates</h4><label>0-1h: $<input id="rate0_1" value="15"></label><label>1-2h: $<input id="rate1_2" value="14"></label><label>2-4h: $<input id="rate2_4" value="12"></label><label>4h+: $<input id="rateAbove4" value="11"></label><button id="saveRatesBtn">Save</button><hr><h4>Translation</h4><label>Per lang/hour: $<input id="perLanguageRate" value="3.0"></label><label>All 15: $<input id="allLanguagesRate" value="50"></label><button id="saveTranslationRatesBtn">Save</button><hr><button id="masterResetBtn" class="btn btn-danger">MASTER RESET</button></div><button id="closeAdminBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v9.1 – SIMPLE, VISIBLE PDF ====================
+        // ==================== PETER AI v9.5 – FULL REPORT, ALL PAGES WORKING ====================
         (function(){
             const validUsers = { pesalaj: 'pesalaj123$', admin: 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -341,7 +341,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v9.1 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v9.5 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -362,86 +362,161 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== SIMPLE & RELIABLE PDF GENERATION – NO BACKGROUND HEADER ==========
+            // ========== AI ANALYSIS FUNCTIONS (for additional pages) ==========
+            function extractSummaryPoints() {
+                let points = [];
+                for(let line of transcript.slice().reverse()) {
+                    let text = line.originalText.trim();
+                    if(text.length < 20) continue;
+                    let sentence = text.split(/[.!?]/)[0];
+                    if(sentence.length > 100) sentence = sentence.substring(0,100);
+                    if(sentence.length > 10 && !points.includes(sentence)) points.push(sentence);
+                    if(points.length >= 8) break;
+                }
+                if(points.length === 0) points.push("No major discussion points recorded.");
+                return points;
+            }
+            function extractActionItems() {
+                let actions = [];
+                let keywords = ["action","todo","will","need to","must","task","deadline","responsible","assign"];
+                for(let line of transcript.slice().reverse()) {
+                    let text = line.originalText.toLowerCase();
+                    for(let kw of keywords) {
+                        if(text.includes(kw)) {
+                            let actionText = line.originalText;
+                            if(actionText.length > 100) actionText = actionText.substring(0,100)+"...";
+                            actions.push({ speaker: line.speaker, text: actionText });
+                            break;
+                        }
+                    }
+                    if(actions.length >= 12) break;
+                }
+                if(actions.length === 0) actions.push({ speaker: "System", text: "No specific action items identified." });
+                return actions;
+            }
+            function generateAgenda() {
+                let items = [];
+                let patterns = ["next meeting","follow up","pending","unresolved","action item","task","deadline","by next","review","finalize"];
+                for(let line of transcript.slice().reverse()) {
+                    let text = line.originalText.toLowerCase();
+                    if(text.length > 15 && patterns.some(p => text.includes(p))) {
+                        let item = line.originalText;
+                        if(item.length > 100) item = item.substring(0,100)+"...";
+                        items.push(item);
+                    }
+                    if(items.length >= 8) break;
+                }
+                if(items.length < 3) items = ["Review of previous action items", "Project status update", "Open discussion / Q&A", "Set next meeting date & time"];
+                return [...new Set(items)].slice(0,8);
+            }
+            function analyzeHiddenProblems() {
+                if(!transcript.length) return { issues:[], hiddenGood:[], withheld:[], secret:[], creators:[] };
+                let speakerMap = new Map();
+                for(let line of transcript) {
+                    if(!line.speaker) continue;
+                    if(!speakerMap.has(line.speaker)) speakerMap.set(line.speaker, []);
+                    speakerMap.get(line.speaker).push(line.originalText.toLowerCase());
+                }
+                let issues=[], good=[], withheld=[], secret=[], creators=[];
+                for(let [sp, texts] of speakerMap) {
+                    let all = texts.join(' ');
+                    if(/(hide|secret|confidential|problem|issue|risk|danger)/.test(all)) issues.push(sp);
+                    if(/(excellent|great|achievement|success|bonus)/.test(all)) good.push(sp);
+                    if(/(maybe|not sure|i don't know|not comfortable)/.test(all)) withheld.push(sp);
+                    if(/(confidential|private|off the record)/.test(all)) secret.push(sp);
+                    if(/(blame|fault|not my responsibility|impossible)/.test(all)) creators.push(sp);
+                }
+                return { issues, hiddenGood:good, withheldIdeas:withheld, secretIdeas:secret, problemCreators:creators };
+            }
+            function generateDeepStudy() {
+                let fullText = transcript.map(l=>l.originalText).join(" ").toLowerCase();
+                let get = (kw, pos, neg) => fullText.includes(kw) ? pos : neg;
+                return {
+                    guidance: get("guide","Focus on clear communication and documented decisions.","No guidance flagged."),
+                    safety: get("safe","Safety/security concerns raised. Conduct review.","No safety concerns."),
+                    development: get("develop","Skill development needed. Plan training.","No development topics."),
+                    difficulties: get("difficult","Challenges identified. Allocate resources.","No difficulties."),
+                    dangers: get("risk","Risks mentioned – ensure mitigation.","No risks detected."),
+                    profits: get("profit","Profit opportunities discussed.","No profit opportunities."),
+                    losses: get("loss","Potential losses mentioned. Review controls.","No losses."),
+                    regrets: get("regret","Regrets expressed. Learn from mistakes.","No regrets."),
+                    appreciations: get("thank","Appreciation expressed. Positive morale.","No appreciations."),
+                    suggestions: get("suggest","New suggestions proposed. Evaluate.","No suggestions.")
+                };
+            }
+            
+            // ========== FULL REPORT PDF – ALL PAGES ==========
             async function generateReport() {
                 if(!transcript.length) { 
                     alert("No meeting data to report. Please hold a meeting first."); 
                     return; 
                 }
                 
+                const aiEnabled = document.getElementById('aiSuggestYes').checked;
+                const problemsEnabled = document.getElementById('checkProblemsYes').checked;
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 const now = new Date();
-                const entries = [...transcript].reverse(); // oldest first
+                const entries = [...transcript].reverse();
                 const attendeeStr = speakers.map(s=>s.name).join(', ');
                 
-                // Simple header (plain text, no colored background)
-                let y = 20;
-                doc.setFontSize(16);
-                doc.setFont("helvetica","bold");
-                doc.text("Peter AI Super Pro - Meeting Transcript", 20, y);
-                y += 8;
-                doc.setFontSize(9);
-                doc.setFont("helvetica","normal");
-                doc.text(`Organization: ${office.name || 'N/A'}`, 20, y);
-                y += 5;
-                doc.text(`Address: ${office.address || 'N/A'}`, 20, y);
-                y += 5;
-                doc.text(`Meeting Type: ${office.type || 'General'}`, 20, y);
-                y += 5;
-                doc.text(`Date: ${now.toLocaleDateString()}  |  Time: ${now.toLocaleTimeString()}  |  Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, y);
-                y += 5;
-                doc.text(`Attendees: ${attendeeStr}`, 20, y);
-                y += 5;
-                doc.text(`Total Lines: ${transcript.length}`, 20, y);
-                y += 8;
-                doc.line(20, y, 190, y);
-                y += 6;
-                
-                // Title
-                doc.setFontSize(11);
-                doc.setFont("helvetica","bold");
-                doc.text("TRANSCRIPT", 20, y);
-                y += 8;
-                doc.setFontSize(9);
-                doc.setFont("helvetica","normal");
-                
-                // Write each line
-                for(let entry of entries) {
-                    // Check page break
-                    if(y > 270) {
+                // Helper: add standard header (without colored background)
+                function addHeader(pageNum, title) {
+                    doc.setPage(pageNum);
+                    let y = 20;
+                    doc.setFontSize(14);
+                    doc.setFont("helvetica","bold");
+                    doc.text("Peter AI Super Pro - Meeting Report", 20, y);
+                    y += 8;
+                    doc.setFontSize(9);
+                    doc.setFont("helvetica","normal");
+                    doc.text(`Organization: ${office.name || 'N/A'}  |  Meeting: ${office.type || 'General'}`, 20, y);
+                    y += 5;
+                    doc.text(`Date: ${now.toLocaleDateString()}  |  Time: ${now.toLocaleTimeString()}  |  Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, y);
+                    y += 5;
+                    doc.text(`Attendees: ${attendeeStr}`, 20, y);
+                    y += 8;
+                    doc.setFontSize(11);
+                    doc.setFont("helvetica","bold");
+                    doc.text(title, 20, y);
+                    y += 8;
+                    doc.setFontSize(9);
+                    doc.setFont("helvetica","normal");
+                    doc.line(20, y-2, 190, y-2);
+                    return y;
+                }
+                function addFooter(pageNum, total) {
+                    doc.setPage(pageNum);
+                    doc.setFontSize(7);
+                    doc.setTextColor(100,100,100);
+                    doc.text(`Generated: ${now.toLocaleString()}`, 20, 285);
+                    doc.text(`Page ${pageNum} of ${total}`, 105, 285, {align:'center'});
+                }
+                function checkPageBreak(y, needed=12) {
+                    if(y + needed > 275) {
                         doc.addPage();
-                        y = 20;
-                        // Re-print header on new page (simplified)
-                        doc.setFontSize(11);
-                        doc.setFont("helvetica","bold");
-                        doc.text("TRANSCRIPT (continued)", 20, y);
-                        y += 8;
-                        doc.setFontSize(9);
-                        doc.setFont("helvetica","normal");
+                        return addHeader(doc.internal.getNumberOfPages(), doc.internal.getCurrentPage() === 1 ? "MEETING TRANSCRIPT" : "(continued)");
                     }
-                    // Timestamp and speaker
+                    return y;
+                }
+                
+                // ========== PAGE 1: TRANSCRIPT ==========
+                let y = addHeader(1, "MEETING TRANSCRIPT");
+                for(let entry of entries) {
+                    y = checkPageBreak(y, 20);
                     doc.setFont("helvetica","bold");
                     doc.text(`[${entry.timestamp}] ${entry.speaker}:`, 20, y);
                     y += 5;
-                    // Spoken text
                     doc.setFont("helvetica","normal");
-                    const textLines = doc.splitTextToSize(entry.originalText, 170);
-                    for(let line of textLines) {
+                    let lines = doc.splitTextToSize(entry.originalText, 170);
+                    for(let line of lines) {
                         if(y > 275) {
                             doc.addPage();
-                            y = 20;
-                            doc.setFontSize(11);
-                            doc.setFont("helvetica","bold");
-                            doc.text("TRANSCRIPT (continued)", 20, y);
-                            y += 8;
-                            doc.setFontSize(9);
-                            doc.setFont("helvetica","normal");
+                            y = addHeader(doc.internal.getNumberOfPages(), "MEETING TRANSCRIPT (continued)");
                         }
                         doc.text(line, 25, y);
                         y += 5;
                     }
-                    // Separator
                     y += 2;
                     if(y < 275) {
                         doc.setDrawColor(200,200,200);
@@ -450,21 +525,131 @@
                     y += 2;
                 }
                 
-                // Footer
-                const totalPages = doc.internal.getNumberOfPages();
-                for(let i=1; i<=totalPages; i++) {
-                    doc.setPage(i);
-                    doc.setFontSize(7);
-                    doc.setTextColor(100,100,100);
-                    doc.text(`Generated: ${now.toLocaleString()}`, 20, 285);
-                    doc.text(`Page ${i} of ${totalPages}`, 105, 285, {align:'center'});
+                // ========== PAGE 2: SUMMARY & ACTION ITEMS ==========
+                doc.addPage();
+                y = addHeader(doc.internal.getNumberOfPages(), "SUMMARY & ACTION ITEMS");
+                let summaryPoints = extractSummaryPoints();
+                let actionItems = extractActionItems();
+                doc.setFont("helvetica","bold");
+                doc.text("Discussion Highlights:", 20, y);
+                y += 5;
+                doc.setFont("helvetica","normal");
+                for(let p of summaryPoints) {
+                    if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "SUMMARY & ACTION ITEMS (continued)"); }
+                    doc.text(`• ${p}`, 25, y);
+                    y += 5;
                 }
+                y += 5;
+                doc.setFont("helvetica","bold");
+                doc.text("Action Items:", 20, y);
+                y += 5;
+                doc.setFont("helvetica","normal");
+                for(let a of actionItems) {
+                    if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "ACTION ITEMS (continued)"); }
+                    doc.text(`• [${a.speaker}] ${a.text}`, 25, y);
+                    y += 5;
+                }
+                
+                // ========== PAGE 3: PROPOSED AGENDA ==========
+                doc.addPage();
+                y = addHeader(doc.internal.getNumberOfPages(), "PROPOSED NEXT MEETING AGENDA");
+                let agenda = generateAgenda();
+                for(let i=0; i<agenda.length; i++) {
+                    if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "PROPOSED AGENDA (continued)"); }
+                    doc.text(`${i+1}. ${agenda[i]}`, 25, y);
+                    y += 6;
+                }
+                
+                // ========== PAGE 4: AI DEEP STUDY (optional) ==========
+                if(aiEnabled) {
+                    doc.addPage();
+                    y = addHeader(doc.internal.getNumberOfPages(), "AI DEEP STUDY & SUGGESTIONS");
+                    let deep = generateDeepStudy();
+                    let sections = ["guidance","safety","development","difficulties","dangers","profits","losses","regrets","appreciations","suggestions"];
+                    for(let sec of sections) {
+                        if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "AI DEEP STUDY (continued)"); }
+                        doc.setFont("helvetica","bold");
+                        doc.text(sec.toUpperCase() + ":", 20, y);
+                        y += 5;
+                        doc.setFont("helvetica","normal");
+                        let lines = doc.splitTextToSize(deep[sec] || "No data available.", 170);
+                        for(let line of lines) {
+                            if(y > 275) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "AI DEEP STUDY (continued)"); }
+                            doc.text(line, 25, y);
+                            y += 5;
+                        }
+                        y += 3;
+                    }
+                }
+                
+                // ========== PAGE 5: HIDDEN PROBLEMS (optional) ==========
+                if(problemsEnabled) {
+                    doc.addPage();
+                    y = addHeader(doc.internal.getNumberOfPages(), "HIDDEN PROBLEMS & SECRET IDEAS");
+                    let problems = analyzeHiddenProblems();
+                    let sections = [
+                        { title: "Potential Hidden Problems (Risk Indicators):", list: problems.issues },
+                        { title: "Hidden Good Things / Unspoken Achievements:", list: problems.hiddenGood },
+                        { title: "Ideas Withheld (Hesitation / Not fully expressed):", list: problems.withheldIdeas },
+                        { title: "Secret / Confidential Ideas (Mentioned but not elaborated):", list: problems.secretIdeas },
+                        { title: "Attempting to Create Problems / Negative Influence:", list: problems.problemCreators }
+                    ];
+                    for(let sec of sections) {
+                        if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "HIDDEN PROBLEMS (continued)"); }
+                        doc.setFont("helvetica","bold");
+                        doc.text(sec.title, 20, y);
+                        y += 5;
+                        doc.setFont("helvetica","normal");
+                        let listText = sec.list.length ? sec.list.join(", ") : "None detected.";
+                        let lines = doc.splitTextToSize(listText, 170);
+                        for(let line of lines) {
+                            if(y > 275) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "HIDDEN PROBLEMS (continued)"); }
+                            doc.text(line, 25, y);
+                            y += 5;
+                        }
+                        y += 3;
+                    }
+                }
+                
+                // ========== PAGE 6: PAYMENT RECEIPT (optional) ==========
+                if(costCalculated && meetingCost > 0) {
+                    doc.addPage();
+                    let yR = 30;
+                    doc.setFontSize(16);
+                    doc.setFont("helvetica","bold");
+                    doc.text("PAYMENT RECEIPT", 20, yR);
+                    yR += 10;
+                    doc.setFontSize(9);
+                    doc.setFont("helvetica","normal");
+                    doc.text(`Organization: ${office.name || 'N/A'}`, 20, yR); yR += 6;
+                    doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 20, yR); yR += 6;
+                    doc.text(`Meeting Date: ${meetingStart ? meetingStart.toLocaleDateString() : 'N/A'}`, 20, yR); yR += 6;
+                    doc.text(`Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, yR); yR += 8;
+                    doc.text(`Total Lines: ${transcript.length}`, 20, yR); yR += 5;
+                    doc.text(`Total Pages (approx): ${Math.ceil(transcript.length/25)}`, 20, yR); yR += 8;
+                    for(let d of costDetailsArr) {
+                        if(yR > 270) { doc.addPage(); yR = 30; }
+                        doc.text(d, 20, yR); yR += 5;
+                    }
+                    yR += 5;
+                    doc.setFont("helvetica","bold");
+                    doc.setFontSize(11);
+                    doc.setTextColor(40,167,69);
+                    doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 20, yR);
+                    doc.setFontSize(7);
+                    doc.setTextColor(0,0,0);
+                    doc.text("This is a computer generated receipt. Signature not required.", 20, yR+10);
+                }
+                
+                // Add footers to all pages
+                let totalPages = doc.internal.getNumberOfPages();
+                for(let i=1; i<=totalPages; i++) addFooter(i, totalPages);
                 
                 reportCount++;
                 if(currentOrg) saveCurrentOrg();
                 updateUI();
-                doc.save(`Peter_AI_Transcript_${now.toISOString().slice(0,19)}.pdf`);
-                document.getElementById('reportStatus').innerHTML = '✅ PDF generated – transcript text is visible';
+                doc.save(`Peter_AI_Full_Report_${now.toISOString().slice(0,19)}.pdf`);
+                document.getElementById('reportStatus').innerHTML = '✅ Full report generated – all pages visible';
                 setTimeout(()=>document.getElementById('reportStatus').innerHTML='Ready',3000);
             }
             
@@ -504,10 +689,10 @@
                 let btn = document.getElementById('generateReportBtn');
                 if(btn.disabled) return;
                 btn.disabled=true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating PDF...';
+                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating Full Report...';
                 await generateReport();
                 btn.disabled=false;
-                btn.innerHTML = '<i class="fas fa-file-pdf"></i> Generate PDF (Full Transcript)';
+                btn.innerHTML = '<i class="fas fa-file-pdf"></i> Generate Full Report PDF';
             };
             document.getElementById('adminBtn').onclick = ()=>document.getElementById('adminModal').style.display='flex';
             document.getElementById('closeAdminBtn').onclick = ()=>document.getElementById('adminModal').style.display='none';
