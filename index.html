@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v9.5 | Full Report – All Pages Working</title>
+    <title>Peter AI Super Pro v9.6 | Full Report – All Pages Fixed</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -78,7 +78,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-robot"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v9.5</h2><p>Full Report – All Pages Working</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v9.6</h2><p>Full Report – All Pages Fixed</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -90,7 +90,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span class="version">v9.5</span></h1><p>AI Suggest + Hidden Problems | Full Report PDF</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span class="version">v9.6</span></h1><p>AI Suggest + Hidden Problems | Full Report PDF</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -145,7 +145,7 @@
             </div>
             <div class="card"><div class="card-header"><h3>Live Transcript</h3><i class="fas fa-comment"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3>Report Generation</h3><i class="fas fa-file-pdf"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v9.5 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v9.6 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -156,7 +156,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v9.5 – FULL REPORT, ALL PAGES WORKING ====================
+        // ==================== PETER AI v9.6 – FULL REPORT, ALL PAGES WORKING ====================
         (function(){
             const validUsers = { pesalaj: 'pesalaj123$', admin: 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -341,7 +341,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v9.5 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v9.6 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -362,7 +362,7 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== AI ANALYSIS FUNCTIONS (for additional pages) ==========
+            // ========== AI ANALYSIS FUNCTIONS ==========
             function extractSummaryPoints() {
                 let points = [];
                 for(let line of transcript.slice().reverse()) {
@@ -445,13 +445,9 @@
                 };
             }
             
-            // ========== FULL REPORT PDF – ALL PAGES ==========
+            // ========== FULL PDF REPORT – ALL PAGES EXPLICITLY ADDED ==========
             async function generateReport() {
-                if(!transcript.length) { 
-                    alert("No meeting data to report. Please hold a meeting first."); 
-                    return; 
-                }
-                
+                if(!transcript.length) { alert("No meeting data to report."); return; }
                 const aiEnabled = document.getElementById('aiSuggestYes').checked;
                 const problemsEnabled = document.getElementById('checkProblemsYes').checked;
                 const { jsPDF } = window.jspdf;
@@ -460,59 +456,54 @@
                 const entries = [...transcript].reverse();
                 const attendeeStr = speakers.map(s=>s.name).join(', ');
                 
-                // Helper: add standard header (without colored background)
-                function addHeader(pageNum, title) {
+                // Helper to draw header (always at Y=20)
+                function drawHeader(pageNum, title) {
                     doc.setPage(pageNum);
-                    let y = 20;
                     doc.setFontSize(14);
                     doc.setFont("helvetica","bold");
-                    doc.text("Peter AI Super Pro - Meeting Report", 20, y);
-                    y += 8;
+                    doc.text("Peter AI Super Pro - Meeting Report", 20, 20);
                     doc.setFontSize(9);
                     doc.setFont("helvetica","normal");
-                    doc.text(`Organization: ${office.name || 'N/A'}  |  Meeting: ${office.type || 'General'}`, 20, y);
-                    y += 5;
-                    doc.text(`Date: ${now.toLocaleDateString()}  |  Time: ${now.toLocaleTimeString()}  |  Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, y);
-                    y += 5;
-                    doc.text(`Attendees: ${attendeeStr}`, 20, y);
-                    y += 8;
+                    doc.text(`Organization: ${office.name || 'N/A'}  |  Meeting: ${office.type || 'General'}`, 20, 30);
+                    doc.text(`Date: ${now.toLocaleDateString()}  |  Time: ${now.toLocaleTimeString()}  |  Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, 36);
+                    doc.text(`Attendees: ${attendeeStr}`, 20, 42);
                     doc.setFontSize(11);
                     doc.setFont("helvetica","bold");
-                    doc.text(title, 20, y);
-                    y += 8;
+                    doc.text(title, 20, 52);
                     doc.setFontSize(9);
                     doc.setFont("helvetica","normal");
-                    doc.line(20, y-2, 190, y-2);
-                    return y;
+                    doc.line(20, 54, 190, 54);
+                    return 58;
                 }
-                function addFooter(pageNum, total) {
+                
+                function drawFooter(pageNum, total) {
                     doc.setPage(pageNum);
                     doc.setFontSize(7);
                     doc.setTextColor(100,100,100);
                     doc.text(`Generated: ${now.toLocaleString()}`, 20, 285);
                     doc.text(`Page ${pageNum} of ${total}`, 105, 285, {align:'center'});
                 }
-                function checkPageBreak(y, needed=12) {
-                    if(y + needed > 275) {
-                        doc.addPage();
-                        return addHeader(doc.internal.getNumberOfPages(), doc.internal.getCurrentPage() === 1 ? "MEETING TRANSCRIPT" : "(continued)");
-                    }
-                    return y;
-                }
                 
                 // ========== PAGE 1: TRANSCRIPT ==========
-                let y = addHeader(1, "MEETING TRANSCRIPT");
+                let currentPage = 1;
+                let y = drawHeader(currentPage, "MEETING TRANSCRIPT");
                 for(let entry of entries) {
-                    y = checkPageBreak(y, 20);
+                    // Check space: need at least 15 units for timestamp + one text line
+                    if(y + 20 > 275) {
+                        doc.addPage();
+                        currentPage++;
+                        y = drawHeader(currentPage, "MEETING TRANSCRIPT (continued)");
+                    }
                     doc.setFont("helvetica","bold");
                     doc.text(`[${entry.timestamp}] ${entry.speaker}:`, 20, y);
                     y += 5;
                     doc.setFont("helvetica","normal");
                     let lines = doc.splitTextToSize(entry.originalText, 170);
                     for(let line of lines) {
-                        if(y > 275) {
+                        if(y + 5 > 275) {
                             doc.addPage();
-                            y = addHeader(doc.internal.getNumberOfPages(), "MEETING TRANSCRIPT (continued)");
+                            currentPage++;
+                            y = drawHeader(currentPage, "MEETING TRANSCRIPT (continued)");
                         }
                         doc.text(line, 25, y);
                         y += 5;
@@ -527,7 +518,8 @@
                 
                 // ========== PAGE 2: SUMMARY & ACTION ITEMS ==========
                 doc.addPage();
-                y = addHeader(doc.internal.getNumberOfPages(), "SUMMARY & ACTION ITEMS");
+                currentPage++;
+                y = drawHeader(currentPage, "SUMMARY & ACTION ITEMS");
                 let summaryPoints = extractSummaryPoints();
                 let actionItems = extractActionItems();
                 doc.setFont("helvetica","bold");
@@ -535,7 +527,11 @@
                 y += 5;
                 doc.setFont("helvetica","normal");
                 for(let p of summaryPoints) {
-                    if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "SUMMARY & ACTION ITEMS (continued)"); }
+                    if(y + 10 > 275) {
+                        doc.addPage();
+                        currentPage++;
+                        y = drawHeader(currentPage, "SUMMARY & ACTION ITEMS (continued)");
+                    }
                     doc.text(`• ${p}`, 25, y);
                     y += 5;
                 }
@@ -545,17 +541,26 @@
                 y += 5;
                 doc.setFont("helvetica","normal");
                 for(let a of actionItems) {
-                    if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "ACTION ITEMS (continued)"); }
+                    if(y + 10 > 275) {
+                        doc.addPage();
+                        currentPage++;
+                        y = drawHeader(currentPage, "ACTION ITEMS (continued)");
+                    }
                     doc.text(`• [${a.speaker}] ${a.text}`, 25, y);
                     y += 5;
                 }
                 
                 // ========== PAGE 3: PROPOSED AGENDA ==========
                 doc.addPage();
-                y = addHeader(doc.internal.getNumberOfPages(), "PROPOSED NEXT MEETING AGENDA");
+                currentPage++;
+                y = drawHeader(currentPage, "PROPOSED NEXT MEETING AGENDA");
                 let agenda = generateAgenda();
                 for(let i=0; i<agenda.length; i++) {
-                    if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "PROPOSED AGENDA (continued)"); }
+                    if(y + 10 > 275) {
+                        doc.addPage();
+                        currentPage++;
+                        y = drawHeader(currentPage, "PROPOSED AGENDA (continued)");
+                    }
                     doc.text(`${i+1}. ${agenda[i]}`, 25, y);
                     y += 6;
                 }
@@ -563,18 +568,27 @@
                 // ========== PAGE 4: AI DEEP STUDY (optional) ==========
                 if(aiEnabled) {
                     doc.addPage();
-                    y = addHeader(doc.internal.getNumberOfPages(), "AI DEEP STUDY & SUGGESTIONS");
+                    currentPage++;
+                    y = drawHeader(currentPage, "AI DEEP STUDY & SUGGESTIONS");
                     let deep = generateDeepStudy();
                     let sections = ["guidance","safety","development","difficulties","dangers","profits","losses","regrets","appreciations","suggestions"];
                     for(let sec of sections) {
-                        if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "AI DEEP STUDY (continued)"); }
+                        if(y + 10 > 275) {
+                            doc.addPage();
+                            currentPage++;
+                            y = drawHeader(currentPage, "AI DEEP STUDY (continued)");
+                        }
                         doc.setFont("helvetica","bold");
                         doc.text(sec.toUpperCase() + ":", 20, y);
                         y += 5;
                         doc.setFont("helvetica","normal");
                         let lines = doc.splitTextToSize(deep[sec] || "No data available.", 170);
                         for(let line of lines) {
-                            if(y > 275) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "AI DEEP STUDY (continued)"); }
+                            if(y + 5 > 275) {
+                                doc.addPage();
+                                currentPage++;
+                                y = drawHeader(currentPage, "AI DEEP STUDY (continued)");
+                            }
                             doc.text(line, 25, y);
                             y += 5;
                         }
@@ -585,7 +599,8 @@
                 // ========== PAGE 5: HIDDEN PROBLEMS (optional) ==========
                 if(problemsEnabled) {
                     doc.addPage();
-                    y = addHeader(doc.internal.getNumberOfPages(), "HIDDEN PROBLEMS & SECRET IDEAS");
+                    currentPage++;
+                    y = drawHeader(currentPage, "HIDDEN PROBLEMS & SECRET IDEAS");
                     let problems = analyzeHiddenProblems();
                     let sections = [
                         { title: "Potential Hidden Problems (Risk Indicators):", list: problems.issues },
@@ -595,7 +610,11 @@
                         { title: "Attempting to Create Problems / Negative Influence:", list: problems.problemCreators }
                     ];
                     for(let sec of sections) {
-                        if(y > 270) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "HIDDEN PROBLEMS (continued)"); }
+                        if(y + 10 > 275) {
+                            doc.addPage();
+                            currentPage++;
+                            y = drawHeader(currentPage, "HIDDEN PROBLEMS (continued)");
+                        }
                         doc.setFont("helvetica","bold");
                         doc.text(sec.title, 20, y);
                         y += 5;
@@ -603,7 +622,11 @@
                         let listText = sec.list.length ? sec.list.join(", ") : "None detected.";
                         let lines = doc.splitTextToSize(listText, 170);
                         for(let line of lines) {
-                            if(y > 275) { doc.addPage(); y = addHeader(doc.internal.getNumberOfPages(), "HIDDEN PROBLEMS (continued)"); }
+                            if(y + 5 > 275) {
+                                doc.addPage();
+                                currentPage++;
+                                y = drawHeader(currentPage, "HIDDEN PROBLEMS (continued)");
+                            }
                             doc.text(line, 25, y);
                             y += 5;
                         }
@@ -614,11 +637,12 @@
                 // ========== PAGE 6: PAYMENT RECEIPT (optional) ==========
                 if(costCalculated && meetingCost > 0) {
                     doc.addPage();
+                    currentPage++;
                     let yR = 30;
                     doc.setFontSize(16);
                     doc.setFont("helvetica","bold");
                     doc.text("PAYMENT RECEIPT", 20, yR);
-                    yR += 10;
+                    yR += 12;
                     doc.setFontSize(9);
                     doc.setFont("helvetica","normal");
                     doc.text(`Organization: ${office.name || 'N/A'}`, 20, yR); yR += 6;
@@ -636,14 +660,11 @@
                     doc.setFontSize(11);
                     doc.setTextColor(40,167,69);
                     doc.text(`TOTAL AMOUNT DUE: $${meetingCost.toFixed(2)}`, 20, yR);
-                    doc.setFontSize(7);
-                    doc.setTextColor(0,0,0);
-                    doc.text("This is a computer generated receipt. Signature not required.", 20, yR+10);
                 }
                 
-                // Add footers to all pages
+                // Add footers
                 let totalPages = doc.internal.getNumberOfPages();
-                for(let i=1; i<=totalPages; i++) addFooter(i, totalPages);
+                for(let i=1; i<=totalPages; i++) drawFooter(i, totalPages);
                 
                 reportCount++;
                 if(currentOrg) saveCurrentOrg();
