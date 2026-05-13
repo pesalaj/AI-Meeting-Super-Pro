@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v12.1 | Fast & Reliable PDF Generation</title>
+    <title>Peter AI Super Pro v12.2 | Final – All Errors Fixed</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -83,7 +83,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v12.1</h2><p style="text-align:center; color:#64748b;">Fast & Reliable PDF Generation</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v12.2</h2><p style="text-align:center; color:#64748b;">Final – All Errors Fixed</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -95,7 +95,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v12.1</span></h1><p style="color:#64748b;">Professional Meeting Intelligence</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v12.2</span></h1><p style="color:#64748b;">Professional Meeting Intelligence</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -177,7 +177,7 @@
 
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v12.1 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v12.2 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -207,7 +207,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v12.1 – RELIABLE PDF GENERATION ====================
+        // ==================== PETER AI v12.2 – ALL ERRORS FIXED ====================
         (function(){
             const validUsers = { pesalaj: 'pesalaj123$', admin: 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -316,8 +316,13 @@
             }
             function startTimer() { if(timerInterval) clearInterval(timerInterval); timerInterval = setInterval(()=>{ if(meetingActive && meetingStart && !meetingEnd) updateTimer(); },1000); }
             
+            // FIXED: correct array to string conversion for confidence bar
             function updateConfidenceBar() {
-                let fullText = transcript.map(l=>l.originalText).toLowerCase().join(' ');
+                if(!transcript.length) {
+                    document.getElementById('confidenceBar').innerHTML = `<div class="confidence-green" style="width:33%"></div><div class="confidence-yellow" style="width:34%"></div><div class="confidence-red" style="width:33%"></div>`;
+                    return;
+                }
+                let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
                 let posCount = (fullText.match(/\b(good|great|excellent|positive|success|achievement|profit|opportunity|safe|secure|advantage|benefit|happy|satisfied|agree)\b/g) || []).length;
                 let negCount = (fullText.match(/\b(bad|poor|risk|danger|loss|problem|issue|fail|error|mistake|delay|blame|regret|unfortunately|disagree)\b/g) || []).length;
                 let neutralCount = Math.max(1, transcript.length * 3 - posCount - negCount);
@@ -414,7 +419,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v12.1 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v12.2 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -435,10 +440,10 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== AI Intelligence Functions (same as before) ==========
+            // ========== AI Intelligence Functions (all use transcript array correctly) ==========
             function generateAIExecutiveSummary() {
                 if(transcript.length === 0) return "No meeting data available for analysis.";
-                let fullText = transcript.map(l=>l.originalText).join(" ");
+                let fullText = transcript.map(l=>l.originalText).join(' ');
                 let summary = "The meeting covered a range of important topics that were discussed in detail by the participants. ";
                 let themes = [];
                 if(/(project|deadline|timeline|schedule|deliverable)/i.test(fullText)) themes.push("project timelines and deliverables");
@@ -531,7 +536,7 @@
                 };
             }
             function analyzeHiddenProblems() {
-                let fullText = transcript.map(l=>l.originalText).join(" ").toLowerCase();
+                let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
                 let issues = [];
                 if(/(problem|issue|challenge|difficulty|setback)/i.test(fullText)) issues.push("Unresolved challenges were mentioned – management attention may be required.");
                 if(/(delay|behind schedule|late)/i.test(fullText)) issues.push("Timeline delays were discussed – corrective actions should be taken.");
@@ -551,7 +556,7 @@
                 return { issues, hiddenGood, withheld, secret, creators };
             }
             
-            // ========== RELIABLE PDF GENERATION (NO INFINITE LOOPS) ==========
+            // ========== PDF GENERATION (robust, no infinite loops) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data to report."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
@@ -578,7 +583,9 @@
                 if(incReceipt && costCalculated && meetingCost>0) selectedPages++;
                 const pageCharge = selectedPages * costPerPage;
                 
-                // Helper: draw header and return Y position after header
+                let currentPage = 1;
+                let y = 0;
+                
                 function drawHeader(pageNum, title) {
                     doc.setPage(pageNum);
                     doc.setFontSize(14);
@@ -609,10 +616,6 @@
                     doc.text(`Page ${pageNum} of ${total}`, 105, 285, {align:'center'});
                 }
                 
-                let currentPage = 1;
-                let y = 0;
-                
-                // Write content line by line with proper page break
                 function writeLine(text, indent = 0, bold = false) {
                     if(bold) doc.setFont("helvetica","bold");
                     else doc.setFont("helvetica","normal");
@@ -621,7 +624,7 @@
                         if(y + 5 > 275) {
                             doc.addPage();
                             currentPage++;
-                            y = drawHeader(currentPage, doc.getCurrentPageTitle || "Continued");
+                            y = drawHeader(currentPage, "Continued");
                             if(bold) doc.setFont("helvetica","bold");
                             else doc.setFont("helvetica","normal");
                         }
@@ -630,13 +633,12 @@
                     }
                 }
                 
-                // Page 1: Transcript
+                // Transcript
                 if(incTranscript) {
                     y = drawHeader(1, "Meeting Transcript");
                     for(let entry of entries) {
                         writeLine(`[${entry.timestamp}] ${entry.speaker}:`, 0, true);
                         writeLine(entry.originalText, 5, false);
-                        writeLine("", 0, false); // separator
                         if(y < 275) {
                             doc.setDrawColor(200,200,200);
                             doc.line(20, y-2, 190, y-2);
@@ -644,15 +646,12 @@
                         y += 2;
                     }
                 }
-                
                 // Executive Summary
                 if(incSummary) {
                     doc.addPage(); currentPage++;
                     y = drawHeader(currentPage, "Ai Executive Summary");
-                    let summary = generateAIExecutiveSummary();
-                    writeLine(summary);
+                    writeLine(generateAIExecutiveSummary());
                 }
-                
                 // Narrative Report
                 if(incNarrative) {
                     doc.addPage(); currentPage++;
@@ -664,7 +663,6 @@
                         y += 2;
                     }
                 }
-                
                 // Action Items & Agenda
                 if(incActions) {
                     doc.addPage(); currentPage++;
@@ -681,7 +679,6 @@
                         writeLine(`${i+1}. ${agenda[i]}`, 5, false);
                     }
                 }
-                
                 // AI Deep Study
                 if(incDeepStudy && aiEnabled) {
                     doc.addPage(); currentPage++;
@@ -695,7 +692,6 @@
                         y += 2;
                     }
                 }
-                
                 // Hidden Problems
                 if(incHidden && problemsEnabled) {
                     doc.addPage(); currentPage++;
@@ -710,7 +706,6 @@
                         y += 2;
                     }
                 }
-                
                 // Payment Receipt
                 if(incReceipt && costCalculated && meetingCost>0) {
                     doc.addPage(); currentPage++;
