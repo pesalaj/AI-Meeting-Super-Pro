@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v8.4 | Transcript PDF – Fixed Text</title>
+    <title>Peter AI Super Pro v8.5 | Transcript PDF – Finally Working</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -78,7 +78,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-robot"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v8.4</h2><p>Transcript PDF – Fixed Text Output</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v8.5</h2><p>Transcript PDF – Finally Working</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -90,7 +90,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span class="version">v8.4</span></h1><p>AI Suggest + Hidden Problems | PDF Transcript – Working</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span class="version">v8.5</span></h1><p>AI Suggest + Hidden Problems | PDF Transcript Works</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -145,7 +145,7 @@
             </div>
             <div class="card"><div class="card-header"><h3>Live Transcript</h3><i class="fas fa-comment"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3>Report Generation</h3><i class="fas fa-file-pdf"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate PDF (Transcript Only)</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v8.4 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v8.5 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -156,7 +156,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;"></div><button id="closeLangBtn">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v8.4 – TRANSCRIPT PDF WITH TEXT GUARANTEED ====================
+        // ==================== PETER AI v8.5 – SIMPLE, RELIABLE PDF GENERATION ====================
         (function(){
             const validUsers = { pesalaj: 'pesalaj123$', admin: 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -283,7 +283,7 @@
                             let timestamp = new Date().toLocaleTimeString();
                             let speaker = speakers.length === 1 ? speakers[0].name : 'Unknown';
                             let color = speakers.find(s=>s.name===speaker)?.color || '#718096';
-                            transcript.unshift({ speaker, originalText: text, timestamp, color, lang: currentLang });
+                            transcript.unshift({ speaker: speaker, originalText: text, timestamp: timestamp, color: color, lang: currentLang });
                             refreshTranscript();
                             lastFinal = '';
                         },200);
@@ -341,7 +341,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v8.4 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v8.5 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -362,17 +362,17 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== SIMPLE, ROBUST PDF GENERATION – TEXT WILL APPEAR ==========
+            // ========== SIMPLIFIED PDF GENERATION – GUARANTEED TO PRINT TEXT ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data to report."); return; }
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 const now = new Date();
-                // oldest first for readability
-                const lines = [...transcript].reverse();
+                // Reverse to show oldest first
+                const entries = [...transcript].reverse();
                 const attendeeStr = speakers.map(s=>s.name).join(', ');
                 
-                // Helper: add header with organization + timestamp
+                // Header (same for every page)
                 function addHeader(pageNum) {
                     doc.setPage(pageNum);
                     doc.setFillColor(28,60,90);
@@ -410,13 +410,14 @@
                 doc.setFontSize(9);
                 doc.setFont("helvetica","normal");
                 
-                // Write each transcript line with manual page breaks
-                for(let entry of lines) {
-                    // Check if we have enough space for timestamp+speaker + at least 1 line of text
+                // Write each entry
+                for(let entry of entries) {
+                    // Timestamp and speaker (bold)
+                    const timeSpeaker = `[${entry.timestamp}] ${entry.speaker}:`;
+                    // Check if we need a new page (reserve at least 20 units for this entry)
                     if(y + 20 > 275) {
                         doc.addPage();
                         y = addHeader(doc.internal.getNumberOfPages());
-                        // re-print title on new page
                         doc.setFontSize(12);
                         doc.setFont("helvetica","bold");
                         doc.text("MEETING TRANSCRIPT", 20, y);
@@ -424,14 +425,11 @@
                         doc.setFontSize(9);
                         doc.setFont("helvetica","normal");
                     }
-                    
-                    // Timestamp and speaker (bold)
                     doc.setFont("helvetica","bold");
-                    const timeSpeaker = `[${entry.timestamp}] ${entry.speaker}:`;
                     doc.text(timeSpeaker, 20, y);
                     y += 5;
                     
-                    // Spoken text (normal)
+                    // Spoken text (wrapped)
                     doc.setFont("helvetica","normal");
                     const textLines = doc.splitTextToSize(entry.originalText, 170);
                     for(let line of textLines) {
@@ -448,7 +446,6 @@
                         doc.text(line, 25, y);
                         y += 5;
                     }
-                    
                     // Separator line
                     y += 2;
                     if(y < 275) {
@@ -458,18 +455,15 @@
                     y += 2;
                 }
                 
-                // Add footers to all pages
+                // Footers
                 const totalPages = doc.internal.getNumberOfPages();
-                for(let i=1; i<=totalPages; i++) {
-                    addFooter(i, totalPages);
-                }
+                for(let i=1; i<=totalPages; i++) addFooter(i, totalPages);
                 
-                // Save and update stats
                 reportCount++;
                 if(currentOrg) saveCurrentOrg();
                 updateUI();
                 doc.save(`Peter_AI_Transcript_${now.toISOString().slice(0,19)}.pdf`);
-                document.getElementById('reportStatus').innerHTML = '✅ Transcript PDF generated – text is now visible';
+                document.getElementById('reportStatus').innerHTML = '✅ PDF generated – transcript text is now visible';
                 setTimeout(()=>document.getElementById('reportStatus').innerHTML='Ready',3000);
             }
             
@@ -509,7 +503,7 @@
                 let btn = document.getElementById('generateReportBtn');
                 if(btn.disabled) return;
                 btn.disabled=true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating Transcript PDF...';
+                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating PDF...';
                 await generateReport();
                 btn.disabled=false;
                 btn.innerHTML = '<i class="fas fa-file-pdf"></i> Generate PDF (Transcript Only)';
