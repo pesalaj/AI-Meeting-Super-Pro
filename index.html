@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v18.0 | Final – Fixed Login & Speaker Registration</title>
+    <title>Peter AI Super Pro v19.0 | Full Voice Support (Sinhala/Tamil)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -85,7 +85,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v18.0</h2><p style="text-align:center; color:#64748b;">Final – Fixed Login & Speaker Registration</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v19.0</h2><p style="text-align:center; color:#64748b;">Full Voice Support (Sinhala/Tamil)</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -96,7 +96,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v18.0</span></h1><p style="color:#64748b;">Force Restart + AI Advice + Assignees</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v19.0</span></h1><p style="color:#64748b;">Force Restart + AI Advice + Multi‑Language Voice</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -116,7 +116,7 @@
                 <p style="font-size:12px; color:#64748b; margin-top:10px;">If the meeting stops capturing, click this button to restart the microphone without stopping the meeting.</p>
             </div>
 
-            <!-- Voice Reading Section -->
+            <!-- Voice Reading Section with improved language support -->
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-volume-up"></i> Voice Reading of Report Sections</h3><i class="fas fa-language"></i></div>
                 <div class="voice-selector">
@@ -139,7 +139,9 @@
                             <option value="hi">हिन्दी</option>
                             <option value="bn">বাংলা</option>
                         </select>
-                        <p style="font-size:11px; color:#64748b; margin-top:5px;">Note: Reads the English report using a voice of the selected language (if available). Text is not translated.</p>
+                        <button id="refreshVoicesBtn" class="btn btn-secondary" style="margin-left:10px; padding:8px 16px;"><i class="fas fa-sync-alt"></i> Refresh Voices</button>
+                        <div id="voiceStatusMsg" style="font-size:11px; color:#475569; margin-top:5px;"></div>
+                        <p style="font-size:11px; color:#64748b; margin-top:5px;">Note: Reads the English report using a voice of the selected language (if available on your device). For Sinhala/Tamil, ensure language voices are installed in your operating system.</p>
                     </div>
                     <div class="checkbox-group" id="voiceSections">
                         <label><input type="checkbox" value="transcript"> 📄 Full Transcript</label>
@@ -225,7 +227,7 @@
 
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v18.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v19.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -255,9 +257,8 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v18.0 – FINAL: FIXED LOGIN & SIMPLE SPEAKER REGISTRATION ====================
+        // ==================== PETER AI v19.0 – FULL VOICE SUPPORT (Sinhala/Tamil) ====================
         (function(){
-            // Updated credentials – no demo text on login screen
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
             let speakers = [];
@@ -279,6 +280,41 @@
             const languages = { en:'English', si:'සිංහල', ta:'தமிழ்', es:'Español', fr:'Français', de:'Deutsch', it:'Italiano', pt:'Português', ru:'Русский', zh:'中文', ja:'日本語', ko:'한국어', ar:'العربية', hi:'हिन्दी', bn:'বাংলা' };
             const langCodes = { en:'en-US', si:'si-LK', ta:'ta-IN', es:'es-ES', fr:'fr-FR', de:'de-DE', it:'it-IT', pt:'pt-PT', ru:'ru-RU', zh:'zh-CN', ja:'ja-JP', ko:'ko-KR', ar:'ar-SA', hi:'hi-IN', bn:'bn-IN' };
             const voiceLangMap = { en:'en-US', si:'si-LK', ta:'ta-IN', es:'es-ES', fr:'fr-FR', de:'de-DE', it:'it-IT', pt:'pt-PT', ru:'ru-RU', zh:'zh-CN', ja:'ja-JP', ko:'ko-KR', ar:'ar-SA', hi:'hi-IN', bn:'bn-IN' };
+            
+            // Voice helper
+            let availableVoices = [];
+            function refreshVoicesList() {
+                availableVoices = window.speechSynthesis.getVoices();
+                const msgDiv = document.getElementById('voiceStatusMsg');
+                const selectedLang = document.getElementById('voiceLanguageSelect').value;
+                const targetCode = voiceLangMap[selectedLang] || 'en-US';
+                const found = availableVoices.some(v => v.lang === targetCode || v.lang.startsWith(targetCode.split('-')[0]));
+                if(found) {
+                    msgDiv.innerHTML = `✅ Voice for ${selectedLang.toUpperCase()} is available.`;
+                } else {
+                    msgDiv.innerHTML = `⚠️ Voice for ${selectedLang.toUpperCase()} (${targetCode}) not found. Install language pack or use a different browser. Falling back to English.`;
+                }
+            }
+            // Load voices after a delay (browsers load asynchronously)
+            setTimeout(refreshVoicesList, 500);
+            window.speechSynthesis.onvoiceschanged = refreshVoicesList;
+
+            function getBestVoiceForLang(langCode) {
+                // Try exact match first
+                let voice = availableVoices.find(v => v.lang === langCode);
+                if(voice) return voice;
+                // Try language without region (e.g., 'si' for 'si-LK')
+                let baseLang = langCode.split('-')[0];
+                voice = availableVoices.find(v => v.lang.startsWith(baseLang));
+                if(voice) return voice;
+                // Try any voice that includes the language name in its name
+                const langName = baseLang === 'si' ? 'sinhala' : (baseLang === 'ta' ? 'tamil' : '');
+                if(langName) {
+                    voice = availableVoices.find(v => v.name.toLowerCase().includes(langName));
+                    if(voice) return voice;
+                }
+                return null;
+            }
 
             function saveOrgs() { localStorage.setItem('peter_orgs', JSON.stringify(allOrgs)); }
             function loadOrgs() { allOrgs = JSON.parse(localStorage.getItem('peter_orgs') || '{}'); refreshOrgSelector(); }
@@ -381,7 +417,7 @@
                 document.getElementById('confidenceBar').innerHTML = `<div class="confidence-green" style="width:${green}%"></div><div class="confidence-yellow" style="width:${yellow}%"></div><div class="confidence-red" style="width:${red}%"></div>`;
             }
             
-            // ========== STABLE SPEECH RECOGNITION WITH FORCE RESTART ==========
+            // ========== SPEECH RECOGNITION ==========
             function startRecognition() {
                 if(!meetingActive) return;
                 if(recognition) {
@@ -395,7 +431,6 @@
                 recognition.interimResults = false;
                 recognition.lang = langCodes[currentLang] || 'en-US';
                 let lastFinalText = "";
-                
                 recognition.onstart = () => {
                     console.log("Recognition started");
                     document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Listening';
@@ -421,9 +456,7 @@
                 };
                 recognition.onerror = (event) => {
                     console.warn("Recognition error:", event.error);
-                    if(event.error === 'not-allowed') {
-                        alert("Microphone permission denied. Please allow microphone access.");
-                    }
+                    if(event.error === 'not-allowed') alert("Microphone permission denied.");
                 };
                 recognition.onend = () => {
                     console.log("Recognition ended");
@@ -435,23 +468,10 @@
             }
             
             function forceRestartRecognition() {
-                if(!meetingActive) {
-                    alert("Meeting is not active. Start a meeting first.");
-                    return;
-                }
+                if(!meetingActive) { alert("Meeting is not active."); return; }
                 isRestarting = true;
-                if(recognition) {
-                    try { recognition.abort(); } catch(e) {}
-                    recognition = null;
-                }
-                setTimeout(() => {
-                    isRestarting = false;
-                    startRecognition();
-                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Recognition Restarted';
-                    setTimeout(() => {
-                        if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Listening';
-                    }, 2000);
-                }, 300);
+                if(recognition) { try { recognition.abort(); } catch(e) {} recognition = null; }
+                setTimeout(() => { isRestarting = false; startRecognition(); document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Recognition Restarted'; setTimeout(() => { if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Listening'; }, 2000); }, 300);
             }
             
             async function startMeeting() {
@@ -499,7 +519,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v18.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v19.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -520,7 +540,7 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== SIMPLE SPEAKER REGISTRATION (no voice verification) ==========
+            // ========== SIMPLE SPEAKER REGISTRATION ==========
             function registerSpeaker() {
                 let name = prompt("Enter speaker name:");
                 if(name && name.trim() !== "") {
@@ -689,7 +709,7 @@
                 return { issues, hiddenGood, withheld, secret, creators, assignees };
             }
             
-            // ========== VOICE READING ==========
+            // ========== VOICE READING WITH IMPROVED LANGUAGE SUPPORT ==========
             let currentUtterance = null;
             function stopReading() {
                 if(currentUtterance) {
@@ -753,13 +773,22 @@
                 }
                 const selectedLangCode = document.getElementById('voiceLanguageSelect').value;
                 const targetVoiceLang = voiceLangMap[selectedLangCode] || 'en-US';
+                let voices = window.speechSynthesis.getVoices();
+                let matchedVoice = voices.find(v => v.lang === targetVoiceLang) || 
+                                  voices.find(v => v.lang.startsWith(targetVoiceLang.split('-')[0])) ||
+                                  (selectedLangCode === 'si' ? voices.find(v => v.name.toLowerCase().includes('sinhala')) : null) ||
+                                  (selectedLangCode === 'ta' ? voices.find(v => v.name.toLowerCase().includes('tamil')) : null);
                 let utterance = new SpeechSynthesisUtterance(fullText);
                 utterance.rate = 0.9;
                 utterance.pitch = 1.0;
-                let voices = speechSynthesis.getVoices();
-                let matchedVoice = voices.find(v => v.lang === targetVoiceLang && v.localService === true) || voices.find(v => v.lang === targetVoiceLang);
-                if(matchedVoice) utterance.voice = matchedVoice;
-                utterance.lang = targetVoiceLang;
+                if(matchedVoice) {
+                    utterance.voice = matchedVoice;
+                    utterance.lang = matchedVoice.lang;
+                    document.getElementById('voiceStatusMsg').innerHTML = `✅ Using voice: ${matchedVoice.name} (${matchedVoice.lang})`;
+                } else {
+                    utterance.lang = targetVoiceLang;
+                    document.getElementById('voiceStatusMsg').innerHTML = `⚠️ No voice found for ${selectedLangCode.toUpperCase()}. Using default voice. Install language pack for better quality.`;
+                }
                 utterance.onstart = () => document.getElementById('voiceStatus').innerHTML = '🔊 Reading aloud...';
                 utterance.onend = () => {
                     document.getElementById('voiceStatus').innerHTML = '✅ Reading finished.';
@@ -776,7 +805,7 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION (with assignees, same as before) ==========
+            // ========== PDF GENERATION (unchanged, includes assignees) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data to report."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
@@ -1031,6 +1060,7 @@
             document.getElementById('readSelectedBtn').onclick = readSelectedSections;
             document.getElementById('stopReadingBtn').onclick = stopReading;
             document.getElementById('forceRestartBtn').onclick = forceRestartRecognition;
+            document.getElementById('refreshVoicesBtn').onclick = () => { window.speechSynthesis.getVoices(); setTimeout(refreshVoicesList, 200); };
             window.onclick = (e)=>{ if(e.target.classList.contains('modal')) e.target.style.display='none'; };
             if(window.speechSynthesis) window.speechSynthesis.getVoices();
             loadAdminSettings();
