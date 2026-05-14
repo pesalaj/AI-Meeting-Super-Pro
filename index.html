@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v17.0 | Force Restart + Voice Registration</title>
+    <title>Peter AI Super Pro v18.0 | Final – Fixed Login & Speaker Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -85,19 +85,18 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v17.0</h2><p style="text-align:center; color:#64748b;">Force Restart + Voice Registration</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v18.0</h2><p style="text-align:center; color:#64748b;">Final – Fixed Login & Speaker Registration</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
             <div id="loginError" style="background:#fee2e2; color:#dc2626; padding:12px; border-radius:16px; margin-top:16px; text-align:center; display:none;">Invalid credentials</div>
-            <div style="text-align:center; margin-top:20px; font-size:13px;">Demo: pesalaj / pesalaj123$</div>
         </div>
     </div>
 
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v17.0</span></h1><p style="color:#64748b;">Force Restart + Voice Speaker Registration</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v18.0</span></h1><p style="color:#64748b;">Force Restart + AI Advice + Assignees</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -140,14 +139,14 @@
                             <option value="hi">हिन्दी</option>
                             <option value="bn">বাংলা</option>
                         </select>
-                        <p style="font-size:11px; color:#64748b; margin-top:5px;">Note: Reads the English report using a voice of the selected language (if available on your device). Text is not translated.</p>
+                        <p style="font-size:11px; color:#64748b; margin-top:5px;">Note: Reads the English report using a voice of the selected language (if available). Text is not translated.</p>
                     </div>
                     <div class="checkbox-group" id="voiceSections">
                         <label><input type="checkbox" value="transcript"> 📄 Full Transcript</label>
                         <label><input type="checkbox" value="summary"> 📊 Executive Summary</label>
                         <label><input type="checkbox" value="narrative"> 📝 Narrative Report</label>
                         <label><input type="checkbox" value="actions"> ✅ Action Items & Agenda</label>
-                        <label><input type="checkbox" value="deepstudy"> 🧠 AI Deep Study (with Advice)</label>
+                        <label><input type="checkbox" value="deepstudy"> 🧠 AI Deep Study (with Advice & Assignees)</label>
                         <label><input type="checkbox" value="hidden"> 🔍 Hidden Problems</label>
                         <label><input type="checkbox" value="receipt"> 💰 Payment Receipt</label>
                     </div>
@@ -166,7 +165,7 @@
                         <label><input type="checkbox" id="incSummary" checked> 📊 AI Executive Summary</label>
                         <label><input type="checkbox" id="incNarrative" checked> 📝 Narrative Report</label>
                         <label><input type="checkbox" id="incActions" checked> ✅ Action Items & Agenda</label>
-                        <label><input type="checkbox" id="incDeepStudy" checked> 🧠 AI Deep Study (with Advice)</label>
+                        <label><input type="checkbox" id="incDeepStudy" checked> 🧠 AI Deep Study (with Advice & Assignees)</label>
                         <label><input type="checkbox" id="incHidden" checked> 🔍 Hidden Problems</label>
                         <label><input type="checkbox" id="incReceipt" checked> 💰 Payment Receipt</label>
                     </div>
@@ -215,9 +214,9 @@
                     <div class="card-header"><h3><i class="fas fa-building"></i> Organization Details</h3><i class="fas fa-edit"></i></div>
                     <button id="officeInfoBtn" class="btn btn-primary">Edit Office Info</button>
                     <div id="officeInfoDisplay" style="background:#eef2ff; padding:12px; border-radius:20px; margin-top:12px; color:#1e293b; display:none;"></div>
-                    <div style="margin-top:20px;"><h4 style="margin-bottom:12px;">Speaker Management (Voice Registration)</h4>
+                    <div style="margin-top:20px;"><h4 style="margin-bottom:12px;">Speaker Management</h4>
                     <div style="background:#f1f5f9; padding:16px; border-radius:24px;">
-                        <div style="display:flex; gap:12px; flex-wrap:wrap;"><button id="registerBtn" class="btn btn-primary">Register Speaker by Voice</button><button id="clearSpeakersBtn" class="btn btn-secondary">Clear All</button><button id="langSelectBtn" class="btn btn-primary">Change Language</button></div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap;"><button id="registerBtn" class="btn btn-primary">Register Speaker</button><button id="clearSpeakersBtn" class="btn btn-secondary">Clear All</button><button id="langSelectBtn" class="btn btn-primary">Change Language</button></div>
                         <div id="speakersList" class="speaker-list">No speakers</div>
                         <div id="quickAssignList" class="speaker-list"></div>
                     </div></div>
@@ -226,7 +225,7 @@
 
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v17.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v18.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -256,9 +255,10 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v17.0 – FORCE RESTART + VOICE SPEAKER REGISTRATION ====================
+        // ==================== PETER AI v18.0 – FINAL: FIXED LOGIN & SIMPLE SPEAKER REGISTRATION ====================
         (function(){
-            const validUsers = { pesalaj: 'pesalaj123$', admin: 'admin123' };
+            // Updated credentials – no demo text on login screen
+            const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
             let speakers = [];
             let transcript = [];
@@ -392,7 +392,7 @@
                 const SpeechRecog = window.SpeechRecognition || window.webkitSpeechRecognition;
                 recognition = new SpeechRecog();
                 recognition.continuous = true;
-                recognition.interimResults = false; // Only final results to avoid clutter
+                recognition.interimResults = false;
                 recognition.lang = langCodes[currentLang] || 'en-US';
                 let lastFinalText = "";
                 
@@ -499,7 +499,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v17.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v18.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -520,43 +520,20 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== VOICE SPEAKER REGISTRATION ==========
-            let voiceRegRecognition = null;
-            function registerSpeakerByVoice() {
-                let name = prompt("Enter speaker name (e.g., John):");
-                if(!name || name.trim() === "") return;
-                let cleanName = name.trim();
-                alert(`Now speak clearly: "I am ${cleanName}"`);
-                // Start a temporary recognition to listen for the phrase
-                if(voiceRegRecognition) try{ voiceRegRecognition.abort(); }catch(e){}
-                if(!('webkitSpeechRecognition' in window)) { alert("Speech recognition not supported."); return; }
-                const SpeechRecog = window.SpeechRecognition || window.webkitSpeechRecognition;
-                let tempRecog = new SpeechRecog();
-                tempRecog.continuous = false;
-                tempRecog.interimResults = false;
-                tempRecog.lang = 'en-US';
-                tempRecog.onresult = (event) => {
-                    let spoken = event.results[0][0].transcript.toLowerCase();
-                    if(spoken.includes(`i am ${cleanName.toLowerCase()}`) || spoken.includes(`i'm ${cleanName.toLowerCase()}`)) {
-                        // Success
-                        let color = speakerColors[speakers.length % speakerColors.length];
-                        speakers.push({ name: cleanName, color: color });
-                        updateUI();
-                        if(currentOrg) saveCurrentOrg();
-                        alert(`✅ Speaker "${cleanName}" registered successfully!`);
-                    } else {
-                        alert(`❌ Could not verify. Please try again and say "I am ${cleanName}".`);
-                    }
-                    tempRecog = null;
-                };
-                tempRecog.onerror = () => { alert("Error detecting voice. Please try again."); tempRecog = null; };
-                tempRecog.start();
-                voiceRegRecognition = tempRecog;
-                // Auto stop after 10 seconds
-                setTimeout(() => { if(tempRecog) { try{ tempRecog.abort(); }catch(e){} } }, 10000);
+            // ========== SIMPLE SPEAKER REGISTRATION (no voice verification) ==========
+            function registerSpeaker() {
+                let name = prompt("Enter speaker name:");
+                if(name && name.trim() !== "") {
+                    let cleanName = name.trim();
+                    let color = speakerColors[speakers.length % speakerColors.length];
+                    speakers.push({ name: cleanName, color: color });
+                    updateUI();
+                    if(currentOrg) saveCurrentOrg();
+                    alert(`✅ Speaker "${cleanName}" registered successfully!`);
+                }
             }
             
-            // ========== AI FUNCTIONS (with Advice by AI and assignees) ==========
+            // ========== AI FUNCTIONS (with Advice and Assignees) ==========
             function getSpeakersForTopic(keywords) {
                 let involved = new Set();
                 for(let line of transcript) {
@@ -681,7 +658,6 @@
                     appreciations: appreciations.length ? "Appreciation expressed: " + appreciations.slice(0,3).join("; ") : "No appreciations were recorded.",
                     suggestions: suggestions.length ? "Suggestions made: " + suggestions.slice(0,3).join("; ") : "No specific suggestions were offered.",
                     advice: advice,
-                    // Assignees for each topic
                     safetyAssignees: getSpeakersForTopic(["safety","secure","danger","hazard","safe"]),
                     difficultiesAssignees: getSpeakersForTopic(["difficult","hard","challenge","complex","tough","struggle"]),
                     dangersAssignees: getSpeakersForTopic(["risk","danger","threat","vulnerability"]),
@@ -709,7 +685,6 @@
                 let creators = [];
                 if(/(blame|fault|not my responsibility)/i.test(fullText)) creators.push("Some speakers exhibited blame‑oriented language – focus on solutions.");
                 else creators.push("The conversation was generally solution‑oriented.");
-                // Assignees for hidden problems
                 let assignees = getSpeakersForTopic(["problem","issue","challenge","delay","confidential","blame"]);
                 return { issues, hiddenGood, withheld, secret, creators, assignees };
             }
@@ -801,7 +776,7 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION (with assignees) ==========
+            // ========== PDF GENERATION (with assignees, same as before) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data to report."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
@@ -1033,7 +1008,7 @@
             document.getElementById('deleteOrgBtn').onclick = ()=>{ if(currentOrg && confirm(`Delete ${currentOrg}?`)){ delete allOrgs[currentOrg]; saveOrgs(); refreshOrgSelector(); currentOrg=null; speakers=[]; transcript=[]; updateUI(); } };
             document.getElementById('historyBtn').onclick = ()=>{ if(!currentOrg){ alert("Select org"); return; } let histDiv=document.getElementById('historyList'); if(!history.length) histDiv.innerHTML='<p>No past meetings</p>'; else histDiv.innerHTML=history.map((h,i)=>`<div class="history-item" onclick="if(confirm('Load meeting?')){ transcript=[...history[${i}].transcript]; refreshTranscript(); document.getElementById('historyModal').style.display='none'; }"><strong>${h.date}</strong><br>${h.duration} | ${h.transcript.length} lines</div>`).join(''); document.getElementById('historyModal').style.display='flex'; };
             document.getElementById('closeHistoryBtn').onclick = ()=>document.getElementById('historyModal').style.display='none';
-            document.getElementById('registerBtn').onclick = registerSpeakerByVoice;
+            document.getElementById('registerBtn').onclick = registerSpeaker;
             document.getElementById('clearSpeakersBtn').onclick = ()=>{ if(confirm("Clear all speakers?")){ speakers=[]; updateUI(); if(currentOrg) saveCurrentOrg(); } };
             document.getElementById('startMeetingBtn').onclick = startMeeting;
             document.getElementById('stopMeetingBtn').onclick = stopMeeting;
