@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v19.0 | Full Voice Support (Sinhala/Tamil)</title>
+    <title>Peter AI Super Pro v20.0 | Restored Agenda + Sinhala/Tamil Voice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -85,7 +85,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v19.0</h2><p style="text-align:center; color:#64748b;">Full Voice Support (Sinhala/Tamil)</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v20.0</h2><p style="text-align:center; color:#64748b;">Restored Agenda + Sinhala/Tamil Voice</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -96,7 +96,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v19.0</span></h1><p style="color:#64748b;">Force Restart + AI Advice + Multi‑Language Voice</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v20.0</span></h1><p style="color:#64748b;">Force Restart + AI Advice + Sinhala/Tamil Voice</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -116,7 +116,7 @@
                 <p style="font-size:12px; color:#64748b; margin-top:10px;">If the meeting stops capturing, click this button to restart the microphone without stopping the meeting.</p>
             </div>
 
-            <!-- Voice Reading Section with improved language support -->
+            <!-- Voice Reading Section with improved Sinhala/Tamil support -->
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-volume-up"></i> Voice Reading of Report Sections</h3><i class="fas fa-language"></i></div>
                 <div class="voice-selector">
@@ -141,13 +141,14 @@
                         </select>
                         <button id="refreshVoicesBtn" class="btn btn-secondary" style="margin-left:10px; padding:8px 16px;"><i class="fas fa-sync-alt"></i> Refresh Voices</button>
                         <div id="voiceStatusMsg" style="font-size:11px; color:#475569; margin-top:5px;"></div>
-                        <p style="font-size:11px; color:#64748b; margin-top:5px;">Note: Reads the English report using a voice of the selected language (if available on your device). For Sinhala/Tamil, ensure language voices are installed in your operating system.</p>
+                        <p style="font-size:11px; color:#64748b; margin-top:5px;">For Sinhala/Tamil, your operating system must have the language voice installed. Chrome usually supports them. Click Refresh Voices after installation.</p>
                     </div>
                     <div class="checkbox-group" id="voiceSections">
                         <label><input type="checkbox" value="transcript"> 📄 Full Transcript</label>
                         <label><input type="checkbox" value="summary"> 📊 Executive Summary</label>
                         <label><input type="checkbox" value="narrative"> 📝 Narrative Report</label>
-                        <label><input type="checkbox" value="actions"> ✅ Action Items & Agenda</label>
+                        <label><input type="checkbox" value="actions"> ✅ Action Items</label>
+                        <label><input type="checkbox" value="agenda"> 📅 Proposed Next Meeting Agenda</label>
                         <label><input type="checkbox" value="deepstudy"> 🧠 AI Deep Study (with Advice & Assignees)</label>
                         <label><input type="checkbox" value="hidden"> 🔍 Hidden Problems</label>
                         <label><input type="checkbox" value="receipt"> 💰 Payment Receipt</label>
@@ -158,7 +159,7 @@
                 </div>
             </div>
 
-            <!-- Page Selection for PDF -->
+            <!-- Page Selection for PDF (includes separate Agenda page) -->
             <div class="card">
                 <div class="card-header"><h3><i class="fas fa-check-square"></i> Report Pages to Include (PDF)</h3><i class="fas fa-file-pdf"></i></div>
                 <div class="page-selector">
@@ -166,7 +167,8 @@
                         <label><input type="checkbox" id="incTranscript" checked> 📄 Full Transcript</label>
                         <label><input type="checkbox" id="incSummary" checked> 📊 AI Executive Summary</label>
                         <label><input type="checkbox" id="incNarrative" checked> 📝 Narrative Report</label>
-                        <label><input type="checkbox" id="incActions" checked> ✅ Action Items & Agenda</label>
+                        <label><input type="checkbox" id="incActions" checked> ✅ Action Items</label>
+                        <label><input type="checkbox" id="incAgenda" checked> 📅 Proposed Next Meeting Agenda</label>
                         <label><input type="checkbox" id="incDeepStudy" checked> 🧠 AI Deep Study (with Advice & Assignees)</label>
                         <label><input type="checkbox" id="incHidden" checked> 🔍 Hidden Problems</label>
                         <label><input type="checkbox" id="incReceipt" checked> 💰 Payment Receipt</label>
@@ -227,11 +229,11 @@
 
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v19.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v20.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- Modals (unchanged) -->
     <div id="officeModal" class="modal"><div class="modal-content"><h3>Office Information</h3><input type="text" id="officeName" placeholder="Office Name" style="width:100%; padding:12px; margin:10px 0; border-radius:16px; border:1px solid #ccc;"><textarea id="officeAddress" rows="3" placeholder="Address" style="width:100%; padding:12px; margin:10px 0; border-radius:16px;"></textarea><input type="text" id="meetingType" placeholder="Meeting Type" style="width:100%; padding:12px; margin:10px 0; border-radius:16px;"><div style="display:flex; gap:12px;"><button id="saveOfficeBtn" class="btn btn-primary">Save</button><button id="closeOfficeBtn" class="btn btn-secondary">Cancel</button></div></div></div>
     <div id="historyModal" class="modal"><div class="modal-content"><h3>Meeting History</h3><div id="historyList" style="max-height:400px; overflow-y:auto;"></div><button id="closeHistoryBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
     <div id="adminModal" class="modal"><div class="modal-content" style="width:700px;"><h3>Professional Admin Panel</h3>
@@ -257,7 +259,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v19.0 – FULL VOICE SUPPORT (Sinhala/Tamil) ====================
+        // ==================== PETER AI v20.0 – RESTORED AGENDA + SINHALA/TAMIL VOICE SUPPORT ====================
         (function(){
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -288,11 +290,11 @@
                 const msgDiv = document.getElementById('voiceStatusMsg');
                 const selectedLang = document.getElementById('voiceLanguageSelect').value;
                 const targetCode = voiceLangMap[selectedLang] || 'en-US';
-                const found = availableVoices.some(v => v.lang === targetCode || v.lang.startsWith(targetCode.split('-')[0]));
-                if(found) {
-                    msgDiv.innerHTML = `✅ Voice for ${selectedLang.toUpperCase()} is available.`;
+                let foundVoice = getBestVoiceForLang(targetCode);
+                if(foundVoice) {
+                    msgDiv.innerHTML = `✅ Voice for ${selectedLang.toUpperCase()} found: ${foundVoice.name} (${foundVoice.lang})`;
                 } else {
-                    msgDiv.innerHTML = `⚠️ Voice for ${selectedLang.toUpperCase()} (${targetCode}) not found. Install language pack or use a different browser. Falling back to English.`;
+                    msgDiv.innerHTML = `⚠️ No voice for ${selectedLang.toUpperCase()} (${targetCode}) found. Install language pack or use a different browser. English will be used as fallback.`;
                 }
             }
             // Load voices after a delay (browsers load asynchronously)
@@ -307,13 +309,10 @@
                 let baseLang = langCode.split('-')[0];
                 voice = availableVoices.find(v => v.lang.startsWith(baseLang));
                 if(voice) return voice;
-                // Try any voice that includes the language name in its name
-                const langName = baseLang === 'si' ? 'sinhala' : (baseLang === 'ta' ? 'tamil' : '');
-                if(langName) {
-                    voice = availableVoices.find(v => v.name.toLowerCase().includes(langName));
-                    if(voice) return voice;
-                }
-                return null;
+                // For Sinhala/Tamil, try by name
+                if(baseLang === 'si') voice = availableVoices.find(v => v.name.toLowerCase().includes('sinhala'));
+                if(baseLang === 'ta') voice = availableVoices.find(v => v.name.toLowerCase().includes('tamil'));
+                return voice || null;
             }
 
             function saveOrgs() { localStorage.setItem('peter_orgs', JSON.stringify(allOrgs)); }
@@ -519,7 +518,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v19.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v20.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -636,10 +635,10 @@
                         if(item.length > 100) item = item.substring(0,97)+"...";
                         items.push(item);
                     }
-                    if(items.length >= 6) break;
+                    if(items.length >= 8) break;
                 }
                 if(items.length < 4) items = ["Review of previous action items", "Project status updates", "Budget and resource review", "Risk assessment", "Set next meeting date"];
-                return [...new Set(items)].slice(0,6);
+                return [...new Set(items)].slice(0,8);
             }
             function generateDeepStudy() {
                 let safety=[], development=[], difficulties=[], dangers=[], profits=[], losses=[], regrets=[], appreciations=[], suggestions=[];
@@ -748,8 +747,10 @@
                             let actions = extractActionItems();
                             fullText += "Action items. ";
                             for(let a of actions) fullText += a.text + " ";
-                            fullText += "Proposed agenda. ";
+                            break;
+                        case 'agenda':
                             let agenda = generateAgenda();
+                            fullText += "Proposed Next Meeting Agenda: ";
                             for(let i=0;i<agenda.length;i++) fullText += `${i+1}. ${agenda[i]}. `;
                             break;
                         case 'deepstudy':
@@ -773,11 +774,8 @@
                 }
                 const selectedLangCode = document.getElementById('voiceLanguageSelect').value;
                 const targetVoiceLang = voiceLangMap[selectedLangCode] || 'en-US';
-                let voices = window.speechSynthesis.getVoices();
-                let matchedVoice = voices.find(v => v.lang === targetVoiceLang) || 
-                                  voices.find(v => v.lang.startsWith(targetVoiceLang.split('-')[0])) ||
-                                  (selectedLangCode === 'si' ? voices.find(v => v.name.toLowerCase().includes('sinhala')) : null) ||
-                                  (selectedLangCode === 'ta' ? voices.find(v => v.name.toLowerCase().includes('tamil')) : null);
+                refreshVoicesList(); // ensure fresh list
+                let matchedVoice = getBestVoiceForLang(targetVoiceLang);
                 let utterance = new SpeechSynthesisUtterance(fullText);
                 utterance.rate = 0.9;
                 utterance.pitch = 1.0;
@@ -787,7 +785,7 @@
                     document.getElementById('voiceStatusMsg').innerHTML = `✅ Using voice: ${matchedVoice.name} (${matchedVoice.lang})`;
                 } else {
                     utterance.lang = targetVoiceLang;
-                    document.getElementById('voiceStatusMsg').innerHTML = `⚠️ No voice found for ${selectedLangCode.toUpperCase()}. Using default voice. Install language pack for better quality.`;
+                    document.getElementById('voiceStatusMsg').innerHTML = `⚠️ No voice for ${selectedLangCode.toUpperCase()}. Using default voice. Install language pack for better quality.`;
                 }
                 utterance.onstart = () => document.getElementById('voiceStatus').innerHTML = '🔊 Reading aloud...';
                 utterance.onend = () => {
@@ -805,13 +803,14 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION (unchanged, includes assignees) ==========
+            // ========== PDF GENERATION (with separate Agenda page) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data to report."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
                 const incSummary = document.getElementById('incSummary').checked;
                 const incNarrative = document.getElementById('incNarrative').checked;
                 const incActions = document.getElementById('incActions').checked;
+                const incAgenda = document.getElementById('incAgenda').checked;
                 const incDeepStudy = document.getElementById('incDeepStudy').checked;
                 const incHidden = document.getElementById('incHidden').checked;
                 const incReceipt = document.getElementById('incReceipt').checked;
@@ -827,6 +826,7 @@
                 if(incSummary) selectedPages++;
                 if(incNarrative) selectedPages++;
                 if(incActions) selectedPages++;
+                if(incAgenda) selectedPages++;
                 if(incDeepStudy && aiEnabled) selectedPages++;
                 if(incHidden && problemsEnabled) selectedPages++;
                 if(incReceipt && costCalculated && meetingCost>0) selectedPages++;
@@ -908,14 +908,19 @@
                 }
                 if(incActions) {
                     doc.addPage(); currentPage++;
-                    y = drawHeader(currentPage, "Action Items & Proposed Agenda");
+                    y = drawHeader(currentPage, "Action Items");
                     let actions = extractActionItems();
-                    writeLine("Action Items:", 0, true);
-                    for(let a of actions) writeLine(`• ${a.text} (${a.speaker})`, 5, false);
-                    y += 3;
-                    writeLine("Proposed Next Meeting Agenda:", 0, true);
+                    for(let a of actions) {
+                        writeLine(`• ${a.text} (${a.speaker})`, 5, false);
+                    }
+                }
+                if(incAgenda) {
+                    doc.addPage(); currentPage++;
+                    y = drawHeader(currentPage, "Proposed Next Meeting Agenda");
                     let agenda = generateAgenda();
-                    for(let i=0;i<agenda.length;i++) writeLine(`${i+1}. ${agenda[i]}`, 5, false);
+                    for(let i=0;i<agenda.length;i++) {
+                        writeLine(`${i+1}. ${agenda[i]}`, 5, false);
+                    }
                 }
                 if(incDeepStudy && aiEnabled) {
                     doc.addPage(); currentPage++;
