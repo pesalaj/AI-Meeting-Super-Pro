@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v16.0 | Stable Speech Recognition + AI Advice</title>
+    <title>Peter AI Super Pro v17.0 | Force Restart + Voice Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -55,6 +55,7 @@
         .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(102,126,234,0.3); }
         .btn-voice { background: #8b5cf6; color: white; }
+        .btn-restart { background: #f97316; color: white; }
         .meeting-buttons .btn { padding: 20px 40px !important; font-size: 18px !important; border-radius: 40px !important; min-width: 180px; }
         .speaker-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
         .speaker-tag { padding: 10px 20px; border-radius: 40px; font-size: 14px; cursor: pointer; color: white; font-weight: 600; background: linear-gradient(135deg, #667eea, #764ba2); }
@@ -84,7 +85,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v16.0</h2><p style="text-align:center; color:#64748b;">Stable Recognition + AI Advice</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v17.0</h2><p style="text-align:center; color:#64748b;">Force Restart + Voice Registration</p></div>
             <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="loginUsername" placeholder="Enter username"></div>
             <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPassword" placeholder="Enter password"></div>
             <button class="login-btn" id="loginBtn">Login</button>
@@ -96,7 +97,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v16.0</span></h1><p style="color:#64748b;">Continuous Speech Recognition + AI Advice</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:14px;">v17.0</span></h1><p style="color:#64748b;">Force Restart + Voice Speaker Registration</p></div>
                 <div style="display:flex; align-items:center; gap:20px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -107,6 +108,13 @@
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-info"><h3 id="meetingCount">0</h3><p>Meetings</p></div></div>
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-language"></i></div><div class="stat-info"><h3 id="langCount">15</h3><p>Languages</p></div></div>
                 <div class="stat-card"><div class="stat-icon"><i class="fas fa-file-pdf"></i></div><div class="stat-info"><h3 id="reportCount">0</h3><p>Reports</p></div></div>
+            </div>
+
+            <!-- Force Restart Button -->
+            <div class="card">
+                <div class="card-header"><h3><i class="fas fa-microphone-slash"></i> Recognition Troubleshooting</h3><i class="fas fa-sync-alt"></i></div>
+                <button id="forceRestartBtn" class="btn btn-restart"><i class="fas fa-sync-alt"></i> Force Restart Recognition</button>
+                <p style="font-size:12px; color:#64748b; margin-top:10px;">If the meeting stops capturing, click this button to restart the microphone without stopping the meeting.</p>
             </div>
 
             <!-- Voice Reading Section -->
@@ -207,9 +215,9 @@
                     <div class="card-header"><h3><i class="fas fa-building"></i> Organization Details</h3><i class="fas fa-edit"></i></div>
                     <button id="officeInfoBtn" class="btn btn-primary">Edit Office Info</button>
                     <div id="officeInfoDisplay" style="background:#eef2ff; padding:12px; border-radius:20px; margin-top:12px; color:#1e293b; display:none;"></div>
-                    <div style="margin-top:20px;"><h4 style="margin-bottom:12px;">Speaker Management</h4>
+                    <div style="margin-top:20px;"><h4 style="margin-bottom:12px;">Speaker Management (Voice Registration)</h4>
                     <div style="background:#f1f5f9; padding:16px; border-radius:24px;">
-                        <div style="display:flex; gap:12px; flex-wrap:wrap;"><button id="registerBtn" class="btn btn-primary">Register Speaker</button><button id="clearSpeakersBtn" class="btn btn-secondary">Clear All</button><button id="langSelectBtn" class="btn btn-primary">Change Language</button></div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap;"><button id="registerBtn" class="btn btn-primary">Register Speaker by Voice</button><button id="clearSpeakersBtn" class="btn btn-secondary">Clear All</button><button id="langSelectBtn" class="btn btn-primary">Change Language</button></div>
                         <div id="speakersList" class="speaker-list">No speakers</div>
                         <div id="quickAssignList" class="speaker-list"></div>
                     </div></div>
@@ -218,7 +226,7 @@
 
             <div class="card"><div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div><div class="transcript-area" id="transcriptArea"></div></div>
             <div class="card"><div class="card-header"><h3><i class="fas fa-file-alt"></i> Report Generation</h3><i class="fas fa-download"></i></div><button id="generateReportBtn" class="btn btn-primary">Generate Full Report PDF</button><div id="reportStatus" class="status-badge status-inactive" style="margin-top:16px;">Ready</div></div>
-            <div class="footer">© 2025 Peter AI Super Pro v16.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v17.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -248,7 +256,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:20px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v16.0 – STABLE SPEECH RECOGNITION ====================
+        // ==================== PETER AI v17.0 – FORCE RESTART + VOICE SPEAKER REGISTRATION ====================
         (function(){
             const validUsers = { pesalaj: 'pesalaj123$', admin: 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -265,6 +273,7 @@
             let office = { name: '', address: '', type: '' };
             let recognition = null;
             let autoSaveInterval = 1, autoTimer = null;
+            let isRestarting = false;
             const speakerColors = ['#667eea','#764ba2','#10b981','#f59e0b','#ef4444','#3b82f6'];
 
             const languages = { en:'English', si:'සිංහල', ta:'தமிழ்', es:'Español', fr:'Français', de:'Deutsch', it:'Italiano', pt:'Português', ru:'Русский', zh:'中文', ja:'日本語', ko:'한국어', ar:'العربية', hi:'हिन्दी', bn:'বাংলা' };
@@ -372,8 +381,7 @@
                 document.getElementById('confidenceBar').innerHTML = `<div class="confidence-green" style="width:${green}%"></div><div class="confidence-yellow" style="width:${yellow}%"></div><div class="confidence-red" style="width:${red}%"></div>`;
             }
             
-            // ========== STABLE SPEECH RECOGNITION (no freezing) ==========
-            let recognitionRestartTimer = null;
+            // ========== STABLE SPEECH RECOGNITION WITH FORCE RESTART ==========
             function startRecognition() {
                 if(!meetingActive) return;
                 if(recognition) {
@@ -384,22 +392,20 @@
                 const SpeechRecog = window.SpeechRecognition || window.webkitSpeechRecognition;
                 recognition = new SpeechRecog();
                 recognition.continuous = true;
-                recognition.interimResults = true;
+                recognition.interimResults = false; // Only final results to avoid clutter
                 recognition.lang = langCodes[currentLang] || 'en-US';
                 let lastFinalText = "";
                 
                 recognition.onstart = () => {
                     console.log("Recognition started");
                     document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Listening';
+                    isRestarting = false;
                 };
                 recognition.onresult = (event) => {
-                    let interim = "";
                     let final = "";
                     for(let i = event.resultIndex; i < event.results.length; i++) {
                         if(event.results[i].isFinal) {
                             final += event.results[i][0].transcript;
-                        } else {
-                            interim += event.results[i][0].transcript;
                         }
                     }
                     if(final && final.trim().length > 1 && final !== lastFinalText) {
@@ -410,7 +416,6 @@
                         let color = speakers.find(s=>s.name===speaker)?.color || '#667eea';
                         transcript.unshift({ speaker: speaker, originalText: text, timestamp: timestamp, color: color, lang: currentLang });
                         refreshTranscript();
-                        // reset lastFinal after short delay to avoid duplicate
                         setTimeout(() => { lastFinalText = ""; }, 500);
                     }
                 };
@@ -422,15 +427,31 @@
                 };
                 recognition.onend = () => {
                     console.log("Recognition ended");
-                    if(meetingActive) {
-                        // restart after a short delay
-                        if(recognitionRestartTimer) clearTimeout(recognitionRestartTimer);
-                        recognitionRestartTimer = setTimeout(() => {
-                            if(meetingActive) startRecognition();
-                        }, 500);
+                    if(meetingActive && !isRestarting) {
+                        setTimeout(() => { if(meetingActive) startRecognition(); }, 500);
                     }
                 };
                 recognition.start();
+            }
+            
+            function forceRestartRecognition() {
+                if(!meetingActive) {
+                    alert("Meeting is not active. Start a meeting first.");
+                    return;
+                }
+                isRestarting = true;
+                if(recognition) {
+                    try { recognition.abort(); } catch(e) {}
+                    recognition = null;
+                }
+                setTimeout(() => {
+                    isRestarting = false;
+                    startRecognition();
+                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Recognition Restarted';
+                    setTimeout(() => {
+                        if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active - Listening';
+                    }, 2000);
+                }, 300);
             }
             
             async function startMeeting() {
@@ -458,8 +479,8 @@
             
             function stopMeeting() {
                 meetingActive = false;
+                isRestarting = true;
                 if(recognition) try{ recognition.abort(); }catch(e){}
-                if(recognitionRestartTimer) clearTimeout(recognitionRestartTimer);
                 meetingEnd = new Date();
                 updateTimer();
                 if(timerInterval) clearInterval(timerInterval);
@@ -478,7 +499,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v16.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v17.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Peter_AutoSave_${Date.now()}.txt`;
@@ -499,7 +520,57 @@
                 document.getElementById('costDisplay').style.display = 'block';
             }
             
-            // ========== AI FUNCTIONS (with Advice by AI) ==========
+            // ========== VOICE SPEAKER REGISTRATION ==========
+            let voiceRegRecognition = null;
+            function registerSpeakerByVoice() {
+                let name = prompt("Enter speaker name (e.g., John):");
+                if(!name || name.trim() === "") return;
+                let cleanName = name.trim();
+                alert(`Now speak clearly: "I am ${cleanName}"`);
+                // Start a temporary recognition to listen for the phrase
+                if(voiceRegRecognition) try{ voiceRegRecognition.abort(); }catch(e){}
+                if(!('webkitSpeechRecognition' in window)) { alert("Speech recognition not supported."); return; }
+                const SpeechRecog = window.SpeechRecognition || window.webkitSpeechRecognition;
+                let tempRecog = new SpeechRecog();
+                tempRecog.continuous = false;
+                tempRecog.interimResults = false;
+                tempRecog.lang = 'en-US';
+                tempRecog.onresult = (event) => {
+                    let spoken = event.results[0][0].transcript.toLowerCase();
+                    if(spoken.includes(`i am ${cleanName.toLowerCase()}`) || spoken.includes(`i'm ${cleanName.toLowerCase()}`)) {
+                        // Success
+                        let color = speakerColors[speakers.length % speakerColors.length];
+                        speakers.push({ name: cleanName, color: color });
+                        updateUI();
+                        if(currentOrg) saveCurrentOrg();
+                        alert(`✅ Speaker "${cleanName}" registered successfully!`);
+                    } else {
+                        alert(`❌ Could not verify. Please try again and say "I am ${cleanName}".`);
+                    }
+                    tempRecog = null;
+                };
+                tempRecog.onerror = () => { alert("Error detecting voice. Please try again."); tempRecog = null; };
+                tempRecog.start();
+                voiceRegRecognition = tempRecog;
+                // Auto stop after 10 seconds
+                setTimeout(() => { if(tempRecog) { try{ tempRecog.abort(); }catch(e){} } }, 10000);
+            }
+            
+            // ========== AI FUNCTIONS (with Advice by AI and assignees) ==========
+            function getSpeakersForTopic(keywords) {
+                let involved = new Set();
+                for(let line of transcript) {
+                    let text = line.originalText.toLowerCase();
+                    for(let kw of keywords) {
+                        if(text.includes(kw)) {
+                            involved.add(line.speaker);
+                            break;
+                        }
+                    }
+                }
+                return involved.size ? Array.from(involved).join(", ") : "No specific speaker identified";
+            }
+            
             function generateAIExecutiveSummary() {
                 if(transcript.length === 0) return "No meeting data available for analysis.";
                 let fullText = transcript.map(l=>l.originalText).join(' ');
@@ -573,7 +644,6 @@
                 if(items.length < 4) items = ["Review of previous action items", "Project status updates", "Budget and resource review", "Risk assessment", "Set next meeting date"];
                 return [...new Set(items)].slice(0,6);
             }
-            // Full AI Deep Study with "Advice by AI"
             function generateDeepStudy() {
                 let safety=[], development=[], difficulties=[], dangers=[], profits=[], losses=[], regrets=[], appreciations=[], suggestions=[];
                 for(let line of transcript) {
@@ -610,7 +680,15 @@
                     regrets: regrets.length ? "Regrets expressed: " + regrets.slice(0,3).join("; ") : "No regrets were recorded.",
                     appreciations: appreciations.length ? "Appreciation expressed: " + appreciations.slice(0,3).join("; ") : "No appreciations were recorded.",
                     suggestions: suggestions.length ? "Suggestions made: " + suggestions.slice(0,3).join("; ") : "No specific suggestions were offered.",
-                    advice: advice
+                    advice: advice,
+                    // Assignees for each topic
+                    safetyAssignees: getSpeakersForTopic(["safety","secure","danger","hazard","safe"]),
+                    difficultiesAssignees: getSpeakersForTopic(["difficult","hard","challenge","complex","tough","struggle"]),
+                    dangersAssignees: getSpeakersForTopic(["risk","danger","threat","vulnerability"]),
+                    profitsAssignees: getSpeakersForTopic(["profit","revenue","income","opportunity","gain"]),
+                    lossesAssignees: getSpeakersForTopic(["loss","decline","downturn","waste","shortfall"]),
+                    regretsAssignees: getSpeakersForTopic(["regret","unfortunately","should have","wish"]),
+                    suggestionsAssignees: getSpeakersForTopic(["suggest","propose","recommend","advise","improve"])
                 };
             }
             function analyzeHiddenProblems() {
@@ -631,7 +709,9 @@
                 let creators = [];
                 if(/(blame|fault|not my responsibility)/i.test(fullText)) creators.push("Some speakers exhibited blame‑oriented language – focus on solutions.");
                 else creators.push("The conversation was generally solution‑oriented.");
-                return { issues, hiddenGood, withheld, secret, creators };
+                // Assignees for hidden problems
+                let assignees = getSpeakersForTopic(["problem","issue","challenge","delay","confidential","blame"]);
+                return { issues, hiddenGood, withheld, secret, creators, assignees };
             }
             
             // ========== VOICE READING ==========
@@ -679,11 +759,11 @@
                             break;
                         case 'deepstudy':
                             let deep = generateDeepStudy();
-                            fullText += `AI Deep Study. Guidance: ${deep.guidance}. Safety: ${deep.safety}. Development: ${deep.development}. Difficulties: ${deep.difficulties}. Dangers and risks: ${deep.dangers}. Potential profits: ${deep.profits}. Potential losses: ${deep.losses}. Regrets: ${deep.regrets}. Appreciations: ${deep.appreciations}. Suggestions: ${deep.suggestions}. Advice by AI: ${deep.advice}. `;
+                            fullText += `AI Deep Study. Guidance: ${deep.guidance}. Safety: ${deep.safety} (${deep.safetyAssignees}). Development: ${deep.development}. Difficulties: ${deep.difficulties} (${deep.difficultiesAssignees}). Dangers and risks: ${deep.dangers} (${deep.dangersAssignees}). Potential profits: ${deep.profits} (${deep.profitsAssignees}). Potential losses: ${deep.losses} (${deep.lossesAssignees}). Regrets: ${deep.regrets} (${deep.regretsAssignees}). Appreciations: ${deep.appreciations}. Suggestions: ${deep.suggestions} (${deep.suggestionsAssignees}). Advice by AI: ${deep.advice}. `;
                             break;
                         case 'hidden':
                             let hidden = analyzeHiddenProblems();
-                            fullText += `Hidden problems analysis. ${hidden.issues.join(' ')} ${hidden.hiddenGood.join(' ')} ${hidden.withheld.join(' ')} ${hidden.secret.join(' ')} ${hidden.creators.join(' ')} `;
+                            fullText += `Hidden problems analysis. ${hidden.issues.join(' ')} ${hidden.hiddenGood.join(' ')} ${hidden.withheld.join(' ')} ${hidden.secret.join(' ')} ${hidden.creators.join(' ')} Involved speakers: ${hidden.assignees}. `;
                             break;
                         case 'receipt':
                             if(costCalculated && meetingCost>0) {
@@ -721,7 +801,7 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION ==========
+            // ========== PDF GENERATION (with assignees) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data to report."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
@@ -827,7 +907,7 @@
                     y = drawHeader(currentPage, "Action Items & Proposed Agenda");
                     let actions = extractActionItems();
                     writeLine("Action Items:", 0, true);
-                    for(let a of actions) writeLine(`• ${a.text}`, 5, false);
+                    for(let a of actions) writeLine(`• ${a.text} (${a.speaker})`, 5, false);
                     y += 3;
                     writeLine("Proposed Next Meeting Agenda:", 0, true);
                     let agenda = generateAgenda();
@@ -835,13 +915,21 @@
                 }
                 if(incDeepStudy && aiEnabled) {
                     doc.addPage(); currentPage++;
-                    y = drawHeader(currentPage, "Ai Deep Study (Full with Advice)");
+                    y = drawHeader(currentPage, "Ai Deep Study (Full with Advice & Assignees)");
                     let deep = generateDeepStudy();
-                    let sections = ["Guidance","Safety","Development","Difficulties","Dangers/Risks","Potential Profits","Potential Losses","Regrets","Appreciations","Suggestions","Advice by AI"];
+                    let sections = [
+                        "Guidance",
+                        "Safety", "Development", "Difficulties", "Dangers/Risks",
+                        "Potential Profits", "Potential Losses", "Regrets",
+                        "Appreciations", "Suggestions", "Advice by AI"
+                    ];
                     let keys = ["guidance","safety","development","difficulties","dangers","profits","losses","regrets","appreciations","suggestions","advice"];
+                    let assignees = ["", "safetyAssignees", "", "difficultiesAssignees", "dangersAssignees", "profitsAssignees", "lossesAssignees", "regretsAssignees", "", "suggestionsAssignees", ""];
                     for(let i=0;i<sections.length;i++) {
+                        let text = deep[keys[i]] || "Not discussed.";
+                        if(assignees[i] && deep[assignees[i]]) text += ` (Involved: ${deep[assignees[i]]})`;
                         writeLine(`${sections[i]}:`, 0, true);
-                        writeLine(deep[keys[i]] || "Not discussed.", 5, false);
+                        writeLine(text, 5, false);
                         y += 2;
                     }
                 }
@@ -852,8 +940,9 @@
                     let sections = ["Potential Hidden Problems", "Hidden Good Things", "Withheld Ideas", "Secret Information", "Negative Influence"];
                     let keys = ["issues","hiddenGood","withheld","secret","creators"];
                     for(let i=0;i<sections.length;i++) {
-                        writeLine(`${sections[i]}:`, 0, true);
                         let text = Array.isArray(problems[keys[i]]) ? problems[keys[i]].join(" ") : problems[keys[i]];
+                        if(i===0 && problems.assignees) text += ` (Involved: ${problems.assignees})`;
+                        writeLine(`${sections[i]}:`, 0, true);
                         writeLine(text, 5, false);
                         y += 2;
                     }
@@ -874,6 +963,7 @@
                     yR+=5;
                     doc.setFont("helvetica","bold"); doc.setFontSize(11); doc.setTextColor(40,167,69);
                     doc.text(`Total Amount Due: $${(meetingCost + pageCharge).toFixed(2)}`, 20, yR);
+                    doc.text(`(Paid by: ${attendeeStr})`, 20, yR+6);
                 }
                 let totalPages = doc.internal.getNumberOfPages();
                 for(let i=1;i<=totalPages;i++) drawFooter(i, totalPages);
@@ -943,7 +1033,7 @@
             document.getElementById('deleteOrgBtn').onclick = ()=>{ if(currentOrg && confirm(`Delete ${currentOrg}?`)){ delete allOrgs[currentOrg]; saveOrgs(); refreshOrgSelector(); currentOrg=null; speakers=[]; transcript=[]; updateUI(); } };
             document.getElementById('historyBtn').onclick = ()=>{ if(!currentOrg){ alert("Select org"); return; } let histDiv=document.getElementById('historyList'); if(!history.length) histDiv.innerHTML='<p>No past meetings</p>'; else histDiv.innerHTML=history.map((h,i)=>`<div class="history-item" onclick="if(confirm('Load meeting?')){ transcript=[...history[${i}].transcript]; refreshTranscript(); document.getElementById('historyModal').style.display='none'; }"><strong>${h.date}</strong><br>${h.duration} | ${h.transcript.length} lines</div>`).join(''); document.getElementById('historyModal').style.display='flex'; };
             document.getElementById('closeHistoryBtn').onclick = ()=>document.getElementById('historyModal').style.display='none';
-            document.getElementById('registerBtn').onclick = ()=>{ let n=prompt("Speaker name:"); if(n){ let col=speakerColors[speakers.length%speakerColors.length]; speakers.push({name:n,color:col}); updateUI(); if(currentOrg) saveCurrentOrg(); } };
+            document.getElementById('registerBtn').onclick = registerSpeakerByVoice;
             document.getElementById('clearSpeakersBtn').onclick = ()=>{ if(confirm("Clear all speakers?")){ speakers=[]; updateUI(); if(currentOrg) saveCurrentOrg(); } };
             document.getElementById('startMeetingBtn').onclick = startMeeting;
             document.getElementById('stopMeetingBtn').onclick = stopMeeting;
@@ -965,6 +1055,7 @@
             document.getElementById('closeAdminBtn').onclick = ()=>document.getElementById('adminModal').style.display='none';
             document.getElementById('readSelectedBtn').onclick = readSelectedSections;
             document.getElementById('stopReadingBtn').onclick = stopReading;
+            document.getElementById('forceRestartBtn').onclick = forceRestartRecognition;
             window.onclick = (e)=>{ if(e.target.classList.contains('modal')) e.target.style.display='none'; };
             if(window.speechSynthesis) window.speechSynthesis.getVoices();
             loadAdminSettings();
