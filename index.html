@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v28.0 | Final – Numbered Lines + Border + Coloured Headers</title>
+    <title>Peter AI Super Pro v29.0 | Fixed Recognition – Never Stops</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -87,6 +87,8 @@
         .footer { text-align: center; padding: 16px; color: #64748b; font-size: 11px; }
         .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
         .restart-button-container { margin-bottom: 12px; text-align: right; }
+        .listening-active { color: #10b981; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
         @media (max-width:800px){
             .stats-grid { grid-template-columns: repeat(2,1fr); }
             .main-grid { grid-template-columns: 1fr; }
@@ -100,7 +102,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v28.0</h2><p style="text-align:center; font-size:12px; color:#64748b;">Final – Numbered Lines + Border + Coloured Headers</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v29.0</h2><p style="text-align:center; font-size:12px; color:#64748b;">Fixed Recognition – Never Stops</p></div>
             <div class="input-group">
                 <label><i class="fas fa-user"></i> Username</label>
                 <input type="password" id="loginUsername" placeholder="Enter username">
@@ -119,7 +121,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v28.0</span></h1><p>Premium | AI Advice + Voice Reading</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v29.0</span></h1><p>Premium | Continuous Recognition</p></div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -133,7 +135,7 @@
             </div>
 
             <div class="card card-voice">
-                <div class="card-header"><h3><i class="fas fa-microphone-slash"></i> Recognition Troubleshooting</h3><i class="fas fa-sync-alt"></i></div>
+                <div class="card-header"><h3><i class="fas fa-microphone-slash"></i> Recognition</h3><i class="fas fa-sync-alt"></i></div>
                 <button id="forceRestartBtn" class="btn btn-restart">Force Restart Recognition</button>
                 <p style="font-size:11px; margin-top:8px;">If meeting stops capturing, click this button.</p>
             </div>
@@ -141,10 +143,10 @@
             <div class="card card-voice">
                 <div class="card-header"><h3><i class="fas fa-volume-up"></i> Voice Reading</h3><i class="fas fa-language"></i></div>
                 <div class="voice-selector">
-                    <div class="warning-note"><i class="fas fa-exclamation-triangle"></i> Reads English text using selected language voice. Not translation.</div>
+                    <div class="warning-note"><i class="fas fa-exclamation-triangle"></i> Reads English text using selected language voice.</div>
                     <div style="margin-bottom:10px;">
                         <select id="voiceLanguageSelect" style="padding:6px 12px; border-radius:40px; border:1px solid #ccc; font-size:12px;">
-                            <option value="en">English</option><option value="si">සිංහල (Sinhala)</option><option value="ta">தமிழ் (Tamil)</option>
+                            <option value="en">English</option><option value="si">සිංහල</option><option value="ta">தமிழ்</option>
                             <option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option>
                             <option value="it">Italiano</option><option value="pt">Português</option><option value="ru">Русский</option>
                             <option value="zh">中文</option><option value="ja">日本語</option><option value="ko">한국어</option>
@@ -170,7 +172,7 @@
             </div>
 
             <div class="card card-pages">
-                <div class="card-header"><h3><i class="fas fa-check-square"></i> Report Pages (PDF) with Individual Pricing</h3><i class="fas fa-dollar-sign"></i></div>
+                <div class="card-header"><h3><i class="fas fa-check-square"></i> Report Pages (PDF)</h3><i class="fas fa-dollar-sign"></i></div>
                 <div class="page-selector">
                     <div class="checkbox-group">
                         <label><input type="checkbox" id="incTranscript" checked> Transcript <span class="price-tag">$0.10</span></label>
@@ -183,12 +185,12 @@
                         <label><input type="checkbox" id="incConfidence" checked> Meeting Confidence <span class="price-tag">$0.10</span></label>
                         <label><input type="checkbox" id="incReceipt" checked> Payment Receipt <span class="price-tag">Included</span></label>
                     </div>
-                    <div style="margin-top:10px; font-size:11px;">Total page charges will be calculated in receipt.</div>
+                    <div style="margin-top:10px; font-size:11px;">Total page charges in receipt.</div>
                 </div>
             </div>
 
             <div class="card card-confidence">
-                <div class="card-header"><h3><i class="fas fa-chart-line"></i> Meeting Confidence Indicator</h3></div>
+                <div class="card-header"><h3><i class="fas fa-chart-line"></i> Meeting Confidence</h3></div>
                 <div id="confidenceBar" class="confidence-bar"></div>
                 <div style="display:flex; justify-content:space-between; font-size:11px;"><span>Positive</span><span>Neutral</span><span>Negative</span></div>
             </div>
@@ -239,7 +241,7 @@
             <div class="card card-transcript">
                 <div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div>
                 <div class="restart-button-container">
-                    <button id="transcriptRestartBtn" class="btn btn-restart" style="background:#f97316; color:white;"><i class="fas fa-sync-alt"></i> 🔄 Restart Recognition (if stuck)</button>
+                    <button id="transcriptRestartBtn" class="btn btn-restart"><i class="fas fa-sync-alt"></i> 🔄 Restart Recognition</button>
                 </div>
                 <div class="transcript-area" id="transcriptArea"></div>
             </div>
@@ -248,11 +250,10 @@
                 <button id="generateReportBtn" class="btn btn-primary">Generate PDF</button>
                 <div id="reportStatus" class="status-badge status-inactive" style="margin-top:10px;">Ready</div>
             </div>
-            <div class="footer">© 2025 Peter AI Super Pro v28.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v29.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
-    <!-- Modals (unchanged) -->
     <div id="officeModal" class="modal"><div class="modal-content"><h3>Office Info</h3><input type="text" id="officeName" placeholder="Office Name" style="width:100%; padding:10px; margin:8px 0;"><textarea id="officeAddress" rows="2" placeholder="Address" style="width:100%; padding:10px;"></textarea><input type="text" id="meetingType" placeholder="Meeting Type" style="width:100%; padding:10px;"><div style="display:flex; gap:10px; margin-top:15px;"><button id="saveOfficeBtn" class="btn btn-primary">Save</button><button id="closeOfficeBtn" class="btn btn-secondary">Cancel</button></div></div></div>
     <div id="historyModal" class="modal"><div class="modal-content"><h3>Meeting History</h3><div id="historyList" style="max-height:350px; overflow-y:auto;"></div><button id="closeHistoryBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
     <div id="adminModal" class="modal"><div class="modal-content"><h3>Admin Panel - Page Charges</h3>
@@ -283,7 +284,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v28.0 – NUMBERED LINES + BORDER + COLOURED HEADERS ====================
+        // ==================== PETER AI v29.0 – SIMPLE, RELIABLE RECOGNITION (NEVER STOPS) ====================
         (function(){
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -300,21 +301,10 @@
             let office = { name: '', address: '', type: '' };
             let recognition = null;
             let autoSaveInterval = 1, autoTimer = null;
-            let keepAliveInterval = null;
+            let isRestarting = false;
             const speakerColors = ['#667eea','#764ba2','#10b981','#f59e0b','#ef4444','#3b82f6'];
             
-            // Page prices
-            let pagePrices = {
-                transcript: 0.10,
-                summary: 0.10,
-                narrative: 0.10,
-                actions: 0.10,
-                agenda: 0.10,
-                deepstudy: 0.15,
-                hidden: 0.10,
-                confidence: 0.10
-            };
-
+            let pagePrices = { transcript:0.10, summary:0.10, narrative:0.10, actions:0.10, agenda:0.10, deepstudy:0.15, hidden:0.10, confidence:0.10 };
             const languages = { en:'English', si:'සිංහල', ta:'தமிழ்', es:'Español', fr:'Français', de:'Deutsch', it:'Italiano', pt:'Português', ru:'Русский', zh:'中文', ja:'日本語', ko:'한국어', ar:'العربية', hi:'हिन्दी', bn:'বাংলা' };
             const langCodes = { en:'en-US', si:'si-LK', ta:'ta-IN', es:'es-ES', fr:'fr-FR', de:'de-DE', it:'it-IT', pt:'pt-PT', ru:'ru-RU', zh:'zh-CN', ja:'ja-JP', ko:'ko-KR', ar:'ar-SA', hi:'hi-IN', bn:'bn-IN' };
             const voiceLangMap = { en:'en-US', si:'si-LK', ta:'ta-IN', es:'es-ES', fr:'fr-FR', de:'de-DE', it:'it-IT', pt:'pt-PT', ru:'ru-RU', zh:'zh-CN', ja:'ja-JP', ko:'ko-KR', ar:'ar-SA', hi:'hi-IN', bn:'bn-IN' };
@@ -331,102 +321,36 @@
             }
             setTimeout(refreshVoicesList, 500);
             window.speechSynthesis.onvoiceschanged = refreshVoicesList;
-
-            function getBestVoiceForLang(langCode) {
-                return availableVoices.find(v => v.lang === langCode) || availableVoices.find(v => v.lang.startsWith(langCode.split('-')[0])) || null;
-            }
+            function getBestVoiceForLang(langCode) { return availableVoices.find(v => v.lang === langCode) || availableVoices.find(v => v.lang.startsWith(langCode.split('-')[0])) || null; }
 
             function saveOrgs() { localStorage.setItem('peter_orgs', JSON.stringify(allOrgs)); }
             function loadOrgs() { allOrgs = JSON.parse(localStorage.getItem('peter_orgs') || '{}'); refreshOrgSelector(); }
-            function refreshOrgSelector() {
-                const sel = document.getElementById('orgSelector');
-                sel.innerHTML = '<option value="">-- Select Organization --</option>';
-                for(let o in allOrgs) sel.innerHTML += `<option value="${o}">${o}</option>`;
-            }
-            function saveCurrentOrg() {
-                if(!currentOrg) return false;
-                allOrgs[currentOrg] = { speakers, office, meetingCount, reportCount, currentLang, history };
-                saveOrgs();
-                document.getElementById('orgStatus').innerHTML = '✅ Saved';
-                setTimeout(()=>document.getElementById('orgStatus').innerHTML='',1500);
-                return true;
-            }
-            function loadOrg(org) {
-                if(!allOrgs[org]) return;
-                let d = allOrgs[org];
-                speakers = d.speakers || [];
-                office = d.office || { name:org, address:'', type:'' };
-                meetingCount = d.meetingCount || 0;
-                reportCount = d.reportCount || 0;
-                currentLang = d.currentLang || 'en';
-                history = d.history || [];
-                currentOrg = org;
-                updateUI();
-                updateConfidenceBar();
-            }
-            function updateUI() {
-                document.getElementById('speakerCount').innerText = speakers.length;
-                document.getElementById('meetingCount').innerText = meetingCount;
-                document.getElementById('reportCount').innerText = reportCount;
-                document.getElementById('langCount').innerText = Object.keys(languages).length;
-                updateLanguageDisplay();
-                refreshSpeakersList();
-                displayOffice();
-                refreshTranscript();
-                updateConfidenceBar();
-            }
+            function refreshOrgSelector() { const sel = document.getElementById('orgSelector'); sel.innerHTML = '<option value="">-- Select Organization --</option>'; for(let o in allOrgs) sel.innerHTML += `<option value="${o}">${o}</option>`; }
+            function saveCurrentOrg() { if(!currentOrg) return false; allOrgs[currentOrg] = { speakers, office, meetingCount, reportCount, currentLang, history }; saveOrgs(); document.getElementById('orgStatus').innerHTML = '✅ Saved'; setTimeout(()=>document.getElementById('orgStatus').innerHTML='',1500); return true; }
+            function loadOrg(org) { if(!allOrgs[org]) return; let d = allOrgs[org]; speakers = d.speakers || []; office = d.office || { name:org, address:'', type:'' }; meetingCount = d.meetingCount || 0; reportCount = d.reportCount || 0; currentLang = d.currentLang || 'en'; history = d.history || []; currentOrg = org; updateUI(); updateConfidenceBar(); }
+            function updateUI() { document.getElementById('speakerCount').innerText = speakers.length; document.getElementById('meetingCount').innerText = meetingCount; document.getElementById('reportCount').innerText = reportCount; document.getElementById('langCount').innerText = Object.keys(languages).length; updateLanguageDisplay(); refreshSpeakersList(); displayOffice(); refreshTranscript(); updateConfidenceBar(); }
             function updateLanguageDisplay() { document.getElementById('languageName').innerHTML = languages[currentLang] || 'English'; }
             function refreshSpeakersList() {
-                const container = document.getElementById('speakersList');
-                const quick = document.getElementById('quickAssignList');
+                const container = document.getElementById('speakersList'); const quick = document.getElementById('quickAssignList');
                 if(!speakers.length) { container.innerHTML = '<span style="color:#475569;">No speakers</span>'; quick.innerHTML = ''; return; }
                 container.innerHTML = speakers.map((s,i)=>`<span class="speaker-tag" style="background:${s.color||speakerColors[i%speakerColors.length]}">${s.name}</span>`).join('');
                 quick.innerHTML = '<strong>Quick Assign:</strong> ';
-                speakers.forEach(s=>{
-                    let btn = document.createElement('button');
-                    btn.className = 'speaker-tag';
-                    btn.style.background = s.color;
-                    btn.innerText = s.name;
-                    btn.onclick = () => {
-                        for(let i=transcript.length-1;i>=0;i--) if(transcript[i].speaker === 'Unknown') { transcript[i].speaker = s.name; transcript[i].color = s.color; refreshTranscript(); break; }
-                    };
-                    quick.appendChild(btn);
-                });
+                speakers.forEach(s=>{ let btn = document.createElement('button'); btn.className = 'speaker-tag'; btn.style.background = s.color; btn.innerText = s.name; btn.onclick = () => { for(let i=transcript.length-1;i>=0;i--) if(transcript[i].speaker === 'Unknown') { transcript[i].speaker = s.name; transcript[i].color = s.color; refreshTranscript(); break; } }; quick.appendChild(btn); });
             }
             function refreshTranscript() {
                 const area = document.getElementById('transcriptArea');
                 if(!transcript.length) { area.innerHTML = '<div style="color:#64748b; text-align:center; padding:30px;">Start a meeting</div>'; updateCounters(); return; }
                 area.innerHTML = transcript.map(e=>`<div class="transcript-line" style="border-left-color:${e.color||'#667eea'}"><div><strong style="color:${e.color||'#667eea'}">${e.speaker}</strong> <span style="font-size:9px;">${e.timestamp}</span></div><div class="original-text">${escapeHtml(e.originalText)}</div></div>`).join('');
-                area.scrollTop = 0;
-                updateCounters();
-                updateConfidenceBar();
+                area.scrollTop = 0; updateCounters(); updateConfidenceBar();
             }
-            function updateCounters() {
-                document.getElementById('lineCounter').innerText = transcript.length;
-                document.getElementById('pageCounter').innerText = Math.ceil(transcript.length/25);
-            }
+            function updateCounters() { document.getElementById('lineCounter').innerText = transcript.length; document.getElementById('pageCounter').innerText = Math.ceil(transcript.length/25); }
             function escapeHtml(t){ return t?.replace(/[&<>]/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))||''; }
-            function displayOffice() {
-                let div = document.getElementById('officeInfoDisplay');
-                if(office.name || office.address || office.type) {
-                    div.innerHTML = `<strong>${office.name||'N/A'}</strong><br>${office.address||''}<br>${office.type||''}`;
-                    div.style.display = 'block';
-                } else div.style.display = 'none';
-            }
-            function updateTimer() {
-                if(!meetingStart) return;
-                let ms = (meetingEnd || new Date()) - meetingStart;
-                document.getElementById('timerDisplay').innerHTML = `${String(Math.floor(ms/3600000)).padStart(2,'0')}:${String(Math.floor((ms%3600000)/60000)).padStart(2,'0')}:${String(Math.floor((ms%60000)/1000)).padStart(2,'0')}`;
-                meetingHours = ms/3600000;
-            }
+            function displayOffice() { let div = document.getElementById('officeInfoDisplay'); if(office.name || office.address || office.type) { div.innerHTML = `<strong>${office.name||'N/A'}</strong><br>${office.address||''}<br>${office.type||''}`; div.style.display = 'block'; } else div.style.display = 'none'; }
+            function updateTimer() { if(!meetingStart) return; let ms = (meetingEnd || new Date()) - meetingStart; document.getElementById('timerDisplay').innerHTML = `${String(Math.floor(ms/3600000)).padStart(2,'0')}:${String(Math.floor((ms%3600000)/60000)).padStart(2,'0')}:${String(Math.floor((ms%60000)/1000)).padStart(2,'0')}`; meetingHours = ms/3600000; }
             function startTimer() { if(timerInterval) clearInterval(timerInterval); timerInterval = setInterval(()=>{ if(meetingActive && meetingStart && !meetingEnd) updateTimer(); },1000); }
             
             function updateConfidenceBar() {
-                if(!transcript.length) { 
-                    document.getElementById('confidenceBar').innerHTML = `<div class="confidence-green" style="width:33%"></div><div class="confidence-yellow" style="width:34%"></div><div class="confidence-red" style="width:33%"></div>`;
-                    window.meetingConfidence = { green:33, yellow:34, red:33, posCount:0, negCount:0, neutralCount:0 };
-                    return; 
-                }
+                if(!transcript.length) { document.getElementById('confidenceBar').innerHTML = `<div class="confidence-green" style="width:33%"></div><div class="confidence-yellow" style="width:34%"></div><div class="confidence-red" style="width:33%"></div>`; window.meetingConfidence = { green:33, yellow:34, red:33, posCount:0, negCount:0, neutralCount:0 }; return; }
                 let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
                 let posCount = (fullText.match(/\b(good|great|excellent|positive|success|achievement|profit|opportunity|safe|secure|advantage|benefit|happy|satisfied|agree)\b/g) || []).length;
                 let negCount = (fullText.match(/\b(bad|poor|risk|danger|loss|problem|issue|fail|error|mistake|delay|blame|regret|unfortunately|disagree)\b/g) || []).length;
@@ -439,7 +363,7 @@
                 window.meetingConfidence = { green: green.toFixed(1), yellow: yellow.toFixed(1), red: red.toFixed(1), posCount, negCount, neutralCount };
             }
             
-            // Speech recognition
+            // ========== SIMPLE, RELIABLE SPEECH RECOGNITION – NEVER STOPS ==========
             function startRecognition() {
                 if(!meetingActive) return;
                 if(recognition) { try { recognition.abort(); } catch(e) {} recognition = null; }
@@ -447,13 +371,28 @@
                 const SpeechRecog = window.SpeechRecognition || window.webkitSpeechRecognition;
                 recognition = new SpeechRecog();
                 recognition.continuous = true;
-                recognition.interimResults = false;
+                recognition.interimResults = true;
                 recognition.lang = langCodes[currentLang] || 'en-US';
                 let lastFinalText = "";
-                recognition.onstart = () => { document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Active'; };
+                let interimDisplay = "";
+                
+                recognition.onstart = () => { 
+                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
+                    isRestarting = false;
+                };
                 recognition.onresult = (event) => {
+                    let interim = "";
                     let final = "";
-                    for(let i = event.resultIndex; i < event.results.length; i++) if(event.results[i].isFinal) final += event.results[i][0].transcript;
+                    for(let i = event.resultIndex; i < event.results.length; i++) {
+                        if(event.results[i].isFinal) {
+                            final += event.results[i][0].transcript;
+                        } else {
+                            interim += event.results[i][0].transcript;
+                        }
+                    }
+                    if(interim) {
+                        document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#f59e0b;"></i> 🎙️ Speaking...';
+                    }
                     if(final && final.trim().length > 1 && final !== lastFinalText) {
                         lastFinalText = final;
                         let text = final.trim();
@@ -463,21 +402,27 @@
                         transcript.unshift({ speaker: speaker, originalText: text, timestamp: timestamp, color: color, lang: currentLang });
                         refreshTranscript();
                         setTimeout(() => { lastFinalText = ""; }, 500);
+                        document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     }
                 };
-                recognition.onerror = (e) => { if(e.error === 'not-allowed') alert("Microphone permission denied."); if(meetingActive) setTimeout(() => startRecognition(), 1000); };
-                recognition.onend = () => { if(meetingActive) setTimeout(() => startRecognition(), 500); };
+                recognition.onerror = (e) => { 
+                    console.log("Recognition error:", e.error);
+                    if(e.error === 'not-allowed') alert("Microphone permission denied.");
+                };
+                recognition.onend = () => { 
+                    if(meetingActive && !isRestarting) {
+                        setTimeout(() => startRecognition(), 500);
+                    }
+                };
                 recognition.start();
             }
             
-            function startKeepAlive() { if(keepAliveInterval) clearInterval(keepAliveInterval); keepAliveInterval = setInterval(() => { if(meetingActive && (!recognition || !recognition.onstart)) startRecognition(); }, 15000); }
-            function stopKeepAlive() { if(keepAliveInterval) { clearInterval(keepAliveInterval); keepAliveInterval = null; } }
-            
             function forceRestartRecognition() {
                 if(!meetingActive) { alert("Meeting not active."); return; }
+                isRestarting = true;
                 if(recognition) try { recognition.abort(); } catch(e) {}
                 recognition = null;
-                setTimeout(() => { startRecognition(); document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Restarted'; }, 100);
+                setTimeout(() => { isRestarting = false; startRecognition(); document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Restarting...'; setTimeout(() => { if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)'; }, 1000); }, 200);
             }
             
             async function startMeeting() {
@@ -492,21 +437,20 @@
                     costCalculated = false;
                     startTimer();
                     startRecognition();
-                    startKeepAlive();
                     if(autoTimer) clearInterval(autoTimer);
                     autoTimer = setInterval(()=>{ if(meetingActive && transcript.length) autoSave(); }, autoSaveInterval*60*1000);
                     document.getElementById('startMeetingBtn').disabled = true;
                     document.getElementById('stopMeetingBtn').disabled = false;
                     document.getElementById('printCostBtn').disabled = false;
                     document.getElementById('meetingStatus').className = 'status-badge status-active';
-                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> Meeting Active';
+                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     refreshTranscript();
                 } catch(e) { alert("Microphone permission required"); }
             }
             
             function stopMeeting() {
                 meetingActive = false;
-                stopKeepAlive();
+                isRestarting = true;
                 if(recognition) try{ recognition.abort(); }catch(e){}
                 meetingEnd = new Date();
                 updateTimer();
@@ -525,10 +469,7 @@
                 alert(`Stopped. ${transcript.length} lines.`);
             }
             
-            function autoSave() {
-                let blob = new Blob([`PETER AI v28.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
-                let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob);
-            }
+            function autoSave() { let blob = new Blob([`PETER AI v29.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
             
             let rates = { r0_1:15, r1_2:14, r2_4:12, rAbove:11, perLang:3, allLang:50 };
             function printCost() {
@@ -544,143 +485,28 @@
                 costDiv.style.display = 'block';
             }
             
-            function registerSpeaker() {
-                let name = prompt("Enter speaker name:");
-                if(name && name.trim() !== "") {
-                    let cleanName = name.trim();
-                    let color = speakerColors[speakers.length % speakerColors.length];
-                    speakers.push({ name: cleanName, color: color });
-                    updateUI();
-                    if(currentOrg) saveCurrentOrg();
-                    alert(`✅ Speaker "${cleanName}" registered!`);
-                }
-            }
+            function registerSpeaker() { let name = prompt("Enter speaker name:"); if(name && name.trim() !== "") { let cleanName = name.trim(); let color = speakerColors[speakers.length % speakerColors.length]; speakers.push({ name: cleanName, color: color }); updateUI(); if(currentOrg) saveCurrentOrg(); alert(`✅ Speaker "${cleanName}" registered!`); } }
             
-            // AI Functions
-            function getSpeakersForTopic(keywords) {
-                let involved = new Set();
-                for(let line of transcript) {
-                    let text = line.originalText.toLowerCase();
-                    for(let kw of keywords) if(text.includes(kw)) { involved.add(line.speaker); break; }
-                }
-                return involved.size ? Array.from(involved).join(", ") : "None";
-            }
+            // AI Functions (simplified but functional)
+            function getSpeakersForTopic(keywords) { let involved = new Set(); for(let line of transcript) { let text = line.originalText.toLowerCase(); for(let kw of keywords) if(text.includes(kw)) { involved.add(line.speaker); break; } } return involved.size ? Array.from(involved).join(", ") : "None"; }
             function generateAIExecutiveSummary() {
-                if(transcript.length === 0) return "No meeting data available.";
-                let fullText = transcript.map(l=>l.originalText).join(' ');
-                let summary = "The meeting brought together key stakeholders to discuss critical operational and strategic matters. ";
-                summary += "Participants engaged in constructive dialogue, addressing both immediate concerns and long-term objectives. ";
-                summary += "The overall tone was professional, with a focus on finding practical solutions to the challenges presented.\n\n";
+                if(transcript.length === 0) return "No meeting data.";
+                let summary = "The meeting covered important operational and strategic matters. ";
+                let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
                 let topics = [];
-                if(/(project|deadline|timeline|schedule|deliverable)/i.test(fullText)) topics.push("project timelines");
-                if(/(budget|cost|expense|financial)/i.test(fullText)) topics.push("budget considerations");
+                if(/(project|deadline|timeline)/i.test(fullText)) topics.push("project timelines");
+                if(/(budget|cost|expense)/i.test(fullText)) topics.push("budget considerations");
                 if(/(team|staff|resource)/i.test(fullText)) topics.push("team responsibilities");
-                if(/(risk|issue|problem|challenge)/i.test(fullText)) topics.push("risks and challenges");
                 if(topics.length) summary += "Focus areas: " + topics.join(", ") + ". ";
                 else summary += "Operational updates and next steps were discussed. ";
-                summary += "\n\nKey decisions made include agreed actions and clear assignments. The meeting concluded with a solid plan forward.";
+                summary += "Key decisions include agreed actions and assignments. The meeting concluded with clear next steps.";
                 return summary;
             }
-            function generateNarrativeReport() {
-                if(transcript.length === 0) return "No conversation recorded.";
-                let paragraphs = [];
-                let currentSpeaker = "";
-                let currentText = "";
-                for(let line of transcript.slice().reverse()) {
-                    let cleanText = line.originalText.trim();
-                    if(!cleanText.endsWith('.') && !cleanText.endsWith('!') && !cleanText.endsWith('?')) cleanText += '.';
-                    if(line.speaker !== currentSpeaker) {
-                        if(currentText) paragraphs.push(`${currentSpeaker}: ${currentText}`);
-                        currentSpeaker = line.speaker;
-                        currentText = cleanText;
-                    } else { currentText += " " + cleanText; }
-                }
-                if(currentText) paragraphs.push(`${currentSpeaker}: ${currentText}`);
-                return paragraphs.join("\n\n");
-            }
-            function extractActionItems() {
-                let actions = [];
-                for(let line of transcript.slice().reverse()) {
-                    let text = line.originalText;
-                    let lower = text.toLowerCase();
-                    if(/(will|must|need to|task|action|todo|deadline|responsible|assign)/i.test(lower)) {
-                        let actionText = text.trim();
-                        actionText = actionText.charAt(0).toUpperCase() + actionText.slice(1);
-                        if(!actionText.endsWith(".")) actionText += ".";
-                        if(actionText.length > 120) actionText = actionText.substring(0,117)+"...";
-                        actions.push({ speaker: line.speaker, text: actionText });
-                    }
-                    if(actions.length >= 10) break;
-                }
-                if(actions.length === 0) actions.push({ speaker: "Team", text: "Continue working on assigned tasks and report progress at the next meeting." });
-                return actions;
-            }
-            function generateAgenda() {
-                let items = [];
-                if(transcript.length === 0) return ["Review previous actions", "Project status", "Budget review", "Risk assessment", "Set next meeting"];
-                let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
-                if(/(review|status update)/i.test(fullText)) items.push("Review of previous action items");
-                if(/(project|timeline|deadline)/i.test(fullText)) items.push("Project timeline review");
-                if(/(budget|cost|expense)/i.test(fullText)) items.push("Budget and financial review");
-                if(/(risk|issue|problem)/i.test(fullText)) items.push("Risk assessment and mitigation");
-                if(/(team|resource|staff)/i.test(fullText)) items.push("Resource allocation");
-                if(items.length < 3) items.push("Open discussion");
-                items.push("Set next meeting date");
-                return [...new Set(items)].slice(0,7);
-            }
-            function generateDeepStudy() {
-                let safety=[], difficulties=[], dangers=[], losses=[], regrets=[], suggestions=[], profits=[], development=[];
-                for(let line of transcript) {
-                    let l = line.originalText.toLowerCase();
-                    if(/(safety|secure|danger|hazard)/i.test(l)) safety.push(line.originalText);
-                    if(/(difficult|hard|challenge)/i.test(l)) difficulties.push(line.originalText);
-                    if(/(risk|danger|threat)/i.test(l)) dangers.push(line.originalText);
-                    if(/(loss|decline|downturn|waste|shortfall)/i.test(l)) losses.push(line.originalText);
-                    if(/(regret|unfortunately)/i.test(l)) regrets.push(line.originalText);
-                    if(/(suggest|propose|recommend)/i.test(l)) suggestions.push(line.originalText);
-                    if(/(profit|revenue|opportunity)/i.test(l)) profits.push(line.originalText);
-                    if(/(develop|learn|skill|training)/i.test(l)) development.push(line.originalText);
-                }
-                let advice = "Recommendations: ";
-                if(safety.length) advice += "Address safety concerns. ";
-                if(difficulties.length) advice += "Allocate resources for difficulties. ";
-                if(dangers.length) advice += "Implement risk mitigation. ";
-                if(losses.length) advice += "Review financial controls. ";
-                if(regrets.length) advice += "Learn from past mistakes. ";
-                if(suggestions.length) advice += "Evaluate suggestions. ";
-                if(advice === "Recommendations: ") advice += "Continue monitoring and maintain clear communication.";
-                return {
-                    advice: advice, safety: safety.length ? safety.slice(0,2).join("; ") : "No safety issues.",
-                    development: development.length ? development.slice(0,2).join("; ") : "No skill development topics.",
-                    difficulties: difficulties.length ? difficulties.slice(0,2).join("; ") : "No major difficulties.",
-                    dangers: dangers.length ? dangers.slice(0,2).join("; ") : "No significant risks.",
-                    profits: profits.length ? profits.slice(0,2).join("; ") : "No profit opportunities.",
-                    losses: losses.length ? losses.slice(0,2).join("; ") : "No potential losses identified.",
-                    regrets: regrets.length ? regrets.slice(0,2).join("; ") : "No regrets recorded.",
-                    suggestions: suggestions.length ? suggestions.slice(0,2).join("; ") : "No specific suggestions."
-                };
-            }
-            function analyzeHiddenProblems() {
-                let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
-                let issues = [];
-                if(/(problem|issue|challenge|difficulty)/i.test(fullText)) issues.push("Unresolved challenges mentioned – management attention required.");
-                if(/(delay|behind schedule)/i.test(fullText)) issues.push("Timeline delays discussed – corrective actions needed.");
-                if(issues.length === 0) issues.push("No significant hidden risks detected.");
-                let hiddenGood = [];
-                if(/(excellent|great|success|achievement)/i.test(fullText)) hiddenGood.push("Positive achievements noted – should be recognised.");
-                else hiddenGood.push("No explicit praise identified.");
-                let withheld = [];
-                if(/(maybe|not sure|hesitant)/i.test(fullText)) withheld.push("Uncertainty expressed – ideas may be withheld.");
-                else withheld.push("Participants expressed views openly.");
-                let secret = [];
-                if(/(confidential|private|off the record)/i.test(fullText)) secret.push("Sensitive information mentioned – ensure proper handling.");
-                else secret.push("No off-record discussions detected.");
-                let creators = [];
-                if(/(blame|fault)/i.test(fullText)) creators.push("Blame-oriented language detected – focus on solutions.");
-                else creators.push("Conversation solution-oriented.");
-                let assignees = getSpeakersForTopic(["problem","issue","delay","blame"]);
-                return { issues, hiddenGood, withheld, secret, creators, assignees };
-            }
+            function generateNarrativeReport() { if(transcript.length === 0) return "No conversation."; let paragraphs = []; let currentSpeaker = ""; let currentText = ""; for(let line of transcript.slice().reverse()) { let cleanText = line.originalText.trim(); if(!cleanText.endsWith('.') && !cleanText.endsWith('!') && !cleanText.endsWith('?')) cleanText += '.'; if(line.speaker !== currentSpeaker) { if(currentText) paragraphs.push(`${currentSpeaker}: ${currentText}`); currentSpeaker = line.speaker; currentText = cleanText; } else { currentText += " " + cleanText; } } if(currentText) paragraphs.push(`${currentSpeaker}: ${currentText}`); return paragraphs.join("\n\n"); }
+            function extractActionItems() { let actions = []; for(let line of transcript.slice().reverse()) { let text = line.originalText; let lower = text.toLowerCase(); if(/(will|must|need to|task|action|todo|deadline|responsible)/i.test(lower)) { let actionText = text.trim(); actionText = actionText.charAt(0).toUpperCase() + actionText.slice(1); if(!actionText.endsWith(".")) actionText += "."; if(actionText.length > 120) actionText = actionText.substring(0,117)+"..."; actions.push({ speaker: line.speaker, text: actionText }); } if(actions.length >= 10) break; } if(actions.length === 0) actions.push({ speaker: "Team", text: "Continue working on assigned tasks." }); return actions; }
+            function generateAgenda() { if(transcript.length === 0) return ["Review previous actions", "Project status", "Budget review", "Risk assessment", "Set next meeting"]; let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase(); let items = []; if(/(review|status update)/i.test(fullText)) items.push("Review of previous action items"); if(/(project|timeline|deadline)/i.test(fullText)) items.push("Project timeline review"); if(/(budget|cost|expense)/i.test(fullText)) items.push("Budget and financial review"); if(/(risk|issue|problem)/i.test(fullText)) items.push("Risk assessment"); if(items.length < 3) items.push("Open discussion"); items.push("Set next meeting date"); return [...new Set(items)].slice(0,7); }
+            function generateDeepStudy() { let safety=[], difficulties=[], dangers=[], losses=[], regrets=[], suggestions=[]; for(let line of transcript) { let l = line.originalText.toLowerCase(); if(/(safety|danger|hazard)/i.test(l)) safety.push(line.originalText); if(/(difficult|hard|challenge)/i.test(l)) difficulties.push(line.originalText); if(/(risk|danger|threat)/i.test(l)) dangers.push(line.originalText); if(/(loss|decline|downturn|waste)/i.test(l)) losses.push(line.originalText); if(/(regret|unfortunately)/i.test(l)) regrets.push(line.originalText); if(/(suggest|propose|recommend)/i.test(l)) suggestions.push(line.originalText); } let advice = "Recommendations: "; if(safety.length) advice += "Address safety concerns. "; if(difficulties.length) advice += "Allocate resources. "; if(dangers.length) advice += "Implement risk mitigation. "; if(losses.length) advice += "Review financial controls. "; if(regrets.length) advice += "Learn from mistakes. "; if(suggestions.length) advice += "Evaluate suggestions. "; if(advice === "Recommendations: ") advice += "Continue monitoring."; return { advice: advice, safety: safety.length ? safety.slice(0,2).join("; ") : "No safety issues.", difficulties: difficulties.length ? difficulties.slice(0,2).join("; ") : "No major difficulties.", dangers: dangers.length ? dangers.slice(0,2).join("; ") : "No significant risks.", losses: losses.length ? losses.slice(0,2).join("; ") : "No losses identified.", regrets: regrets.length ? regrets.slice(0,2).join("; ") : "No regrets.", suggestions: suggestions.length ? suggestions.slice(0,2).join("; ") : "No suggestions." }; }
+            function analyzeHiddenProblems() { let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase(); let issues = []; if(/(problem|issue|challenge)/i.test(fullText)) issues.push("Unresolved challenges mentioned."); if(/(delay|behind schedule)/i.test(fullText)) issues.push("Timeline delays discussed."); if(issues.length === 0) issues.push("No significant hidden risks detected."); let hiddenGood = []; if(/(excellent|great|success)/i.test(fullText)) hiddenGood.push("Positive achievements noted."); else hiddenGood.push("No explicit praise identified."); let withheld = []; if(/(maybe|not sure|hesitant)/i.test(fullText)) withheld.push("Uncertainty expressed – ideas may be withheld."); else withheld.push("Participants expressed views openly."); let secret = []; if(/(confidential|private)/i.test(fullText)) secret.push("Sensitive information mentioned."); else secret.push("No off-record discussions detected."); let creators = []; if(/(blame|fault)/i.test(fullText)) creators.push("Blame-oriented language detected."); else creators.push("Conversation solution-oriented."); let assignees = getSpeakersForTopic(["problem","issue","delay","blame"]); return { issues, hiddenGood, withheld, secret, creators, assignees }; }
             
             // Voice Reading
             let currentUtterance = null;
@@ -718,20 +544,11 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION WITH NUMBERED LINES, BORDER, COLOURED HEADERS ==========
+            // ========== PDF GENERATION ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data."); return; }
-                const incTranscript = document.getElementById('incTranscript').checked;
-                const incSummary = document.getElementById('incSummary').checked;
-                const incNarrative = document.getElementById('incNarrative').checked;
-                const incActions = document.getElementById('incActions').checked;
-                const incAgenda = document.getElementById('incAgenda').checked;
-                const incDeepStudy = document.getElementById('incDeepStudy').checked;
-                const incHidden = document.getElementById('incHidden').checked;
-                const incConfidence = document.getElementById('incConfidence').checked;
-                const incReceipt = document.getElementById('incReceipt').checked;
-                const aiEnabled = document.getElementById('aiSuggestYes').checked;
-                const problemsEnabled = document.getElementById('checkProblemsYes').checked;
+                const incTranscript = document.getElementById('incTranscript').checked, incSummary = document.getElementById('incSummary').checked, incNarrative = document.getElementById('incNarrative').checked, incActions = document.getElementById('incActions').checked, incAgenda = document.getElementById('incAgenda').checked, incDeepStudy = document.getElementById('incDeepStudy').checked, incHidden = document.getElementById('incHidden').checked, incConfidence = document.getElementById('incConfidence').checked, incReceipt = document.getElementById('incReceipt').checked;
+                const aiEnabled = document.getElementById('aiSuggestYes').checked, problemsEnabled = document.getElementById('checkProblemsYes').checked;
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 const now = new Date();
@@ -739,10 +556,7 @@
                 const attendeeStr = speakers.map(s=>s.name).join(', ');
                 updateConfidenceBar();
                 let conf = window.meetingConfidence || { green:33, yellow:34, red:33, posCount:0, negCount:0, neutralCount:0 };
-                
-                // Calculate page charges
-                let totalPageCharge = 0;
-                let chargeDetails = [];
+                let totalPageCharge = 0, chargeDetails = [];
                 if(incTranscript) { totalPageCharge += pagePrices.transcript; chargeDetails.push(`Transcript: $${pagePrices.transcript.toFixed(2)}`); }
                 if(incSummary) { totalPageCharge += pagePrices.summary; chargeDetails.push(`Executive Summary: $${pagePrices.summary.toFixed(2)}`); }
                 if(incNarrative) { totalPageCharge += pagePrices.narrative; chargeDetails.push(`Narrative Report: $${pagePrices.narrative.toFixed(2)}`); }
@@ -751,204 +565,21 @@
                 if(incDeepStudy && aiEnabled) { totalPageCharge += pagePrices.deepstudy; chargeDetails.push(`AI Deep Study: $${pagePrices.deepstudy.toFixed(2)}`); }
                 if(incHidden && problemsEnabled) { totalPageCharge += pagePrices.hidden; chargeDetails.push(`Hidden Problems: $${pagePrices.hidden.toFixed(2)}`); }
                 if(incConfidence) { totalPageCharge += pagePrices.confidence; chargeDetails.push(`Meeting Confidence: $${pagePrices.confidence.toFixed(2)}`); }
-                
-                let currentPage = 1;
-                let y = 0;
-                
-                function drawBorder(pageNum) {
-                    doc.setPage(pageNum);
-                    doc.setDrawColor(200,200,200);
-                    doc.rect(8, 8, 194, 285);
-                }
-                
-                function drawHeader(pageNum, title) {
-                    doc.setPage(pageNum);
-                    doc.setFontSize(14);
-                    doc.setFont("helvetica","bold");
-                    doc.setTextColor(28,60,90);
-                    doc.text("Peter AI Super Pro - Meeting Report", 20, 20);
-                    doc.setFontSize(9);
-                    doc.setFont("helvetica","normal");
-                    doc.setTextColor(0,0,0);
-                    doc.text(`Organization: ${office.name || 'N/A'}  |  Meeting: ${office.type || 'General'}`, 20, 30);
-                    doc.text(`Date: ${now.toLocaleDateString()}  |  Time: ${now.toLocaleTimeString()}  |  Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, 36);
-                    doc.text(`Attendees: ${attendeeStr}`, 20, 42);
-                    doc.setFontSize(12);
-                    doc.setFont("helvetica","bold");
-                    doc.setTextColor(96, 165, 250); // Light blue for all headings
-                    doc.text(title, 20, 52);
-                    doc.setFontSize(9);
-                    doc.setFont("helvetica","normal");
-                    doc.setTextColor(0,0,0);
-                    doc.line(20, 54, 190, 54);
-                    return 58;
-                }
-                function drawFooter(pageNum, total) {
-                    doc.setPage(pageNum);
-                    doc.setFontSize(7);
-                    doc.setTextColor(100,100,100);
-                    doc.text(`Generated: ${now.toLocaleString()}`, 20, 285);
-                    doc.text(`Page ${pageNum} of ${total}`, 105, 285, {align:'center'});
-                }
-                
-                function writeLine(text, indent = 0, bold = false) {
-                    if(bold) doc.setFont("helvetica","bold");
-                    else doc.setFont("helvetica","normal");
-                    const lines = doc.splitTextToSize(text, 170 - indent);
-                    for(let line of lines) {
-                        if(y + 5 > 275) {
-                            doc.addPage();
-                            currentPage++;
-                            drawBorder(currentPage);
-                            y = drawHeader(currentPage, "Continued");
-                            if(bold) doc.setFont("helvetica","bold");
-                            else doc.setFont("helvetica","normal");
-                        }
-                        doc.text(line, 20 + indent, y);
-                        y += 5;
-                    }
-                }
-                
-                // Draw border on first page
+                let currentPage = 1, y = 0;
+                function drawBorder(pageNum) { doc.setPage(pageNum); doc.setDrawColor(200,200,200); doc.rect(8, 8, 194, 285); }
+                function drawHeader(pageNum, title) { doc.setPage(pageNum); doc.setFontSize(14); doc.setFont("helvetica","bold"); doc.setTextColor(28,60,90); doc.text("Peter AI Super Pro - Meeting Report", 20, 20); doc.setFontSize(9); doc.setFont("helvetica","normal"); doc.setTextColor(0,0,0); doc.text(`Organization: ${office.name || 'N/A'}  |  Meeting: ${office.type || 'General'}`, 20, 30); doc.text(`Date: ${now.toLocaleDateString()}  |  Time: ${now.toLocaleTimeString()}  |  Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 20, 36); doc.text(`Attendees: ${attendeeStr}`, 20, 42); doc.setFontSize(12); doc.setFont("helvetica","bold"); doc.setTextColor(96, 165, 250); doc.text(title, 20, 52); doc.setFontSize(9); doc.setFont("helvetica","normal"); doc.setTextColor(0,0,0); doc.line(20, 54, 190, 54); return 58; }
+                function drawFooter(pageNum, total) { doc.setPage(pageNum); doc.setFontSize(7); doc.setTextColor(100,100,100); doc.text(`Generated: ${now.toLocaleString()}`, 20, 285); doc.text(`Page ${pageNum} of ${total}`, 105, 285, {align:'center'}); }
+                function writeLine(text, indent = 0, bold = false) { if(bold) doc.setFont("helvetica","bold"); else doc.setFont("helvetica","normal"); const lines = doc.splitTextToSize(text, 170 - indent); for(let line of lines) { if(y + 5 > 275) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Continued"); if(bold) doc.setFont("helvetica","bold"); else doc.setFont("helvetica","normal"); } doc.text(line, 20 + indent, y); y += 5; } }
                 drawBorder(1);
-                
-                if(incTranscript) {
-                    y = drawHeader(1, "Meeting Transcript");
-                    let lineNum = 1;
-                    for(let entry of entries) {
-                        writeLine(`${lineNum}. [${entry.timestamp}] ${entry.speaker}:`, 0, true);
-                        writeLine(entry.originalText, 5, false);
-                        if(y < 275) { doc.setDrawColor(200,200,200); doc.line(20, y-2, 190, y-2); }
-                        y += 2;
-                        lineNum++;
-                    }
-                }
-                if(incSummary) { 
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Ai Executive Summary"); 
-                    let summaryText = generateAIExecutiveSummary();
-                    let paragraphs = summaryText.split(/\n\n/);
-                    for(let para of paragraphs) {
-                        let lines = doc.splitTextToSize(para, 170);
-                        for(let line of lines) {
-                            if(y + 5 > 275) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Ai Executive Summary (continued)"); }
-                            doc.text(line, 20, y);
-                            y += 5;
-                        }
-                        y += 3;
-                    }
-                }
-                if(incNarrative) { 
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Narrative Report"); 
-                    let narrative = generateNarrativeReport();
-                    let paragraphs = narrative.split(/\n\n/);
-                    for(let para of paragraphs) {
-                        let lines = doc.splitTextToSize(para, 170);
-                        for(let line of lines) {
-                            if(y + 5 > 275) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Narrative Report (continued)"); }
-                            doc.text(line, 20, y);
-                            y += 5;
-                        }
-                        y += 3;
-                    }
-                }
-                if(incActions) {
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Action Items");
-                    let actions = extractActionItems();
-                    for(let i=0; i<actions.length; i++) {
-                        writeLine(`${i+1}. ${actions[i].text} (${actions[i].speaker})`, 5, false);
-                    }
-                }
-                if(incAgenda) {
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Proposed Next Meeting Agenda");
-                    let agenda = generateAgenda();
-                    for(let i=0; i<agenda.length; i++) {
-                        writeLine(`${i+1}. ${agenda[i]}`, 5, false);
-                    }
-                }
-                if(incDeepStudy && aiEnabled) {
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Ai Deep Study");
-                    let deep = generateDeepStudy();
-                    let sections = ["1. Guidance & Recommendation", "2. Safety Concerns", "3. Skill Development", "4. Difficulties Faced", "5. Dangers / Risks", "6. Potential Profits", "7. Potential Losses", "8. Regrets Expressed", "9. Suggestions Made"];
-                    let keys = ["advice","safety","development","difficulties","dangers","profits","losses","regrets","suggestions"];
-                    for(let i=0; i<sections.length; i++) {
-                        writeLine(sections[i] + ":", 0, true);
-                        writeLine(deep[keys[i]] || "Not discussed.", 5, false);
-                        y += 2;
-                    }
-                }
-                if(incHidden && problemsEnabled) {
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Hidden Problems & Secret Ideas");
-                    let problems = analyzeHiddenProblems();
-                    let sections = ["1. Potential Hidden Problems", "2. Hidden Good Things", "3. Ideas Withheld", "4. Secret / Confidential Ideas", "5. Negative Influence"];
-                    let keys = ["issues","hiddenGood","withheld","secret","creators"];
-                    for(let i=0; i<sections.length; i++) {
-                        let text = Array.isArray(problems[keys[i]]) ? problems[keys[i]].join(" ") : problems[keys[i]];
-                        if(i===0 && problems.assignees) text += ` (Involved: ${problems.assignees})`;
-                        writeLine(sections[i] + ":", 0, true);
-                        writeLine(text, 5, false);
-                        y += 2;
-                    }
-                }
-                if(incConfidence) {
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    y = drawHeader(currentPage, "Meeting Confidence Analysis");
-                    let barY = y;
-                    doc.setDrawColor(200,200,200);
-                    doc.rect(20, barY, 170, 20);
-                    let greenWidth = 170 * (conf.green / 100);
-                    let yellowWidth = 170 * (conf.yellow / 100);
-                    let redWidth = 170 * (conf.red / 100);
-                    doc.setFillColor(16, 185, 129); doc.rect(20, barY, greenWidth, 20, 'F');
-                    doc.setFillColor(245, 158, 11); doc.rect(20 + greenWidth, barY, yellowWidth, 20, 'F');
-                    doc.setFillColor(239, 68, 68); doc.rect(20 + greenWidth + yellowWidth, barY, redWidth, 20, 'F');
-                    y = barY + 25;
-                    writeLine(`Positive: ${conf.green}%`, 0, false);
-                    writeLine(`Neutral: ${conf.yellow}%`, 0, false);
-                    writeLine(`Negative: ${conf.red}%`, 0, false);
-                    y += 3;
-                    writeLine(`Positive indicators: ${conf.posCount}`, 0, false);
-                    writeLine(`Negative indicators: ${conf.negCount}`, 0, false);
-                    writeLine(`Neutral statements: ${conf.neutralCount}`, 0, false);
-                    y += 3;
-                    let recommendation = conf.red > 40 ? "Significant negative indicators – review meeting dynamics." : (conf.green > 50 ? "Meeting was positive and productive." : "Meeting was neutral – focus on clear action items.");
-                    writeLine(`Recommendation: ${recommendation}`, 0, false);
-                }
-                if(incReceipt && costCalculated && meetingCost>0) {
-                    doc.addPage(); currentPage++; drawBorder(currentPage);
-                    let yR = 30;
-                    doc.setFontSize(16); doc.setFont("helvetica","bold"); doc.setTextColor(96,165,250); doc.text("Payment Receipt", 20, yR); doc.setTextColor(0,0,0); yR+=12;
-                    doc.setFontSize(9);
-                    doc.text(`Organization: ${office.name || 'N/A'}`, 25, yR); yR+=6;
-                    doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 25, yR); yR+=6;
-                    doc.text(`Meeting Date: ${meetingStart ? meetingStart.toLocaleDateString() : 'N/A'}`, 25, yR); yR+=6;
-                    doc.text(`Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 25, yR); yR+=8;
-                    doc.text(`Total Lines: ${transcript.length}`, 25, yR); yR+=5;
-                    doc.text(`-`.repeat(30), 25, yR); yR+=6;
-                    doc.setFont("helvetica","bold");
-                    doc.text("Page Charges:", 25, yR); yR+=5;
-                    doc.setFont("helvetica","normal");
-                    for(let detail of chargeDetails) {
-                        doc.text(detail, 30, yR); yR+=5;
-                    }
-                    doc.text(`Total Page Charges: $${totalPageCharge.toFixed(2)}`, 25, yR); yR+=8;
-                    doc.setFont("helvetica","bold");
-                    doc.text("Meeting Charges:", 25, yR); yR+=5;
-                    doc.setFont("helvetica","normal");
-                    for(let d of costDetailsArr) { doc.text(d, 30, yR); yR+=5; }
-                    yR+=5;
-                    doc.setFont("helvetica","bold"); doc.setFontSize(11); doc.setTextColor(40,167,69);
-                    doc.text(`GRAND TOTAL DUE: $${(meetingCost + totalPageCharge).toFixed(2)}`, 25, yR);
-                    yR+=8;
-                    doc.setFontSize(8);
-                    doc.setTextColor(100,100,100);
-                    doc.text("This is a computer generated receipt. Signature is not required.", 25, yR);
-                }
+                if(incTranscript) { y = drawHeader(1, "Meeting Transcript"); let lineNum = 1; for(let entry of entries) { writeLine(`${lineNum}. [${entry.timestamp}] ${entry.speaker}:`, 0, true); writeLine(entry.originalText, 5, false); if(y < 275) { doc.setDrawColor(200,200,200); doc.line(20, y-2, 190, y-2); } y += 2; lineNum++; } }
+                if(incSummary) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Ai Executive Summary"); let summaryText = generateAIExecutiveSummary(); let paragraphs = summaryText.split(/\n\n/); for(let para of paragraphs) { let lines = doc.splitTextToSize(para, 170); for(let line of lines) { if(y + 5 > 275) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Ai Executive Summary (continued)"); } doc.text(line, 20, y); y += 5; } y += 3; } }
+                if(incNarrative) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Narrative Report"); let narrative = generateNarrativeReport(); let paragraphs = narrative.split(/\n\n/); for(let para of paragraphs) { let lines = doc.splitTextToSize(para, 170); for(let line of lines) { if(y + 5 > 275) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Narrative Report (continued)"); } doc.text(line, 20, y); y += 5; } y += 3; } }
+                if(incActions) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Action Items"); let actions = extractActionItems(); for(let i=0; i<actions.length; i++) { writeLine(`${i+1}. ${actions[i].text} (${actions[i].speaker})`, 5, false); } }
+                if(incAgenda) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Proposed Next Meeting Agenda"); let agenda = generateAgenda(); for(let i=0; i<agenda.length; i++) { writeLine(`${i+1}. ${agenda[i]}`, 5, false); } }
+                if(incDeepStudy && aiEnabled) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Ai Deep Study"); let deep = generateDeepStudy(); let sections = ["1. Recommendation", "2. Safety", "3. Difficulties", "4. Dangers/Risks", "5. Losses", "6. Regrets", "7. Suggestions"]; let keys = ["advice","safety","difficulties","dangers","losses","regrets","suggestions"]; for(let i=0; i<sections.length; i++) { writeLine(sections[i] + ":", 0, true); writeLine(deep[keys[i]] || "Not discussed.", 5, false); y += 2; } }
+                if(incHidden && problemsEnabled) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Hidden Problems & Secret Ideas"); let problems = analyzeHiddenProblems(); let sections = ["1. Potential Hidden Problems", "2. Hidden Good Things", "3. Withheld Ideas", "4. Secret Information", "5. Negative Influence"]; let keys = ["issues","hiddenGood","withheld","secret","creators"]; for(let i=0; i<sections.length; i++) { let text = Array.isArray(problems[keys[i]]) ? problems[keys[i]].join(" ") : problems[keys[i]]; if(i===0 && problems.assignees) text += ` (Involved: ${problems.assignees})`; writeLine(sections[i] + ":", 0, true); writeLine(text, 5, false); y += 2; } }
+                if(incConfidence) { doc.addPage(); currentPage++; drawBorder(currentPage); y = drawHeader(currentPage, "Meeting Confidence Analysis"); let barY = y; doc.setDrawColor(200,200,200); doc.rect(20, barY, 170, 20); let greenWidth = 170 * (conf.green / 100); let yellowWidth = 170 * (conf.yellow / 100); let redWidth = 170 * (conf.red / 100); doc.setFillColor(16,185,129); doc.rect(20, barY, greenWidth, 20, 'F'); doc.setFillColor(245,158,11); doc.rect(20+greenWidth, barY, yellowWidth, 20, 'F'); doc.setFillColor(239,68,68); doc.rect(20+greenWidth+yellowWidth, barY, redWidth, 20, 'F'); y = barY+25; writeLine(`Positive: ${conf.green}%`, 0, false); writeLine(`Neutral: ${conf.yellow}%`, 0, false); writeLine(`Negative: ${conf.red}%`, 0, false); y += 3; writeLine(`Positive indicators: ${conf.posCount}`, 0, false); writeLine(`Negative indicators: ${conf.negCount}`, 0, false); writeLine(`Neutral statements: ${conf.neutralCount}`, 0, false); y += 3; let recommendation = conf.red > 40 ? "Significant negative indicators – review meeting dynamics." : (conf.green > 50 ? "Meeting was positive and productive." : "Meeting was neutral – focus on clear action items."); writeLine(`Recommendation: ${recommendation}`, 0, false); }
+                if(incReceipt && costCalculated && meetingCost>0) { doc.addPage(); currentPage++; drawBorder(currentPage); let yR = 30; doc.setFontSize(16); doc.setFont("helvetica","bold"); doc.setTextColor(96,165,250); doc.text("Payment Receipt", 20, yR); doc.setTextColor(0,0,0); yR+=12; doc.setFontSize(9); doc.text(`Organization: ${office.name || 'N/A'}`, 25, yR); yR+=6; doc.text(`Invoice Date: ${now.toLocaleDateString()}`, 25, yR); yR+=6; doc.text(`Meeting Date: ${meetingStart ? meetingStart.toLocaleDateString() : 'N/A'}`, 25, yR); yR+=6; doc.text(`Duration: ${Math.floor(meetingHours)}h ${Math.floor((meetingHours%1)*60)}m`, 25, yR); yR+=8; doc.text(`Total Lines: ${transcript.length}`, 25, yR); yR+=5; doc.text(`-`.repeat(30), 25, yR); yR+=6; doc.setFont("helvetica","bold"); doc.text("Page Charges:", 25, yR); yR+=5; doc.setFont("helvetica","normal"); for(let detail of chargeDetails) { doc.text(detail, 30, yR); yR+=5; } doc.text(`Total Page Charges: $${totalPageCharge.toFixed(2)}`, 25, yR); yR+=8; doc.setFont("helvetica","bold"); doc.text("Meeting Charges:", 25, yR); yR+=5; doc.setFont("helvetica","normal"); for(let d of costDetailsArr) { doc.text(d, 30, yR); yR+=5; } yR+=5; doc.setFont("helvetica","bold"); doc.setFontSize(11); doc.setTextColor(40,167,69); doc.text(`GRAND TOTAL DUE: $${(meetingCost + totalPageCharge).toFixed(2)}`, 25, yR); yR+=8; doc.setFontSize(8); doc.setTextColor(100,100,100); doc.text("This is a computer generated receipt. Signature is not required.", 25, yR); }
                 let totalPages = doc.internal.getNumberOfPages();
                 for(let i=1;i<=totalPages;i++) { drawFooter(i, totalPages); drawBorder(i); }
                 reportCount++; if(currentOrg) saveCurrentOrg(); updateUI();
@@ -957,87 +588,21 @@
                 setTimeout(()=>document.getElementById('reportStatus').innerHTML='Ready',3000);
             }
             
-            // Load/Save page prices
-            function loadPagePrices() {
-                let saved = localStorage.getItem('peter_page_prices');
-                if(saved) { let prices = JSON.parse(saved); pagePrices = { ...pagePrices, ...prices }; }
-                document.getElementById('priceTranscript').value = pagePrices.transcript;
-                document.getElementById('priceSummary').value = pagePrices.summary;
-                document.getElementById('priceNarrative').value = pagePrices.narrative;
-                document.getElementById('priceActions').value = pagePrices.actions;
-                document.getElementById('priceAgenda').value = pagePrices.agenda;
-                document.getElementById('priceDeepStudy').value = pagePrices.deepstudy;
-                document.getElementById('priceHidden').value = pagePrices.hidden;
-                document.getElementById('priceConfidence').value = pagePrices.confidence;
-            }
-            function savePagePrices() {
-                pagePrices.transcript = parseFloat(document.getElementById('priceTranscript').value);
-                pagePrices.summary = parseFloat(document.getElementById('priceSummary').value);
-                pagePrices.narrative = parseFloat(document.getElementById('priceNarrative').value);
-                pagePrices.actions = parseFloat(document.getElementById('priceActions').value);
-                pagePrices.agenda = parseFloat(document.getElementById('priceAgenda').value);
-                pagePrices.deepstudy = parseFloat(document.getElementById('priceDeepStudy').value);
-                pagePrices.hidden = parseFloat(document.getElementById('priceHidden').value);
-                pagePrices.confidence = parseFloat(document.getElementById('priceConfidence').value);
-                localStorage.setItem('peter_page_prices', JSON.stringify(pagePrices));
-                document.getElementById('pagePriceStatus').innerHTML = '✅ Saved!';
-                setTimeout(()=>document.getElementById('pagePriceStatus').innerHTML='',2000);
-            }
-            
             // Admin handlers
-            function loadAdminSettings() {
-                let saved = localStorage.getItem('peter_rates');
-                if(saved) rates = JSON.parse(saved);
-                document.getElementById('rate0_1').value = rates.r0_1;
-                document.getElementById('rate1_2').value = rates.r1_2;
-                document.getElementById('rate2_4').value = rates.r2_4;
-                document.getElementById('rateAbove4').value = rates.rAbove;
-                document.getElementById('perLanguageRate').value = rates.perLang;
-                document.getElementById('allLanguagesRate').value = rates.allLang;
-                loadPagePrices();
-            }
+            function loadPagePrices() { let saved = localStorage.getItem('peter_page_prices'); if(saved) { let prices = JSON.parse(saved); pagePrices = { ...pagePrices, ...prices }; } document.getElementById('priceTranscript').value = pagePrices.transcript; document.getElementById('priceSummary').value = pagePrices.summary; document.getElementById('priceNarrative').value = pagePrices.narrative; document.getElementById('priceActions').value = pagePrices.actions; document.getElementById('priceAgenda').value = pagePrices.agenda; document.getElementById('priceDeepStudy').value = pagePrices.deepstudy; document.getElementById('priceHidden').value = pagePrices.hidden; document.getElementById('priceConfidence').value = pagePrices.confidence; }
+            function savePagePrices() { pagePrices.transcript = parseFloat(document.getElementById('priceTranscript').value); pagePrices.summary = parseFloat(document.getElementById('priceSummary').value); pagePrices.narrative = parseFloat(document.getElementById('priceNarrative').value); pagePrices.actions = parseFloat(document.getElementById('priceActions').value); pagePrices.agenda = parseFloat(document.getElementById('priceAgenda').value); pagePrices.deepstudy = parseFloat(document.getElementById('priceDeepStudy').value); pagePrices.hidden = parseFloat(document.getElementById('priceHidden').value); pagePrices.confidence = parseFloat(document.getElementById('priceConfidence').value); localStorage.setItem('peter_page_prices', JSON.stringify(pagePrices)); document.getElementById('pagePriceStatus').innerHTML = '✅ Saved!'; setTimeout(()=>document.getElementById('pagePriceStatus').innerHTML='',2000); }
+            function loadAdminSettings() { let saved = localStorage.getItem('peter_rates'); if(saved) rates = JSON.parse(saved); document.getElementById('rate0_1').value = rates.r0_1; document.getElementById('rate1_2').value = rates.r1_2; document.getElementById('rate2_4').value = rates.r2_4; document.getElementById('rateAbove4').value = rates.rAbove; document.getElementById('perLanguageRate').value = rates.perLang; document.getElementById('allLanguagesRate').value = rates.allLang; loadPagePrices(); }
             document.getElementById('saveRatesBtn').onclick = ()=>{ rates.r0_1=parseFloat(document.getElementById('rate0_1').value); rates.r1_2=parseFloat(document.getElementById('rate1_2').value); rates.r2_4=parseFloat(document.getElementById('rate2_4').value); rates.rAbove=parseFloat(document.getElementById('rateAbove4').value); localStorage.setItem('peter_rates',JSON.stringify(rates)); alert('Rates saved'); };
             document.getElementById('saveTranslationRatesBtn').onclick = ()=>{ rates.perLang=parseFloat(document.getElementById('perLanguageRate').value); rates.allLang=parseFloat(document.getElementById('allLanguagesRate').value); localStorage.setItem('peter_rates',JSON.stringify(rates)); alert('Translation saved'); };
             document.getElementById('savePagePricesBtn').onclick = savePagePrices;
             document.getElementById('masterResetBtn').onclick = ()=>{ if(confirm("RESET ALL DATA?")){ localStorage.clear(); location.reload(); } };
+            function initAdminTabs() { document.querySelectorAll('.admin-tab').forEach(tab => { tab.onclick = () => { document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active')); document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active'); }; }); }
             
-            function initAdminTabs() {
-                document.querySelectorAll('.admin-tab').forEach(tab => {
-                    tab.onclick = () => {
-                        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-                        document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
-                    };
-                });
-            }
+            // Eye toggles
+            document.getElementById('toggleUsername').addEventListener('click', function() { let u = document.getElementById('loginUsername'); if(u.type === 'password') { u.type = 'text'; this.classList.remove('fa-eye'); this.classList.add('fa-eye-slash'); } else { u.type = 'password'; this.classList.remove('fa-eye-slash'); this.classList.add('fa-eye'); } });
+            document.getElementById('togglePassword').addEventListener('click', function() { let p = document.getElementById('loginPassword'); if(p.type === 'password') { p.type = 'text'; this.classList.remove('fa-eye'); this.classList.add('fa-eye-slash'); } else { p.type = 'password'; this.classList.remove('fa-eye-slash'); this.classList.add('fa-eye'); } });
             
-            // Eye toggles for login fields
-            document.getElementById('toggleUsername').addEventListener('click', function() {
-                let usernameInput = document.getElementById('loginUsername');
-                if(usernameInput.type === 'password') { usernameInput.type = 'text'; this.classList.remove('fa-eye'); this.classList.add('fa-eye-slash'); }
-                else { usernameInput.type = 'password'; this.classList.remove('fa-eye-slash'); this.classList.add('fa-eye'); }
-            });
-            document.getElementById('togglePassword').addEventListener('click', function() {
-                let passwordInput = document.getElementById('loginPassword');
-                if(passwordInput.type === 'password') { passwordInput.type = 'text'; this.classList.remove('fa-eye'); this.classList.add('fa-eye-slash'); }
-                else { passwordInput.type = 'password'; this.classList.remove('fa-eye-slash'); this.classList.add('fa-eye'); }
-            });
-            
-            // Event bindings
-            document.getElementById('loginBtn').onclick = ()=>{
-                let u = document.getElementById('loginUsername').value, p = document.getElementById('loginPassword').value;
-                if(validUsers[u] && validUsers[u]===p){
-                    document.getElementById('loginOverlay').style.display = 'none';
-                    document.getElementById('mainApp').style.display = 'block';
-                    loadOrgs();
-                    loadAdminSettings();
-                    updateUI();
-                } else {
-                    document.getElementById('loginError').style.display = 'block';
-                    setTimeout(()=>document.getElementById('loginError').style.display='none',2000);
-                }
-            };
+            document.getElementById('loginBtn').onclick = ()=>{ let u = document.getElementById('loginUsername').value, p = document.getElementById('loginPassword').value; if(validUsers[u] && validUsers[u]===p){ document.getElementById('loginOverlay').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; loadOrgs(); loadAdminSettings(); updateUI(); } else { document.getElementById('loginError').style.display = 'block'; setTimeout(()=>document.getElementById('loginError').style.display='none',2000); } };
             document.getElementById('logoutBtn').onclick = ()=>{ if(meetingActive) stopMeeting(); document.getElementById('mainApp').style.display='none'; document.getElementById('loginOverlay').style.display='flex'; };
             document.getElementById('orgSelector').onchange = (e)=> { if(e.target.value) loadOrg(e.target.value); };
             document.getElementById('newOrgBtn').onclick = ()=>{ let n=prompt("Organization name:"); if(n && !allOrgs[n]){ allOrgs[n]={ speakers:[], office:{name:n,address:'',type:''}, meetingCount:0, reportCount:0, currentLang:'en', history:[] }; saveOrgs(); refreshOrgSelector(); document.getElementById('orgSelector').value=n; loadOrg(n); } };
@@ -1056,13 +621,7 @@
             document.getElementById('langSelectBtn').onclick = ()=>{ let grid=document.getElementById('languageGrid'); grid.innerHTML=''; for(let [code,name] of Object.entries(languages)){ let btn=document.createElement('button'); btn.className='speaker-tag'; btn.style.background='#667eea'; btn.innerText=name; btn.onclick=()=>{ currentLang=code; updateLanguageDisplay(); if(currentOrg) saveCurrentOrg(); document.getElementById('langModal').style.display='none'; if(meetingActive) alert("Restart meeting for new language."); }; grid.appendChild(btn); } document.getElementById('langModal').style.display='flex'; };
             document.getElementById('closeLangBtn').onclick = ()=>document.getElementById('langModal').style.display='none';
             document.getElementById('languageDisplay').onclick = ()=>document.getElementById('langSelectBtn').click();
-            document.getElementById('generateReportBtn').onclick = async()=>{
-                let btn = document.getElementById('generateReportBtn');
-                if(btn.disabled) return;
-                btn.disabled=true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating...';
-                try { await generateReport(); } catch(e) { console.error(e); alert("Error: "+e.message); document.getElementById('reportStatus').innerHTML = '❌ Error'; } finally { btn.disabled=false; btn.innerHTML = '<i class="fas fa-file-pdf"></i> Generate PDF'; }
-            };
+            document.getElementById('generateReportBtn').onclick = async()=>{ let btn = document.getElementById('generateReportBtn'); if(btn.disabled) return; btn.disabled=true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating...'; try { await generateReport(); } catch(e) { console.error(e); alert("Error: "+e.message); document.getElementById('reportStatus').innerHTML = '❌ Error'; } finally { btn.disabled=false; btn.innerHTML = '<i class="fas fa-file-pdf"></i> Generate PDF'; } };
             document.getElementById('adminBtn').onclick = ()=>{ document.getElementById('adminModal').style.display='flex'; initAdminTabs(); loadAdminSettings(); };
             document.getElementById('closeAdminBtn').onclick = ()=>document.getElementById('adminModal').style.display='none';
             document.getElementById('readSelectedBtn').onclick = readSelectedSections;
