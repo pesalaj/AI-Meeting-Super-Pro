@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v26.0 | Fixed Recognition + Report Generation</title>
+    <title>Peter AI Super Pro v27.0 | Fully Fixed Report Generation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -100,7 +100,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v26.0</h2><p style="text-align:center; font-size:12px; color:#64748b;">Final – Fixed Recognition + Report</p></div>
+            <div class="login-header"><h2>Peter AI Super Pro v27.0</h2><p style="text-align:center; font-size:12px; color:#64748b;">Final – Fully Fixed Report</p></div>
             <div class="input-group">
                 <label><i class="fas fa-user"></i> Username</label>
                 <input type="password" id="loginUsername" placeholder="Enter username">
@@ -119,7 +119,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v26.0</span></h1><p>Premium | AI Advice + Voice Reading</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v27.0</span></h1><p>Premium | AI Advice + Voice Reading</p></div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -236,7 +236,6 @@
                 </div>
             </div>
 
-            <!-- Restart button above transcript -->
             <div class="card card-transcript">
                 <div class="card-header"><h3><i class="fas fa-comment-dots"></i> Live Transcript</h3><i class="fas fa-language"></i></div>
                 <div class="restart-button-container">
@@ -249,7 +248,7 @@
                 <button id="generateReportBtn" class="btn btn-primary">Generate PDF</button>
                 <div id="reportStatus" class="status-badge status-inactive" style="margin-top:10px;">Ready</div>
             </div>
-            <div class="footer">© 2025 Peter AI Super Pro v26.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v27.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -284,7 +283,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v26.0 – FIXED RECOGNITION + REPORT GENERATION ====================
+        // ==================== PETER AI v27.0 – FULLY FIXED REPORT (NO .toLowerCase ON ARRAY) ====================
         (function(){
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -441,7 +440,7 @@
                 window.meetingConfidence = { green: green.toFixed(1), yellow: yellow.toFixed(1), red: red.toFixed(1), posCount, negCount, neutralCount };
             }
             
-            // ========== IMPROVED SPEECH RECOGNITION (never gets stuck) ==========
+            // ========== IMPROVED SPEECH RECOGNITION ==========
             function startRecognition() {
                 if(!meetingActive) return;
                 if(recognition) {
@@ -483,19 +482,15 @@
                 recognition.onerror = (e) => { 
                     console.log("Recognition error:", e.error);
                     if(e.error === 'not-allowed') alert("Microphone permission denied.");
-                    // Auto restart on error
                     if(meetingActive) setTimeout(() => startRecognition(), 1000);
                 };
                 recognition.onend = () => { 
                     console.log("Recognition ended");
-                    if(meetingActive) {
-                        setTimeout(() => startRecognition(), 500);
-                    }
+                    if(meetingActive) setTimeout(() => startRecognition(), 500);
                 };
                 recognition.start();
             }
             
-            // Keep recognition alive with periodic check
             function startKeepAlive() {
                 if(keepAliveInterval) clearInterval(keepAliveInterval);
                 keepAliveInterval = setInterval(() => {
@@ -506,9 +501,7 @@
                 }, 15000);
             }
             
-            function stopKeepAlive() {
-                if(keepAliveInterval) { clearInterval(keepAliveInterval); keepAliveInterval = null; }
-            }
+            function stopKeepAlive() { if(keepAliveInterval) { clearInterval(keepAliveInterval); keepAliveInterval = null; } }
             
             function forceRestartRecognition() {
                 if(!meetingActive) { alert("Meeting not active."); return; }
@@ -563,7 +556,7 @@
             }
             
             function autoSave() {
-                let blob = new Blob([`PETER AI v26.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
+                let blob = new Blob([`PETER AI v27.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'});
                 let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob);
             }
             
@@ -597,7 +590,7 @@
                 }
             }
             
-            // ========== AI FUNCTIONS ==========
+            // ========== AI FUNCTIONS (ALL FIXED – NO .toLowerCase ON ARRAYS) ==========
             function getSpeakersForTopic(keywords) {
                 let involved = new Set();
                 for(let line of transcript) {
@@ -675,9 +668,11 @@
                 return actions;
             }
             
+            // FIXED: generateAgenda no longer uses .toLowerCase() on an array
             function generateAgenda() {
                 let items = [];
-                let fullText = transcript.map(l=>l.originalText).toLowerCase().join(' ');
+                if(transcript.length === 0) return ["Review of previous action items", "Project status updates", "Budget and resource review", "Risk assessment", "Set next meeting date"];
+                let fullText = transcript.map(l=>l.originalText).join(' ').toLowerCase();
                 if(/(review|status update|progress report)/i.test(fullText)) items.push("Review of previous action items and progress updates");
                 if(/(project|timeline|schedule|deadline)/i.test(fullText)) items.push("Project timeline and deadline review");
                 if(/(budget|cost|expense|financial)/i.test(fullText)) items.push("Budget and financial performance analysis");
