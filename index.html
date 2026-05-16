@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v34.2 | Polished Bilingual Mode</title>
+    <title>Peter AI Super Pro v35.0 | Smart Bilingual Switching</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -97,14 +97,15 @@
         }
         .warning-note { background: #fef3c7; border-left: 3px solid #f59e0b; padding: 10px; border-radius: 12px; margin: 12px 0; font-size: 11px; color: #92400e; }
         .price-tag { font-size: 10px; background: #e2e8f0; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
-        .bilingual-indicator { background: #10b981; color: white; padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-left: 8px; }
+        .lang-indicator { background: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; margin-left: 10px; }
+        .force-buttons { display: flex; gap: 8px; margin-top: 8px; }
     </style>
 </head>
 <body>
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v34.2</h2></div>
+            <div class="login-header"><h2>Peter AI Super Pro v35.0</h2></div>
             <div class="input-group">
                 <label><i class="fas fa-user"></i> Username</label>
                 <input type="password" id="loginUsername" placeholder="Enter username">
@@ -123,7 +124,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v34.2</span></h1><p>Polished Bilingual (English+Sinhala)</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v35.0</span></h1><p>Smart Bilingual (Auto Switch via Keywords)</p></div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -248,10 +249,13 @@
                         <input type="radio" id="checkProblemsYes" name="checkProblems" value="yes"><label>Hidden Problems</label>
                         <input type="radio" id="checkProblemsNo" name="checkProblems" value="no" checked><label>No</label>
                     </div>
-                    <div style="display:flex; gap:12px; margin-bottom:8px; align-items:center;">
-                        <input type="radio" id="langModeEnglish" name="langMode" value="en" checked><label>English only</label>
-                        <input type="radio" id="langModeBilingual" name="langMode" value="bilingual"><label>Bilingual (English + Sinhala)</label>
-                        <span id="bilingualIndicator" class="bilingual-indicator" style="display:none;">Bilingual ACTIVE</span>
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap;">
+                        <span style="font-weight:600;">Current recognition:</span>
+                        <span id="currentRecogLang" class="lang-indicator">English</span>
+                        <div class="force-buttons">
+                            <button id="forceEnglishBtn" class="btn btn-secondary btn-sm">Force English</button>
+                            <button id="forceSinhalaBtn" class="btn btn-secondary btn-sm">Force Sinhala</button>
+                        </div>
                     </div>
                     <div id="meetingStatus" class="status-badge status-inactive">Not Started</div>
                     <div id="costDisplay" class="cost-box-dark" style="display:none;"></div>
@@ -281,7 +285,7 @@
                 <button id="generateReportBtn" class="btn btn-primary">Generate PDF (AI Corrected)</button>
                 <div id="reportStatus" class="status-badge status-inactive" style="margin-top:10px;">Ready</div>
             </div>
-            <div class="footer">© 2025 Peter AI Super Pro v34.2 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v35.0 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -315,7 +319,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v34.2 – POLISHED BILINGUAL MODE (FAST SWITCHING) ====================
+        // ==================== PETER AI v35.0 – SMART BILINGUAL WITH KEYWORD DETECTION ====================
         (function(){
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -333,8 +337,8 @@
             let recognition = null;
             let autoSaveInterval = 1, autoTimer = null;
             let isRestarting = false;
-            let bilingualMode = false;
-            let switchTimeout = null;
+            let currentRecognitionLang = 'en-US'; // 'en-US' or 'si-LK'
+            let pendingLanguageSwitch = false;
             const speakerColors = ['#667eea','#764ba2','#10b981','#f59e0b','#ef4444','#3b82f6'];
             
             let pagePrices = { transcript:0.10, summary:0.10, narrative:0.10, actions:0.10, agenda:0.10, deepstudy:0.15, hidden:0.10, confidence:0.10 };
@@ -403,8 +407,58 @@
                 window.meetingConfidence = { green: green.toFixed(1), yellow: yellow.toFixed(1), red: red.toFixed(1), posCount, negCount, neutralCount };
             }
             
-            // ========== SPEECH RECOGNITION WITH FAST BILINGUAL SWITCHING ==========
-            let recognitionLang = 'en-US';
+            // ========== SMART BILINGUAL RECOGNITION WITH KEYWORD DETECTION ==========
+            function updateLanguageIndicator() {
+                const indicator = document.getElementById('currentRecogLang');
+                if(currentRecognitionLang === 'en-US') indicator.textContent = 'English';
+                else indicator.textContent = 'සිංහල (Sinhala)';
+            }
+            
+            function forceRestartRecognitionWithLang(langCode) {
+                if(!meetingActive) return;
+                if(pendingLanguageSwitch) return;
+                pendingLanguageSwitch = true;
+                if(recognition) try { recognition.abort(); } catch(e) {}
+                recognition = null;
+                currentRecognitionLang = langCode;
+                updateLanguageIndicator();
+                setTimeout(() => {
+                    startRecognition();
+                    pendingLanguageSwitch = false;
+                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Language switched...';
+                    setTimeout(() => {
+                        if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
+                    }, 800);
+                }, 100);
+            }
+            
+            // Check last few transcript lines for language switch keywords
+            function checkForLanguageSwitchKeywords() {
+                if(!meetingActive) return;
+                // Look at the last 3 transcript lines (most recent)
+                let recentText = transcript.slice(0,3).map(l=>l.originalText.toLowerCase()).join(' ');
+                let switchToSinhala = false;
+                let switchToEnglish = false;
+                // Sinhala keywords
+                const sinhalaKeywords = ['සිංහල', 'singhala', 'sinhalen', 'singhalen kata karanna', 'sinhalese', 'talk in sinhala', 'speak sinhala', 'sinhala language', 'සිංහලෙන් කතා'];
+                // English keywords
+                const englishKeywords = ['english', 'talk in english', 'speak english', 'in english', 'english language', 'ඉංග්‍රීසියෙන් කතා'];
+                
+                for(let kw of sinhalaKeywords) {
+                    if(recentText.includes(kw)) { switchToSinhala = true; break; }
+                }
+                for(let kw of englishKeywords) {
+                    if(recentText.includes(kw)) { switchToEnglish = true; break; }
+                }
+                
+                if(switchToSinhala && currentRecognitionLang !== 'si-LK') {
+                    console.log("Switching to Sinhala mode due to keyword");
+                    forceRestartRecognitionWithLang('si-LK');
+                } else if(switchToEnglish && currentRecognitionLang !== 'en-US') {
+                    console.log("Switching to English mode due to keyword");
+                    forceRestartRecognitionWithLang('en-US');
+                }
+            }
             
             function startRecognition() {
                 if(!meetingActive) return;
@@ -414,22 +468,15 @@
                 recognition = new SpeechRecog();
                 recognition.continuous = true;
                 recognition.interimResults = true;
-                // Set language based on bilingual mode
-                if(bilingualMode) {
-                    recognitionLang = 'si-LK'; // Sinhala recognition (captures both Sinhala and English)
-                } else {
-                    recognitionLang = langCodes[currentLang] || 'en-US';
-                }
-                recognition.lang = recognitionLang;
+                recognition.lang = currentRecognitionLang;
                 let lastFinalText = "";
-                let interimTimeout = null;
+                let keywordCheckTimeout = null;
                 recognition.onstart = () => { 
                     document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     isRestarting = false;
                 };
                 recognition.onresult = (event) => {
-                    // Clear interim timeout
-                    if(interimTimeout) clearTimeout(interimTimeout);
+                    if(keywordCheckTimeout) clearTimeout(keywordCheckTimeout);
                     let final = "";
                     for(let i = event.resultIndex; i < event.results.length; i++) {
                         if(event.results[i].isFinal) {
@@ -442,34 +489,32 @@
                         let timestamp = new Date().toLocaleTimeString();
                         let speaker = speakers.length === 1 ? speakers[0].name : 'Unknown';
                         let color = speakers.find(s=>s.name===speaker)?.color || '#667eea';
-                        transcript.unshift({ speaker: speaker, originalText: text, timestamp: timestamp, color: color, lang: bilingualMode ? 'bilingual' : currentLang });
+                        transcript.unshift({ speaker: speaker, originalText: text, timestamp: timestamp, color: color, lang: currentRecognitionLang === 'si-LK' ? 'sinhala' : 'english' });
                         refreshTranscript();
                         setTimeout(() => { lastFinalText = ""; }, 300);
                         document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
+                        // After each speech, check for language switch keywords
+                        keywordCheckTimeout = setTimeout(() => checkForLanguageSwitchKeywords(), 500);
                     }
                 };
                 recognition.onerror = (e) => { 
                     if(e.error === 'not-allowed') alert("Microphone permission denied.");
-                    else if(e.error === 'language-not-supported' && bilingualMode) {
-                        alert("Sinhala speech recognition not supported in this browser. Switching to English mode.");
-                        bilingualMode = false;
-                        document.getElementById('langModeEnglish').checked = true;
-                        document.getElementById('bilingualIndicator').style.display = 'none';
-                        if(meetingActive) forceRestartRecognition();
+                    else if(e.error === 'language-not-supported') {
+                        if(currentRecognitionLang === 'si-LK') {
+                            alert("Sinhala speech recognition not supported in this browser. Switching to English.");
+                            forceRestartRecognitionWithLang('en-US');
+                        }
                     }
                 };
-                recognition.onend = () => { if(meetingActive && !isRestarting) setTimeout(() => startRecognition(), 500); };
+                recognition.onend = () => { if(meetingActive && !isRestarting && !pendingLanguageSwitch) setTimeout(() => startRecognition(), 500); };
                 recognition.start();
             }
             
             function forceRestartRecognition() {
                 if(!meetingActive) { alert("Meeting not active."); return; }
-                // Cancel any pending switch timeout
-                if(switchTimeout) clearTimeout(switchTimeout);
                 isRestarting = true;
                 if(recognition) try { recognition.abort(); } catch(e) {}
                 recognition = null;
-                // Immediate restart after abort
                 setTimeout(() => { 
                     isRestarting = false; 
                     startRecognition(); 
@@ -477,31 +522,18 @@
                     setTimeout(() => { 
                         if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     }, 500);
-                }, 50);
+                }, 100);
             }
             
-            // Bilingual mode switch handler (optimized for speed)
-            function setBilingualMode(enabled) {
-                if(bilingualMode === enabled) return;
-                bilingualMode = enabled;
-                const indicator = document.getElementById('bilingualIndicator');
-                if(bilingualMode) {
-                    indicator.style.display = 'inline-block';
-                    indicator.textContent = 'Bilingual ACTIVE';
-                } else {
-                    indicator.style.display = 'none';
-                }
-                if(meetingActive) {
-                    // Force immediate restart of recognition
-                    if(switchTimeout) clearTimeout(switchTimeout);
-                    switchTimeout = setTimeout(() => {
-                        forceRestartRecognition();
-                    }, 10);
-                }
-            }
-            
-            document.getElementById('langModeEnglish').addEventListener('change', () => { setBilingualMode(false); });
-            document.getElementById('langModeBilingual').addEventListener('change', () => { setBilingualMode(true); });
+            // Force language buttons
+            document.getElementById('forceEnglishBtn').addEventListener('click', () => {
+                if(!meetingActive) { alert("Start meeting first"); return; }
+                forceRestartRecognitionWithLang('en-US');
+            });
+            document.getElementById('forceSinhalaBtn').addEventListener('click', () => {
+                if(!meetingActive) { alert("Start meeting first"); return; }
+                forceRestartRecognitionWithLang('si-LK');
+            });
             
             async function startMeeting() {
                 if(!speakers.length) { alert("Register speaker first"); return; }
@@ -513,6 +545,8 @@
                     meetingEnd = null;
                     transcript = [];
                     costCalculated = false;
+                    currentRecognitionLang = 'en-US';
+                    updateLanguageIndicator();
                     startTimer();
                     startRecognition();
                     if(autoTimer) clearInterval(autoTimer);
@@ -529,6 +563,7 @@
             function stopMeeting() {
                 meetingActive = false;
                 isRestarting = true;
+                pendingLanguageSwitch = false;
                 if(recognition) try{ recognition.abort(); }catch(e){}
                 meetingEnd = new Date();
                 updateTimer();
@@ -548,13 +583,13 @@
                 if(document.getElementById('historyModal').style.display === 'flex') showMeetingHistory();
             }
             
-            function autoSave() { let blob = new Blob([`PETER AI v34.2 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
+            function autoSave() { let blob = new Blob([`PETER AI v35.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
             
             let rates = { r0_1:15, r1_2:14, r2_4:12, rAbove:11, perLang:3, allLang:50 };
             function printCost() {
                 if(!meetingEnd) { alert("Stop meeting first"); return; }
                 let base = meetingHours <=1 ? meetingHours*rates.r0_1 : meetingHours<=2 ? meetingHours*rates.r1_2 : meetingHours<=4 ? meetingHours*rates.r2_4 : meetingHours*rates.rAbove;
-                let uniqueLangs = new Set(transcript.map(e=>e.lang).filter(l=>l && l!=='en' && l!=='bilingual'));
+                let uniqueLangs = new Set(transcript.map(e=>e.lang).filter(l=>l && l!=='en' && l!=='english' && l!=='sinhala'));
                 let transCost = uniqueLangs.size >=15 ? rates.allLang : uniqueLangs.size * rates.perLang * meetingHours;
                 meetingCost = base + transCost;
                 costDetailsArr = [`Duration: ${meetingHours.toFixed(2)}h - Base: $${base.toFixed(2)}`, uniqueLangs.size ? `${uniqueLangs.size} language(s) translation: $${transCost.toFixed(2)}` : "No translation", `Subtotal: $${(base + transCost).toFixed(2)}`];
@@ -648,7 +683,7 @@
                 setTimeout(()=>document.getElementById('emailStatus').innerHTML='',5000);
             }
             
-            // ========== AI FUNCTIONS (same as before) ==========
+            // ========== AI FUNCTIONS (same as before but kept for report) ==========
             async function correctText(text, language = 'en-US') {
                 if(!text || text.trim().length === 0) return text;
                 try {
