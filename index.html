@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v34.0 | Bilingual + Email Reports</title>
+    <title>Peter AI Super Pro v34.1 | Bilingual Mode Fixed</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -103,7 +103,7 @@
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v34.0</h2></div>
+            <div class="login-header"><h2>Peter AI Super Pro v34.1</h2></div>
             <div class="input-group">
                 <label><i class="fas fa-user"></i> Username</label>
                 <input type="password" id="loginUsername" placeholder="Enter username">
@@ -122,7 +122,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v34.0</span></h1><p>Bilingual | Email Reports</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v34.1</span></h1><p>Bilingual (Sinhala+English) Fixed</p></div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -141,7 +141,6 @@
                 <p style="font-size:11px; margin-top:8px;">If meeting stops capturing, click this button.</p>
             </div>
 
-            <!-- Email Section -->
             <div class="card card-email">
                 <div class="card-header"><h3><i class="fas fa-envelope"></i> Email Report</h3><i class="fas fa-paper-plane"></i></div>
                 <div class="email-selector">
@@ -155,8 +154,8 @@
                         <label><input type="checkbox" value="hidden"> Hidden Problems</label>
                         <label><input type="checkbox" value="confidence"> Meeting Confidence</label>
                     </div>
-                    <button id="sendEmailBtn" class="btn btn-email"><i class="fas fa-paper-plane"></i> Send Email (opens default client)</button>
-                    <div id="emailStatus" style="margin-top:8px; font-size:11px; color:#475569;"></div>
+                    <button id="sendEmailBtn" class="btn btn-email"><i class="fas fa-paper-plane"></i> Send Email</button>
+                    <div id="emailStatus" style="margin-top:8px; font-size:11px;"></div>
                 </div>
             </div>
 
@@ -248,9 +247,10 @@
                         <input type="radio" id="checkProblemsYes" name="checkProblems" value="yes"><label>Hidden Problems</label>
                         <input type="radio" id="checkProblemsNo" name="checkProblems" value="no" checked><label>No</label>
                     </div>
-                    <div style="display:flex; gap:12px; margin-bottom:8px;">
+                    <div style="display:flex; gap:12px; margin-bottom:8px; align-items:center;">
                         <input type="radio" id="langModeEnglish" name="langMode" value="en" checked><label>English only</label>
                         <input type="radio" id="langModeBilingual" name="langMode" value="bilingual"><label>Bilingual (English + Sinhala)</label>
+                        <span id="bilingualStatus" style="font-size:10px; margin-left:8px;"></span>
                     </div>
                     <div id="meetingStatus" class="status-badge status-inactive">Not Started</div>
                     <div id="costDisplay" class="cost-box-dark" style="display:none;"></div>
@@ -261,7 +261,7 @@
                     <div id="officeInfoDisplay" style="background:#eef2ff; padding:10px; border-radius:16px; margin-top:10px; display:none; font-size:12px;"></div>
                     <div style="margin-top:12px;"><h4 style="font-size:13px;">Speaker Management</h4>
                     <div style="background:rgba(255,255,255,0.6); padding:12px; border-radius:20px;">
-                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><button id="registerBtn" class="btn btn-primary">Register</button><button id="clearSpeakersBtn" class="btn btn-secondary">Clear</button><button id="langSelectBtn" class="btn btn-primary">Change Language</button></div>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;"><button id="registerBtn" class="btn btn-primary">Register</button><button id="clearSpeakersBtn" class="btn btn-secondary">Clear</button><button id="langSelectBtn" class="btn btn-primary">Language</button></div>
                         <div id="speakersList" class="speaker-list">No speakers</div>
                         <div id="quickAssignList" class="speaker-list"></div>
                     </div></div>
@@ -280,7 +280,7 @@
                 <button id="generateReportBtn" class="btn btn-primary">Generate PDF (AI Corrected)</button>
                 <div id="reportStatus" class="status-badge status-inactive" style="margin-top:10px;">Ready</div>
             </div>
-            <div class="footer">© 2025 Peter AI Super Pro v34.0 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v34.1 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -314,7 +314,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v34.0 – BILINGUAL MODE + EMAIL REPORTS + FIXED HISTORY ====================
+        // ==================== PETER AI v34.1 – BILINGUAL MODE FIXED ====================
         (function(){
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -401,7 +401,7 @@
                 window.meetingConfidence = { green: green.toFixed(1), yellow: yellow.toFixed(1), red: red.toFixed(1), posCount, negCount, neutralCount };
             }
             
-            // ========== SPEECH RECOGNITION (supports bilingual mode) ==========
+            // ========== SPEECH RECOGNITION WITH RELIABLE BILINGUAL MODE ==========
             function startRecognition() {
                 if(!meetingActive) return;
                 if(recognition) { try { recognition.abort(); } catch(e) {} recognition = null; }
@@ -411,13 +411,18 @@
                 recognition.continuous = true;
                 recognition.interimResults = true;
                 // Set recognition language based on bilingual mode
+                let recognitionLang;
                 if(bilingualMode) {
-                    recognition.lang = 'si-LK'; // Sinhala, but also captures English
+                    recognitionLang = 'si-LK'; // Sinhala recognition captures both Sinhala and English
                 } else {
-                    recognition.lang = langCodes[currentLang] || 'en-US';
+                    recognitionLang = langCodes[currentLang] || 'en-US';
                 }
+                recognition.lang = recognitionLang;
                 let lastFinalText = "";
-                recognition.onstart = () => { document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)'; isRestarting = false; };
+                recognition.onstart = () => { 
+                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
+                    isRestarting = false;
+                };
                 recognition.onresult = (event) => {
                     let final = "";
                     for(let i = event.resultIndex; i < event.results.length; i++) if(event.results[i].isFinal) final += event.results[i][0].transcript;
@@ -433,7 +438,16 @@
                         document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     }
                 };
-                recognition.onerror = (e) => { if(e.error === 'not-allowed') alert("Microphone permission denied."); };
+                recognition.onerror = (e) => { 
+                    if(e.error === 'not-allowed') alert("Microphone permission denied.");
+                    else if(e.error === 'language-not-supported' && bilingualMode) {
+                        alert("Sinhala speech recognition not supported in this browser. Falling back to English.");
+                        bilingualMode = false;
+                        document.getElementById('langModeEnglish').checked = true;
+                        document.getElementById('bilingualStatus').innerHTML = '';
+                        if(meetingActive) forceRestartRecognition();
+                    }
+                };
                 recognition.onend = () => { if(meetingActive && !isRestarting) setTimeout(() => startRecognition(), 500); };
                 recognition.start();
             }
@@ -446,9 +460,17 @@
                 setTimeout(() => { isRestarting = false; startRecognition(); document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Restarting...'; setTimeout(() => { if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)'; }, 1000); }, 200);
             }
             
-            // Update bilingual mode when radio changes
-            document.getElementById('langModeEnglish').addEventListener('change', () => { bilingualMode = false; if(meetingActive) forceRestartRecognition(); });
-            document.getElementById('langModeBilingual').addEventListener('change', () => { bilingualMode = true; if(meetingActive) forceRestartRecognition(); });
+            // Handle bilingual mode toggle
+            document.getElementById('langModeEnglish').addEventListener('change', () => { 
+                bilingualMode = false; 
+                document.getElementById('bilingualStatus').innerHTML = '';
+                if(meetingActive) forceRestartRecognition(); 
+            });
+            document.getElementById('langModeBilingual').addEventListener('change', () => { 
+                bilingualMode = true; 
+                document.getElementById('bilingualStatus').innerHTML = ' (Sinhala mode active)';
+                if(meetingActive) forceRestartRecognition(); 
+            });
             
             async function startMeeting() {
                 if(!speakers.length) { alert("Register speaker first"); return; }
@@ -492,11 +514,10 @@
                 document.getElementById('meetingStatus').innerHTML = 'Stopped';
                 autoSave();
                 alert(`Stopped. ${transcript.length} lines.`);
-                // Refresh history list
                 if(document.getElementById('historyModal').style.display === 'flex') showMeetingHistory();
             }
             
-            function autoSave() { let blob = new Blob([`PETER AI v34.0 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
+            function autoSave() { let blob = new Blob([`PETER AI v34.1 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
             
             let rates = { r0_1:15, r1_2:14, r2_4:12, rAbove:11, perLang:3, allLang:50 };
             function printCost() {
@@ -505,7 +526,7 @@
                 let uniqueLangs = new Set(transcript.map(e=>e.lang).filter(l=>l && l!=='en' && l!=='bilingual'));
                 let transCost = uniqueLangs.size >=15 ? rates.allLang : uniqueLangs.size * rates.perLang * meetingHours;
                 meetingCost = base + transCost;
-                costDetailsArr = [`Duration: ${meetingHours.toFixed(2)} hours - Base meeting cost: $${base.toFixed(2)}`, uniqueLangs.size ? `${uniqueLangs.size} language(s) translation: $${transCost.toFixed(2)}` : "No translation needed", `Subtotal: $${(base + transCost).toFixed(2)}`];
+                costDetailsArr = [`Duration: ${meetingHours.toFixed(2)}h - Base: $${base.toFixed(2)}`, uniqueLangs.size ? `${uniqueLangs.size} language(s) translation: $${transCost.toFixed(2)}` : "No translation", `Subtotal: $${(base + transCost).toFixed(2)}`];
                 costCalculated = true;
                 let costDiv = document.getElementById('costDisplay');
                 costDiv.innerHTML = `<strong>💰 Cost Details</strong><div id="costDetails">${costDetailsArr.join('<br>')}</div><hr><strong>Total: $<span id="costAmount">${meetingCost.toFixed(2)}</span></strong>`;
@@ -514,7 +535,7 @@
             
             function registerSpeaker() { let name = prompt("Enter speaker name:"); if(name && name.trim() !== "") { let cleanName = name.trim(); let color = speakerColors[speakers.length % speakerColors.length]; speakers.push({ name: cleanName, color: color }); updateUI(); if(currentOrg) saveCurrentOrg(); alert(`✅ Speaker "${cleanName}" registered!`); } }
             
-            // ========== HISTORY FIX - double-click loads meeting ==========
+            // History (double-click to load)
             function showMeetingHistory() {
                 if(!currentOrg){ alert("Select organization first"); return; }
                 let histDiv = document.getElementById('historyList');
@@ -539,16 +560,13 @@
                 document.getElementById('historyModal').style.display = 'flex';
             }
             
-            // ========== EMAIL FUNCTIONALITY ==========
+            // ========== EMAIL ==========
             async function sendEmail() {
                 if(!transcript.length) { alert("No meeting data to send."); return; }
                 const checkboxes = document.querySelectorAll('#emailSections input:checked');
-                if(checkboxes.length === 0) { alert("Please select at least one section to include in the email."); return; }
+                if(checkboxes.length === 0) { alert("Please select at least one section."); return; }
                 document.getElementById('emailStatus').innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Preparing email...';
-                let emailBody = "";
-                // AI Preamble
-                let preamble = `Dear Team,\n\nPlease find below the key insights from the recent meeting "${office.type || 'Meeting'}". The AI has analyzed the conversation and extracted the following important information:\n\n`;
-                emailBody += preamble;
+                let emailBody = `Dear Team,\n\nPlease find below the key insights from the recent meeting "${office.type || 'Meeting'}". The AI has analyzed the conversation and extracted the following important information:\n\n`;
                 for(let cb of checkboxes) {
                     const section = cb.value;
                     switch(section) {
@@ -591,15 +609,15 @@
                             break;
                     }
                 }
-                emailBody += "\n---\nThis email was generated automatically by Peter AI Super Pro. For any questions, please contact the meeting organizer.";
+                emailBody += "\n---\nThis email was generated automatically by Peter AI Super Pro.";
                 const subject = encodeURIComponent(`Meeting Report - ${office.name || 'Meeting'} - ${new Date().toLocaleDateString()}`);
                 const body = encodeURIComponent(emailBody);
                 window.location.href = `mailto:?subject=${subject}&body=${body}`;
-                document.getElementById('emailStatus').innerHTML = '✅ Email client opened. Please send manually.';
+                document.getElementById('emailStatus').innerHTML = '✅ Email client opened.';
                 setTimeout(()=>document.getElementById('emailStatus').innerHTML='',5000);
             }
             
-            // ========== AI FUNCTIONS (as before, unchanged) ==========
+            // ========== AI FUNCTIONS (same as before) ==========
             async function correctText(text, language = 'en-US') {
                 if(!text || text.trim().length === 0) return text;
                 try {
@@ -763,7 +781,7 @@
                 return { issues, hiddenGood, withheld, secret, creators, assignees };
             }
             
-            // Voice Reading (unchanged but included)
+            // Voice Reading (unchanged)
             let currentUtterance = null;
             function stopReading() { if(currentUtterance) { window.speechSynthesis.cancel(); currentUtterance = null; document.getElementById('voiceStatus').innerHTML = '⏹️ Stopped.'; } }
             async function readSelectedSections() {
@@ -799,7 +817,7 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION (simplified, same as before but with header background) ==========
+            // ========== PDF GENERATION (same as before but with header background) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
