@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Peter AI Super Pro v34.1 | Bilingual Mode Fixed</title>
+    <title>Peter AI Super Pro v34.2 | Polished Bilingual Mode</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -97,13 +97,14 @@
         }
         .warning-note { background: #fef3c7; border-left: 3px solid #f59e0b; padding: 10px; border-radius: 12px; margin: 12px 0; font-size: 11px; color: #92400e; }
         .price-tag { font-size: 10px; background: #e2e8f0; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
+        .bilingual-indicator { background: #10b981; color: white; padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-left: 8px; }
     </style>
 </head>
 <body>
     <div id="loginOverlay" class="login-overlay">
         <div class="login-container">
             <div class="login-icon"><i class="fas fa-microphone-alt"></i></div>
-            <div class="login-header"><h2>Peter AI Super Pro v34.1</h2></div>
+            <div class="login-header"><h2>Peter AI Super Pro v34.2</h2></div>
             <div class="input-group">
                 <label><i class="fas fa-user"></i> Username</label>
                 <input type="password" id="loginUsername" placeholder="Enter username">
@@ -122,7 +123,7 @@
     <div id="mainApp" class="main-app">
         <div class="dashboard">
             <div class="top-bar">
-                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v34.1</span></h1><p>Bilingual (Sinhala+English) Fixed</p></div>
+                <div class="logo-area"><h1>Peter AI Super Pro <span style="font-size:11px;">v34.2</span></h1><p>Polished Bilingual (English+Sinhala)</p></div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div class="language-display" id="languageDisplay"><i class="fas fa-globe"></i> <span id="languageName">English</span></div>
                     <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -250,7 +251,7 @@
                     <div style="display:flex; gap:12px; margin-bottom:8px; align-items:center;">
                         <input type="radio" id="langModeEnglish" name="langMode" value="en" checked><label>English only</label>
                         <input type="radio" id="langModeBilingual" name="langMode" value="bilingual"><label>Bilingual (English + Sinhala)</label>
-                        <span id="bilingualStatus" style="font-size:10px; margin-left:8px;"></span>
+                        <span id="bilingualIndicator" class="bilingual-indicator" style="display:none;">Bilingual ACTIVE</span>
                     </div>
                     <div id="meetingStatus" class="status-badge status-inactive">Not Started</div>
                     <div id="costDisplay" class="cost-box-dark" style="display:none;"></div>
@@ -280,7 +281,7 @@
                 <button id="generateReportBtn" class="btn btn-primary">Generate PDF (AI Corrected)</button>
                 <div id="reportStatus" class="status-badge status-inactive" style="margin-top:10px;">Ready</div>
             </div>
-            <div class="footer">© 2025 Peter AI Super Pro v34.1 | Developed by Pesala Jayawardene</div>
+            <div class="footer">© 2025 Peter AI Super Pro v34.2 | Developed by Pesala Jayawardene</div>
         </div>
     </div>
 
@@ -314,7 +315,7 @@
     <div id="langModal" class="modal"><div class="modal-content"><h3>Select Language</h3><div id="languageGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;"></div><button id="closeLangBtn" class="btn btn-secondary" style="margin-top:15px;">Close</button></div></div>
 
     <script>
-        // ==================== PETER AI v34.1 – BILINGUAL MODE FIXED ====================
+        // ==================== PETER AI v34.2 – POLISHED BILINGUAL MODE (FAST SWITCHING) ====================
         (function(){
             const validUsers = { 'WashingMachine$': 'wmiitk$', 'admin': 'admin123' };
             let currentOrg = null, allOrgs = {};
@@ -333,6 +334,7 @@
             let autoSaveInterval = 1, autoTimer = null;
             let isRestarting = false;
             let bilingualMode = false;
+            let switchTimeout = null;
             const speakerColors = ['#667eea','#764ba2','#10b981','#f59e0b','#ef4444','#3b82f6'];
             
             let pagePrices = { transcript:0.10, summary:0.10, narrative:0.10, actions:0.10, agenda:0.10, deepstudy:0.15, hidden:0.10, confidence:0.10 };
@@ -401,7 +403,9 @@
                 window.meetingConfidence = { green: green.toFixed(1), yellow: yellow.toFixed(1), red: red.toFixed(1), posCount, negCount, neutralCount };
             }
             
-            // ========== SPEECH RECOGNITION WITH RELIABLE BILINGUAL MODE ==========
+            // ========== SPEECH RECOGNITION WITH FAST BILINGUAL SWITCHING ==========
+            let recognitionLang = 'en-US';
+            
             function startRecognition() {
                 if(!meetingActive) return;
                 if(recognition) { try { recognition.abort(); } catch(e) {} recognition = null; }
@@ -410,22 +414,28 @@
                 recognition = new SpeechRecog();
                 recognition.continuous = true;
                 recognition.interimResults = true;
-                // Set recognition language based on bilingual mode
-                let recognitionLang;
+                // Set language based on bilingual mode
                 if(bilingualMode) {
-                    recognitionLang = 'si-LK'; // Sinhala recognition captures both Sinhala and English
+                    recognitionLang = 'si-LK'; // Sinhala recognition (captures both Sinhala and English)
                 } else {
                     recognitionLang = langCodes[currentLang] || 'en-US';
                 }
                 recognition.lang = recognitionLang;
                 let lastFinalText = "";
+                let interimTimeout = null;
                 recognition.onstart = () => { 
                     document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     isRestarting = false;
                 };
                 recognition.onresult = (event) => {
+                    // Clear interim timeout
+                    if(interimTimeout) clearTimeout(interimTimeout);
                     let final = "";
-                    for(let i = event.resultIndex; i < event.results.length; i++) if(event.results[i].isFinal) final += event.results[i][0].transcript;
+                    for(let i = event.resultIndex; i < event.results.length; i++) {
+                        if(event.results[i].isFinal) {
+                            final += event.results[i][0].transcript;
+                        }
+                    }
                     if(final && final.trim().length > 1 && final !== lastFinalText) {
                         lastFinalText = final;
                         let text = final.trim();
@@ -434,17 +444,17 @@
                         let color = speakers.find(s=>s.name===speaker)?.color || '#667eea';
                         transcript.unshift({ speaker: speaker, originalText: text, timestamp: timestamp, color: color, lang: bilingualMode ? 'bilingual' : currentLang });
                         refreshTranscript();
-                        setTimeout(() => { lastFinalText = ""; }, 500);
+                        setTimeout(() => { lastFinalText = ""; }, 300);
                         document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
                     }
                 };
                 recognition.onerror = (e) => { 
                     if(e.error === 'not-allowed') alert("Microphone permission denied.");
                     else if(e.error === 'language-not-supported' && bilingualMode) {
-                        alert("Sinhala speech recognition not supported in this browser. Falling back to English.");
+                        alert("Sinhala speech recognition not supported in this browser. Switching to English mode.");
                         bilingualMode = false;
                         document.getElementById('langModeEnglish').checked = true;
-                        document.getElementById('bilingualStatus').innerHTML = '';
+                        document.getElementById('bilingualIndicator').style.display = 'none';
                         if(meetingActive) forceRestartRecognition();
                     }
                 };
@@ -454,23 +464,44 @@
             
             function forceRestartRecognition() {
                 if(!meetingActive) { alert("Meeting not active."); return; }
+                // Cancel any pending switch timeout
+                if(switchTimeout) clearTimeout(switchTimeout);
                 isRestarting = true;
                 if(recognition) try { recognition.abort(); } catch(e) {}
                 recognition = null;
-                setTimeout(() => { isRestarting = false; startRecognition(); document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Restarting...'; setTimeout(() => { if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)'; }, 1000); }, 200);
+                // Immediate restart after abort
+                setTimeout(() => { 
+                    isRestarting = false; 
+                    startRecognition(); 
+                    document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle"></i> 🎙️ Restarting...';
+                    setTimeout(() => { 
+                        if(meetingActive) document.getElementById('meetingStatus').innerHTML = '<i class="fas fa-circle" style="color:#10b981;"></i> 🎙️ Listening (active)';
+                    }, 500);
+                }, 50);
             }
             
-            // Handle bilingual mode toggle
-            document.getElementById('langModeEnglish').addEventListener('change', () => { 
-                bilingualMode = false; 
-                document.getElementById('bilingualStatus').innerHTML = '';
-                if(meetingActive) forceRestartRecognition(); 
-            });
-            document.getElementById('langModeBilingual').addEventListener('change', () => { 
-                bilingualMode = true; 
-                document.getElementById('bilingualStatus').innerHTML = ' (Sinhala mode active)';
-                if(meetingActive) forceRestartRecognition(); 
-            });
+            // Bilingual mode switch handler (optimized for speed)
+            function setBilingualMode(enabled) {
+                if(bilingualMode === enabled) return;
+                bilingualMode = enabled;
+                const indicator = document.getElementById('bilingualIndicator');
+                if(bilingualMode) {
+                    indicator.style.display = 'inline-block';
+                    indicator.textContent = 'Bilingual ACTIVE';
+                } else {
+                    indicator.style.display = 'none';
+                }
+                if(meetingActive) {
+                    // Force immediate restart of recognition
+                    if(switchTimeout) clearTimeout(switchTimeout);
+                    switchTimeout = setTimeout(() => {
+                        forceRestartRecognition();
+                    }, 10);
+                }
+            }
+            
+            document.getElementById('langModeEnglish').addEventListener('change', () => { setBilingualMode(false); });
+            document.getElementById('langModeBilingual').addEventListener('change', () => { setBilingualMode(true); });
             
             async function startMeeting() {
                 if(!speakers.length) { alert("Register speaker first"); return; }
@@ -517,7 +548,7 @@
                 if(document.getElementById('historyModal').style.display === 'flex') showMeetingHistory();
             }
             
-            function autoSave() { let blob = new Blob([`PETER AI v34.1 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
+            function autoSave() { let blob = new Blob([`PETER AI v34.2 AutoSave\n${new Date().toLocaleString()}\n${transcript.map(t=>`[${t.timestamp}] ${t.speaker}: ${t.originalText}`).join('\n')}`], {type:'text/plain'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Peter_AutoSave_${Date.now()}.txt`; a.click(); URL.revokeObjectURL(blob); }
             
             let rates = { r0_1:15, r1_2:14, r2_4:12, rAbove:11, perLang:3, allLang:50 };
             function printCost() {
@@ -817,7 +848,7 @@
                 window.speechSynthesis.speak(utterance);
             }
             
-            // ========== PDF GENERATION (same as before but with header background) ==========
+            // ========== PDF GENERATION (same as before) ==========
             async function generateReport() {
                 if(!transcript.length) { alert("No meeting data."); return; }
                 const incTranscript = document.getElementById('incTranscript').checked;
